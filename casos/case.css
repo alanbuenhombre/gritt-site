@@ -1,0 +1,20 @@
+/* Subpágina de case study — hereda tokens de la principal */
+.cs-hero { max-width: 1000px; margin: 0 auto; padding: 70px 24px 40px; }
+.cs-back { font-size: .85rem; color: var(--text-muted); }
+.cs-back:hover { color: var(--numma-black); }
+.cs-tag { color: var(--accent-strong, #7a9a10); font-size: .78rem; letter-spacing: .16em; font-weight: 700; margin: 30px 0 14px; text-transform: uppercase; }
+.cs-title { font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 700; letter-spacing: -0.03em; }
+.cs-lead { max-width: 620px; color: var(--text-muted); font-size: 1.1rem; margin-top: 18px; }
+.cs-grid-img { max-width: 1160px; margin: 20px auto 0; padding: 0 24px; }
+.cs-grid-img img { width: 100%; border-radius: var(--radius); display: block; }
+.cs-body { max-width: 1000px; margin: 0 auto; padding: 70px 24px 40px; display: grid; grid-template-columns: 1.1fr .9fr; gap: 56px; align-items: start; }
+.cs-body h3 { font-size: .78rem; letter-spacing: .14em; color: var(--ink-faint); font-weight: 600; margin: 22px 0 8px; }
+.cs-body p { color: var(--text-muted); line-height: 1.65; }
+.cs-body .cs-first h3 { margin-top: 0; }
+.cs-side-img { border-radius: var(--radius); overflow: hidden; position: sticky; top: 90px; }
+.cs-side-img img { width: 100%; display: block; }
+.cs-meta { display: flex; flex-wrap: wrap; gap: 10px 32px; margin-top: 30px; font-size: .85rem; color: var(--text-muted); }
+.cs-meta strong { color: var(--numma-black); font-weight: 600; display: block; }
+.cs-cta { max-width: 1000px; margin: 20px auto 90px; padding: 40px 24px; text-align: center; }
+.cs-cta a { margin-top: 20px; }
+@media (max-width: 760px) { .cs-body { grid-template-columns: 1fr; gap: 30px; } .cs-side-img { position: static; } }

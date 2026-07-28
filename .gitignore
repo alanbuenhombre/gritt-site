@@ -1,0 +1,12 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Referencias internas — material de terceros y borradores. NO publicar.
+ref/
+
+# Originales pesados de imagen. El sitio solo usa propias/opt/*.jpg
+propias/*.png
+propias/*.jpg
+propias/*.jpeg
+!propias/opt/

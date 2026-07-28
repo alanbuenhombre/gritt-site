@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Gritt · Dashboard — Deck en loop</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#1D1D1B; --shell:#0f1011; --panel:#161719; --card:#161719; --card-2:#191a1d;
+    --line:#242629; --line-soft:#1c1e21; --ink:#E8E8E4; --muted:#8a8c88; --dim:#63655f;
+    --lime:#D4FF3D; --paper:#161715; --hair:rgba(255,255,255,.07); --sub:#9a9b96;
+    --r:14px; --loop:15s;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#0a0a09;overflow:hidden}
+  body{display:flex;align-items:center;justify-content:center;font-family:'Manrope',system-ui,sans-serif}
+  *::-webkit-scrollbar{width:0;height:0}
+  .fit{transform-origin:center center;position:relative;width:1280px;height:800px;overflow:hidden;border-radius:2px;flex:none}
+  .app{width:1280px;height:800px;display:grid;grid-template-columns:56px 1fr 340px;padding:14px;gap:14px;background:var(--bg);color:var(--ink);
+    transform-origin:5% 8%;animation:cam var(--loop) linear infinite}
+  /* black-out a pantalla completa: cubre el reset del scroll y de la cámara */
+  .black{position:absolute;inset:0;z-index:50;background:var(--bg);pointer-events:none;animation:fade var(--loop) ease-in-out infinite}
+
+  /* rail */
+  .rail{background:var(--shell);border-radius:18px;border:1px solid var(--line-soft);display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 0}
+  .logo{width:34px;height:34px;border-radius:10px;background:var(--panel);display:grid;place-items:center;color:var(--lime);font-weight:800;font-size:15px;margin-bottom:10px}
+  .ri{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;color:var(--dim)}
+  .ri.active{color:var(--lime);background:rgba(212,255,61,.10)}
+  .ri svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:18;stroke-linecap:round;stroke-linejoin:round}
+  .ri.big svg{width:19px;height:19px}
+  .spacer{flex:1}
+
+  /* main */
+  .main{background:var(--shell);border-radius:18px;border:1px solid var(--line-soft);display:flex;flex-direction:column;overflow:hidden;position:relative}
+  .topbar{height:52px;flex:none;display:flex;align-items:center;gap:12px;padding:0 16px;border-bottom:1px solid var(--line-soft)}
+  .crumb{color:var(--muted);font-size:13.5px;font-weight:500}.crumb b{color:var(--ink);font-weight:700}.crumb .s{color:var(--dim)}
+  .badge{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:20px;background:rgba(212,255,61,.14);color:var(--lime);font-size:11px;font-weight:700}
+  .badge .d{width:6px;height:6px;border-radius:50%;background:var(--lime)}
+  .grow{flex:1}
+  .tbtn{padding:7px 13px;border-radius:9px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-weight:700;font-size:12px;font-family:inherit;display:inline-flex;align-items:center;gap:6px}
+  .tbtn.ghost{background:transparent;border-color:transparent;color:var(--muted)}
+  .tbtn svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+  /* deck viewport (scroll) */
+  .vp{flex:1;position:relative;overflow:hidden;background:var(--bg)}
+  .dhead{position:absolute;top:0;left:0;right:0;z-index:5;display:flex;align-items:baseline;gap:10px;padding:16px 24px 12px;
+    background:linear-gradient(var(--bg) 70%,transparent)}
+  .dhead h2{font-size:16px;font-weight:800}.dhead .n{font-size:11.5px;color:var(--muted)}
+  .col{display:flex;flex-direction:column;gap:20px;max-width:760px;margin:0 auto;padding:52px 26px 36px;
+    animation:scroll var(--loop) cubic-bezier(.5,0,.5,1) infinite}
+
+  .slide{position:relative;aspect-ratio:16/9;border-radius:12px;background:var(--paper);border:1px solid var(--hair);
+    box-shadow:0 12px 30px rgba(0,0,0,.4);padding:5.4% 6%;display:flex;flex-direction:column;overflow:hidden;container-type:inline-size}
+  .ey{font-size:1.25cqw;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--sub)}
+  .h{font-size:5.6cqw;font-weight:800;letter-spacing:-.02em;line-height:1;margin:1.4% 0 0}
+  .intro{font-size:1.75cqw;line-height:1.45;color:var(--sub);margin-top:2.6%;max-width:66%}
+  .num{position:absolute;right:5%;bottom:4.4%;font-size:1.15cqw;color:var(--sub);opacity:.55;font-family:ui-monospace,monospace}
+  .stmt{margin-top:auto;font-size:4cqw;font-weight:800;letter-spacing:-.02em;line-height:1.14;max-width:92%}
+  .q{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400}
+  .vals{display:grid;grid-template-columns:repeat(3,1fr);gap:3.5%;margin-top:auto}
+  .val{border-top:2px solid var(--ink);padding-top:4%}
+  .val .n{font-size:1.05cqw;color:var(--sub);letter-spacing:.1em}
+  .val .vt{font-size:2.5cqw;font-weight:800;margin:.35em 0}.val .vd{font-size:1.3cqw;line-height:1.5;color:var(--sub)}
+  .logo-slide{align-items:center;justify-content:center;text-align:center}
+  .lock{display:flex;align-items:center;gap:.35em;color:var(--ink);margin-top:4%}
+  .lock svg{height:6.6cqw;width:auto;fill:currentColor}.lock .w{font-size:6.6cqw;font-weight:800;letter-spacing:-.02em}
+  .tag{font-size:2cqw;font-weight:600;margin-top:3%}
+  .subt{font-size:1.25cqw;letter-spacing:.14em;text-transform:uppercase;color:var(--sub);margin-top:1%}
+  .sw{display:flex;gap:2.2%;margin-top:auto}.sw span{height:5cqw;flex:1;border-radius:8px;border:1px solid var(--hair)}
+
+
+  /* co-pilot */
+  .cop{background:var(--shell);border-radius:18px;border:1px solid var(--line-soft);display:flex;flex-direction:column;overflow:hidden}
+  .cop .ch{height:52px;flex:none;display:flex;align-items:center;gap:9px;padding:0 15px;border-bottom:1px solid var(--line-soft)}
+  .cop .st{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:rgba(212,255,61,.12);color:var(--lime)}
+  .cop .st svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:18;stroke-linecap:round;stroke-linejoin:round}
+  .cop .ct{font-weight:700;font-size:14px}
+  .cb{flex:1;overflow:hidden;padding:16px 15px;display:flex;flex-direction:column;gap:13px}
+  .msg{font-size:12.5px;line-height:1.5}
+  .msg .who{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime);font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:5px}
+  .msg .who svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:18;stroke-linecap:round;stroke-linejoin:round}
+  .cf{flex:none;padding:12px 13px;border-top:1px solid var(--line-soft)}
+  .composer{background:var(--panel);border:1px solid var(--line-soft);border-radius:13px;padding:11px 13px;display:flex;align-items:center;gap:10px}
+  .composer .ph{flex:1;font-size:12.5px;color:var(--dim)}
+  .composer .send{width:28px;height:28px;border-radius:8px;background:var(--lime);color:#0b0c0d;display:grid;place-items:center}
+  .composer .send svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:18;stroke-linecap:round;stroke-linejoin:round}
+  .cnote{text-align:center;font-size:10.5px;color:var(--dim);margin-top:9px}
+
+  @keyframes scroll{0%,12%{transform:translateY(0)} 80%,100%{transform:translateY(var(--maxneg,-600px))}}
+  @keyframes fade{0%{opacity:1} 7%{opacity:0} 90%{opacity:0} 98%,100%{opacity:1}}
+  /* cámara: arranca en la esquina (iconos + nombre del sprint), zoom-out rápido y
+     dinámico, luego continúa el zoom-out suave mientras hace scroll */
+  @keyframes cam{
+    0%  {transform:scale(2.7);animation-timing-function:cubic-bezier(.16,1,.3,1)}  /* pop rápido */
+    13% {transform:scale(1.32);animation-timing-function:cubic-bezier(.45,0,.5,1)} /* sigue suave */
+    72%,100%{transform:scale(1)}
+  }
+  @keyframes blip{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.6}}
+  .badge .d{animation:blip 1.3s ease-in-out infinite}
+  @media (prefers-reduced-motion: reduce){.col,.black{animation:none}.black{opacity:0}.badge .d{animation:none}}
+</style>
+</head>
+<body>
+<div class="fit" id="fit">
+  <div class="app">
+
+    <!-- RAIL -->
+    <nav class="rail">
+      <div class="logo">G</div>
+      <div class="ri"><svg viewBox="0 0 256 256"><path d="M104,216V152h48v64h64V120a8,8,0,0,0-2.34-5.66l-80-80a8,8,0,0,0-11.32,0l-80,80A8,8,0,0,0,40,120v96Z"/></svg></div>
+      <div class="ri"><svg viewBox="0 0 256 256"><circle cx="48" cy="176" r="32"/><polyline points="208 48 240 80 208 112"/><path d="M80,176c88,0,40-96,128-96h32"/></svg></div>
+      <div class="ri active"><svg viewBox="0 0 256 256"><rect x="32" y="48" width="192" height="136" rx="8"/><line x1="160" y1="184" x2="192" y2="224"/><line x1="96" y1="184" x2="64" y2="224"/><line x1="96" y1="120" x2="96" y2="144"/><line x1="128" y1="104" x2="128" y2="144"/><line x1="160" y1="88" x2="160" y2="144"/><line x1="128" y1="48" x2="128" y2="24"/></svg></div>
+      <div class="ri"><svg viewBox="0 0 256 256"><path d="M128,192a24,24,0,0,1,24-24h46.21a24,24,0,0,0,23.4-18.65A96.48,96.48,0,0,0,224,127.17c-.45-52.82-44.16-95.7-97-95.17a96,96,0,0,0-95,96c0,41.81,26.73,73.44,64,86.61A24,24,0,0,0,128,192Z"/><circle cx="128" cy="76" r="8"/><circle cx="84" cy="100" r="8"/><circle cx="84" cy="156" r="8"/><circle cx="172" cy="100" r="8"/></svg></div>
+      <div class="ri"><svg viewBox="0 0 256 256"><path d="M10.23,200a88,88,0,0,1,147.54,0"/><path d="M172,160a87.93,87.93,0,0,1,73.77,40"/><circle cx="84" cy="108" r="52"/><path d="M152.69,59.7A52,52,0,1,1,172,160"/></svg></div>
+      <div class="spacer"></div>
+      <div class="ri"><svg viewBox="0 0 256 256"><path d="M108.11,28.11A96.09,96.09,0,0,0,227.89,147.89,96,96,0,1,1,108.11,28.11Z"/></svg></div>
+    </nav>
+
+    <!-- MAIN -->
+    <section class="main">
+      <div class="topbar">
+        <div class="crumb"><b>Procesos</b> <span class="s">/</span> Blackrack · Deck</div>
+        <span class="badge"><span class="d"></span>Activo</span>
+        <div class="grow"></div>
+        <button class="tbtn ghost">Reiniciar</button>
+        <button class="tbtn"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/></svg>Ver deck</button>
+      </div>
+      <div class="vp">
+        <div class="dhead"><h2>Deck · Blackrack</h2><span class="n">derivado del sprint · 15 láminas</span></div>
+        <div class="col" id="col">
+          <div class="slide"><div class="ey">Estrategia de marca</div><div class="h">Blackrack</div>
+            <div class="stmt" style="margin-top:auto"><span class="q">Sprint de marca</span></div><div class="num">01 / 15</div></div>
+          <div class="slide"><div class="ey">Núcleo de la marca</div><div class="h">Propósito</div>
+            <div class="intro">Por qué existe la marca, más allá del pitch deck.</div>
+            <div class="stmt">Que ningún equipo tenga que elegir entre <span class="q">control y velocidad.</span></div><div class="num">02 / 15</div></div>
+          <div class="slide"><div class="ey">Núcleo de la marca</div><div class="h">Valores</div>
+            <div class="intro">Pocas creencias, amplias y memorables.</div>
+            <div class="vals">
+              <div class="val"><div class="n">01</div><div class="vt">Transparencia</div><div class="vd">Todo lo que corre es visible y auditable.</div></div>
+              <div class="val"><div class="n">02</div><div class="vt">Control</div><div class="vd">El equipo manda; nada corre sin permiso.</div></div>
+              <div class="val"><div class="n">03</div><div class="vt">Velocidad</div><div class="vd">De la idea al deploy sin fricción.</div></div>
+            </div><div class="num">03 / 15</div></div>
+          <div class="slide"><div class="ey">Persona de marca</div><div class="h">Personalidad</div>
+            <div class="intro">Arquetipo Sage 70 / Creator 30.</div>
+            <div class="stmt" style="font-size:3.3cqw">Habla como un ingeniero senior que <span class="q">respeta tu tiempo.</span></div><div class="num">04 / 15</div></div>
+          <div class="slide"><div class="ey">Momento 05</div><div class="h">Dirección de diseño</div>
+            <div class="intro">a-gent recomienda, el humano decide.</div>
+            <div class="stmt" style="font-size:3.3cqw">Ruta Reducida — <span class="q">red de nodos en su geometría mínima.</span></div><div class="num">05 / 15</div></div>
+          <div class="slide logo-slide"><div class="ey" style="align-self:flex-start">Identidad · presentación</div>
+            <div class="h" style="align-self:flex-start">La marca</div>
+            <div class="lock"><svg viewBox="0 0 63.41 54.77">
+              <rect x="54.28" y="9.13" width="9.13" height="9.13"/><polygon points="0 36.52 9.13 36.52 9.13 45.65 .06 45.65 0 36.52"/>
+              <rect x="0" y="18.26" width="9.13" height="9.13" transform="translate(9.13 45.65) rotate(-180)"/><polygon points="9.13 36.52 9.13 36.52 18.26 45.65 9.13 45.65 9.13 36.52"/>
+              <polygon points="36.02 45.65 36.02 45.65 45.15 54.77 45.15 45.65 36.02 45.65"/><rect x="9.06" y="27.39" width="9.13" height="9.13" transform="translate(27.26 63.9) rotate(-180)"/>
+              <polygon points="18.13 36.52 54.31 36.52 54.31 45.65 18.17 45.65 18.13 36.52"/><rect x="18.13" y="18.26" width="36.19" height="9.13" transform="translate(72.44 45.65) rotate(-180)"/>
+              <rect x="54.28" y="27.39" width="9.13" height="9.13"/><polygon points="9.13 0 18.26 0 9.13 9.13 9.13 9.13 9.13 0"/>
+              <rect x="0" y="0" width="9.13" height="9.13" transform="translate(9.13 9.13) rotate(-180)"/><rect x="9.06" y="9.13" width="9.13" height="9.13" transform="translate(27.26 27.39) rotate(-180)"/>
+              <rect x="18.13" y="0" width="36.19" height="9.13" transform="translate(72.44 9.13) rotate(-180)"/></svg><span class="w">Blackrack</span></div>
+            <div class="tag">Infrastructure for AI Agents</div><div class="subt">Scale · Automate · Secure</div><div class="num">06 / 15</div></div>
+          <div class="slide"><div class="ey">Identidad</div><div class="h">Color</div>
+            <div class="intro">Un acento de señal sobre negro rack. El resto calla.</div>
+            <div class="sw"><span style="background:#0E0E0C"></span><span style="background:#D4FF3D"></span><span style="background:#E8E8E4"></span><span style="background:#6a6c68"></span></div><div class="num">07 / 15</div></div>
+          <div class="slide"><div class="ey">Salida</div><div class="h">Sistema vivo</div>
+            <div class="intro">No un PDF que se desactualiza, una URL siempre vigente.</div>
+            <div class="stmt" style="font-size:3.3cqw">Fundamentos, identidad, color y <span class="q">las reglas para extenderlo.</span></div><div class="num">08 / 15</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CO-PILOT -->
+    <aside class="cop">
+      <div class="ch">
+        <span class="st"><svg viewBox="0 0 256 256"><path d="M84.27,171.73l-55.09-20.3a7.92,7.92,0,0,1,0-14.86l55.09-20.3,20.3-55.09a7.92,7.92,0,0,1,14.86,0l20.3,55.09,55.09,20.3a7.92,7.92,0,0,1,0,14.86l-55.09,20.3-20.3,55.09a7.92,7.92,0,0,1-14.86,0Z"/><line x1="176" y1="16" x2="176" y2="64"/><line x1="224" y1="72" x2="224" y2="104"/><line x1="152" y1="40" x2="200" y2="40"/><line x1="208" y1="88" x2="240" y2="88"/></svg></span>
+        <span class="ct">a-gent · Co-Piloto</span>
+      </div>
+      <div class="cb">
+        <div class="msg"><div class="who"><svg viewBox="0 0 256 256"><path d="M84.27,171.73l-55.09-20.3a7.92,7.92,0,0,1,0-14.86l55.09-20.3,20.3-55.09a7.92,7.92,0,0,1,14.86,0l20.3,55.09,55.09,20.3a7.92,7.92,0,0,1,0,14.86l-55.09,20.3-20.3,55.09a7.92,7.92,0,0,1-14.86,0Z"/></svg>a-gent</div>Sembré el sprint: preparé propósito, valores, posicionamiento e identidad. Nada se aplica sin tu revisión.</div>
+        <div class="msg"><div class="who"><svg viewBox="0 0 256 256"><path d="M84.27,171.73l-55.09-20.3a7.92,7.92,0,0,1,0-14.86l55.09-20.3,20.3-55.09a7.92,7.92,0,0,1,14.86,0l20.3,55.09,55.09,20.3a7.92,7.92,0,0,1,0,14.86l-55.09,20.3-20.3,55.09a7.92,7.92,0,0,1-14.86,0Z"/></svg>a-gent</div>Cada momento converge en el deck vivo — se deriva del estado del sprint.</div>
+        <div class="msg"><div class="who"><svg viewBox="0 0 256 256"><path d="M84.27,171.73l-55.09-20.3a7.92,7.92,0,0,1,0-14.86l55.09-20.3,20.3-55.09a7.92,7.92,0,0,1,14.86,0l20.3,55.09,55.09,20.3a7.92,7.92,0,0,1,0,14.86l-55.09,20.3-20.3,55.09a7.92,7.92,0,0,1-14.86,0Z"/></svg>a-gent</div>Listo. Revisa cada lámina y mira el resultado — el diseñador toma esto y lo afina a pieza final.</div>
+      </div>
+      <div class="cf">
+        <div class="composer"><span class="ph">Pregúntale a a-gent…</span>
+          <span class="send"><svg viewBox="0 0 256 256"><line x1="40" y1="128" x2="216" y2="128"/><polyline points="144 56 216 128 144 200"/></svg></span></div>
+        <div class="cnote">a-gent prepara. Tú afinas con ojo de diseñador.</div>
+      </div>
+    </aside>
+  </div>
+  <div class="black"></div>
+</div>
+<script>
+(function(){
+  function fit(){var f=document.getElementById('fit');var s=Math.min(innerWidth/1280,innerHeight/800);f.style.transform='scale('+s+')';}
+  addEventListener('resize',fit); fit();
+  function setMax(){var col=document.getElementById('col');var vpH=col.parentElement.clientHeight;var max=Math.max(0,col.scrollHeight-vpH+16);col.style.setProperty('--maxneg',(-max)+'px');}
+  setMax(); addEventListener('resize',setMax); window.addEventListener('load',setMax);
+})();
+</script>
+</body>
+</html>
