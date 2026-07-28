@@ -8,11 +8,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=11">
+  <link rel="stylesheet" href="css/style.css?v=18">
 </head>
 <body>
 
-  <div class="topbanner">Oferta de lanzamiento — branding completo en 48 horas · <strong>Solo 3 espacios esta semana</strong></div>
+  <div class="topbanner">Oferta de lanzamiento — branding completo en 3 días · <strong>Solo 3 espacios esta semana</strong></div>
   <header class="nav">
     <div class="nav-inner">
       <a class="logo" href="#">Gritt<span class="logo-dot">.</span></a>
@@ -34,7 +34,7 @@
       <div class="hero-top">
         <div class="badges reveal">
           <span class="hero-spots"><span class="dot dot-red"></span>Solo 3 espacios hoy</span>
-          <span class="pill pill-rating">★★★★★ Calificado <strong>4.9 de 5</strong> por nuestros clientes</span>
+          <span class="pill">Estudio de branding · Colombia</span>
         </div>
         <h1 class="hero-title reveal">
           Hacemos tangible tu identidad.<br>
@@ -46,9 +46,9 @@
         </p>
         <div class="hero-cta reveal">
           <a class="btn btn-dark btn-lg" href="#pricing">Ver precios →</a>
-          <a class="btn btn-ghost btn-lg" href="mailto:hola@gritt.studio">Agendar llamada</a>
+          <a class="btn btn-ghost btn-lg" href="https://wa.me/573002112871?text=Hola%20Gritt%2C%20quiero%20hablar%20sobre%20mi%20marca">Agendar llamada</a>
           <span class="hero-trust">
-            <span><strong>+1,200</strong> marcas creadas</span>
+            <span>Del logo al <strong>sistema completo</strong></span>
             <span class="ht-sep">|</span>
             <span>Research con IA</span>
             <span class="ht-sep">|</span>
@@ -57,11 +57,11 @@
         </div>
       </div>
 
-      <!-- Slider hero: 4 fotos verticales fijas, la 3ra cicla -->
-      <div class="hero-slider" aria-hidden="true">
+      <!-- Slider hero: 4 fotos verticales que rotan sin repetirse -->
+      <div class="hero-slider" id="heroSlider" aria-hidden="true">
         <div class="hs-slot"><img src="propias/opt/005-1-bone-mesh.jpg" alt=""></div>
-        <div class="hs-slot"><img src="propias/opt/branding-posittioning.jpg" alt=""></div>
         <div class="hs-slot"><img src="propias/opt/001-norvell-top.jpg" alt=""></div>
+        <div class="hs-slot"><img src="propias/opt/005-top.jpg" alt=""></div>
         <div class="hs-slot"><img src="propias/opt/003-roselilab-photo.jpg" alt=""></div>
       </div>
     </section>
@@ -94,15 +94,21 @@
         <p class="kicker">TRABAJO RECIENTE</p>
         <h2>Marcas hechas para clientes<br>de <em>diferentes industrias</em>.</h2>
       </div>
-      <div class="cases-grid">
-        <article class="case-card case-img reveal"><img src="propias/opt/003-roselilab.jpg" alt="Chronologica" loading="lazy"></article>
-        <article class="case-card case-img reveal"><img src="propias/opt/006-aptest.jpg" alt="Commodity AI" loading="lazy"></article>
-        <article class="case-card case-img reveal"><img src="propias/opt/007-ikkaros.jpg" alt="Moai" loading="lazy"></article>
-        <article class="case-card case-img reveal"><img src="propias/opt/009-sounda.jpg" alt="Omora" loading="lazy"></article>
-        <article class="case-card case-img reveal"><img src="propias/opt/010-solartrade.jpg" alt="Hotel Californian" loading="lazy"></article>
-        <article class="case-card case-img reveal"><img src="propias/opt/0011-bakery.jpg" alt="Limitless" loading="lazy"></article>
+      <div class="cases-grid" id="casesGrid">
+        <button class="case-card case-img reveal" type="button"></button>
+        <button class="case-card case-img reveal" type="button"></button>
+        <button class="case-card case-img reveal" type="button"></button>
+        <button class="case-card case-img reveal" type="button"></button>
+        <button class="case-card case-img reveal" type="button"></button>
+        <button class="case-card case-img reveal" type="button"></button>
       </div>
     </section>
+
+    <!-- Lightbox para ampliar casos -->
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+      <button class="lb-close" id="lbClose" aria-label="Cerrar">&times;</button>
+      <img class="lb-img" id="lbImg" src="" alt="">
+    </div>
 
 
 
@@ -111,7 +117,7 @@
     <!-- COMPARACIÓN -->
     <section class="compare" id="comparacion">
       <div class="compare-head reveal">
-        <h2>Dando nueva vida a tu marca, en 48 horas.</h2>
+        <h2>Dando nueva vida a tu marca, en 3 días.</h2>
         <p class="compare-sub">Construiste algo increíble — <strong>tu marca debería reflejarlo</strong>.</p>
       </div>
       <div class="cmp-table reveal">
@@ -119,26 +125,18 @@
           <h3>Agencia tradicional</h3>
           <ul class="cmp-list cmp-no">
             <li>1–2 meses en promedio</li>
-            <li>Desde $5,000 USD</li>
+            <li>Desde $8.000.000 COP</li>
             <li>Proceso largo y desgastante</li>
           </ul>
         </div>
         <div class="cmp-col">
           <h3>Gritt</h3>
           <ul class="cmp-list cmp-yes">
-            <li>Entrega en 48 horas</li>
-            <li>Desde $280 USD</li>
+            <li>Entrega en 3 días</li>
+            <li>Desde $990.000 COP</li>
             <li>Pedido sin fricción</li>
           </ul>
         </div>
-      </div>
-      <div class="flowline reveal" aria-hidden="true">
-        <div class="fl-rail"><i class="fl-pulse"></i></div>
-        <div class="fl-node" style="--i:0"><span class="fl-ic">✒</span><span class="fl-t">Dirección experta de diseño</span></div>
-        <div class="fl-node" style="--i:1"><span class="fl-ic">⚡</span><span class="fl-t">Tiempos ultra rápidos</span></div>
-        <div class="fl-node" style="--i:2"><span class="fl-ic">★</span><span class="fl-t">Top 1% de talento</span></div>
-        <div class="fl-node" style="--i:3"><span class="fl-ic">⇢</span><span class="fl-t">Proceso sin fricción</span></div>
-        <div class="fl-node" style="--i:4"><span class="fl-ic">♥</span><span class="fl-t">Soporte humano</span></div>
       </div>
       <p class="center reveal"><a class="btn btn-dark btn-lg" href="#pricing">Conoce nuestros paquetes →</a></p>
     </section>
@@ -156,8 +154,6 @@
         <article class="pack reveal"><img src="propias/opt/branding-posittioning.jpg" alt="" loading="lazy"><h3>Posicionamiento y estrategia</h3><p>Dirección creativa que conecta tus visuales con tus objetivos.</p></article>
         <article class="pack reveal"><img src="propias/opt/social-media-kit.jpg" alt="" loading="lazy"><h3>Brand guidelines completas</h3><p>Todo para mantener tu marca consistente.</p></article>
         <article class="pack reveal"><img src="propias/opt/stationery-and-mockups.jpg" alt="" loading="lazy"><h3>Papelería y mockups</h3><p>Tarjetas, previews 3D y mockups del mundo real.</p></article>
-        <article class="pack pack-wide reveal"><img src="propias/opt/005-cardinova.jpg" alt="" loading="lazy"><h3>Archivos fuente y copyright</h3><p>Eres dueño de todo: editable, exportable, para siempre.</p></article>
-        <article class="pack pack-wide reveal"><img src="propias/opt/001-norvell.jpg" alt="" loading="lazy"><h3>Kit para redes sociales</h3><p>Visuales on-brand listos para Instagram, LinkedIn y más.</p></article>
       </div>
       <p class="center reveal"><a class="btn btn-dark btn-lg" href="#pricing">Conoce nuestros paquetes →</a></p>
     </section>
@@ -168,7 +164,7 @@
     <section class="process" id="proceso">
       <div class="features-head reveal">
         <p class="kicker">CÓMO TRABAJA NUESTRO AGENTE</p>
-        <h2>El agente prepara.<br>El ojo humano afina.</h2>
+        <h2>El agente <em>prepara</em>.<br>El ojo humano <em>afina</em>.</h2>
         <p>Un proceso únicamente simple — así entregamos tan rápido sin sacrificar criterio.</p>
       </div>
 
@@ -218,73 +214,32 @@
       <div class="proc-rows">
         <div class="proc-row reveal">
           <div class="proc-embed"><iframe src="casos/agente/paso-1-investigacion.html" title="Agente conectando el brief" loading="lazy" scrolling="no"></iframe></div>
-          <div class="proc-txt"><span class="step-num">· Paso 1</span><h3>El agente investiga</h3><p>Con la información base de tu negocio, el agente estudia tu industria, tu competencia y tus referencias, y propone una <strong>primera dirección estética</strong> — antes de la primera reunión.</p></div>
+          <div class="proc-txt"><span class="step-num">Paso 1</span><h3>El agente <em>investiga</em></h3><p>Con la información base de tu negocio, el agente estudia tu industria, tu competencia y tus referencias, y propone una <strong>primera dirección estética</strong> — antes de la primera reunión.</p></div>
         </div>
         <div class="proc-row reveal">
           <div class="proc-embed"><iframe src="casos/agente/paso-2-sprint.html" title="Deck derivado del sprint" loading="lazy" scrolling="no"></iframe></div>
-          <div class="proc-txt"><span class="step-num">· Paso 2</span><h3>El sprint en vivo</h3><p>En una sesión contigo, sobre el canvas, ajustamos personalidad y rumbo con herramientas reales de método: <strong>diferencial semántico, matriz morfológica</strong> y mapas de asociación.</p></div>
+          <div class="proc-txt"><span class="step-num">Paso 2</span><h3>El sprint en <em>vivo</em></h3><p>En una sesión contigo, sobre el canvas, ajustamos personalidad y rumbo con herramientas reales de método: <strong>diferencial semántico, matriz morfológica</strong> y mapas de asociación.</p></div>
         </div>
         <div class="proc-row reveal">
           <div class="proc-embed"><iframe src="casos/agente/paso-3-marca.html" title="Producción de marca en loop" loading="lazy" scrolling="no"></iframe></div>
-          <div class="proc-txt"><span class="step-num">· Paso 3</span><h3>El ojo humano afina</h3><p>Nuestros diseñadores toman lo que el agente preparó y lo llevan a pieza final: logo, identidad y sistema. <strong>Refinamos hasta que estés feliz</strong> y exportamos todo a tu correo.</p></div>
+          <div class="proc-txt"><span class="step-num">Paso 3</span><h3>El ojo humano <em>afina</em></h3><p>Nuestros diseñadores toman lo que el agente preparó y lo llevan a pieza final: logo, identidad y sistema. <strong>Refinamos hasta que estés feliz</strong> y exportamos todo a tu correo.</p></div>
         </div>
       </div>
     </section>
 
 
-    <!-- MURO DE RESEÑAS -->
-    <section class="reviews">
-      <div class="section-head reveal">
-        <p class="kicker">RESEÑAS</p>
-        <h2>Lo que dicen<br>nuestros clientes.</h2>
-      </div>
-      <div class="reviews-grid">
-        <article class="review reveal">
-          <span class="stars"><b>★</b><b>★</b><b>★</b><b>★</b><b>★</b></span>
-          <p>Gran trabajo con nuestra marca. Entendieron el proyecto muy bien y lo resolvieron rapidísimo.</p>
-          <div class="rv-author"><span class="rv-av">JR</span><div class="rv-meta"><strong>Director de Marketing</strong><span>fintech</span></div></div>
-        </article>
-        <article class="review reveal">
-          <span class="stars"><b>★</b><b>★</b><b>★</b><b>★</b><b>★</b></span>
-          <p>Excelente valor por un estándar altísimo. El resultado se siente hecho a la medida, no genérico.</p>
-          <div class="rv-author"><span class="rv-av">SL</span><div class="rv-meta"><strong>Fundadora</strong><span>startup</span></div></div>
-        </article>
-        <article class="review reveal">
-          <span class="stars"><b>★</b><b>★</b><b>★</b><b>★</b><i>★</i></span>
-          <p>Trabajo consistente y de calidad. Ya es mi segundo proyecto con ellos y habrá más.</p>
-          <div class="rv-author"><span class="rv-av">MC</span><div class="rv-meta"><strong>CEO</strong><span>consultoría</span></div></div>
-        </article>
-        <article class="review reveal">
-          <span class="stars"><b>★</b><b>★</b><b>★</b><b>★</b><b>★</b></span>
-          <p>Eficiencia increíble. El proceso fue clarísimo de principio a fin, sin juntas eternas.</p>
-          <div class="rv-author"><span class="rv-av">DA</span><div class="rv-meta"><strong>Gerente de Producto</strong><span>store</span></div></div>
-        </article>
-        <article class="review reveal">
-          <span class="stars"><b>★</b><b>★</b><b>★</b><b>★</b><i>★</i></span>
-          <p>Mi marca por fin se ve del tamaño de mi ambición. El sistema es facilísimo de usar.</p>
-          <div class="rv-author"><span class="rv-av">PV</span><div class="rv-meta"><strong>Fundador</strong><span>café de especialidad</span></div></div>
-        </article>
-        <article class="review reveal">
-          <span class="stars"><b>★</b><b>★</b><b>★</b><b>★</b><b>★</b></span>
-          <p>Diseño inteligente y entrega rápida. Se nota que hay una persona detrás de cada decisión.</p>
-          <div class="rv-author"><span class="rv-av">NT</span><div class="rv-meta"><strong>Directora Creativa</strong><span>agencia</span></div></div>
-        </article>
-      </div>
-      <p class="pricing-note reveal">Por respeto a la privacidad de nuestros clientes no publicamos nombres ni marcas — solo su cargo e industria.</p>
-    </section>
 
     <!-- PRICING -->
     <section class="pricing" id="pricing">
       <div class="compare-head reveal">
-        <h2>Branding de clase mundial por 10x menos<br>que una agencia creativa tradicional.</h2>
-        <p class="compare-sub">El costo promedio del branding profesional supera los <strong>$5,000 USD</strong>.<br>Nuestros paquetes empiezan en <strong>$280</strong>.</p>
+        <h2>Branding de clase mundial por una fracción<br>de lo que cobra una agencia.</h2>
       </div>
       <div class="pricing-grid">
         <article class="price-card reveal">
           <h3>Plan Básico</h3>
-          <p class="price"><span class="price-num">280$</span></p>
+          <p class="price"><span class="price-num">$990.000</span> <span class="price-per">COP · pago único</span></p>
           <p class="price-desc">El paquete perfecto para arrancar tu negocio.</p>
-          <a class="btn btn-ghost" href="mailto:hola@gritt.studio">Ordenar ahora →</a>
+          <a class="btn btn-ghost" href="https://wa.me/573002112871?text=Hola%20Gritt%2C%20quiero%20hablar%20sobre%20mi%20marca">Ordenar ahora →</a>
           <p class="price-micro"><span class="dot-red-s"></span> Solo 3 espacios hoy · <em>100% garantía de devolución</em></p>
           <ul>
             <li>1 concepto de logo incluido</li>
@@ -306,9 +261,9 @@
         <article class="price-card price-featured reveal">
           <div class="featured-banner">EL MÁS POPULAR</div>
           <h3>Branding Premium</h3>
-          <p class="price"><span class="price-num">480$</span></p>
+          <p class="price"><span class="price-num">$2.400.000</span> <span class="price-per">COP · pago único</span></p>
           <p class="price-desc">Todo lo que necesitas para lanzar y crecer tu negocio.</p>
-          <a class="btn btn-dark" href="mailto:hola@gritt.studio">Ordenar ahora →</a>
+          <a class="btn btn-dark" href="https://wa.me/573002112871?text=Hola%20Gritt%2C%20quiero%20hablar%20sobre%20mi%20marca">Ordenar ahora →</a>
           <p class="price-micro"><span class="dot-red-s"></span> Solo 3 espacios hoy · <em>100% garantía de devolución</em></p>
           <p class="tier-note">Todo lo del Básico +</p>
           <ul>
@@ -328,9 +283,9 @@
         </article>
         <article class="price-card reveal">
           <h3>Ecosistema de Marca®</h3>
-          <p class="price"><span class="price-num">987$</span></p>
+          <p class="price"><span class="price-num">$4.800.000</span> <span class="price-per">COP · pago único</span></p>
           <p class="price-desc">El paquete definitivo para escalar y comercializar tu marca.</p>
-          <a class="btn btn-ghost" href="mailto:hola@gritt.studio">Ordenar ahora →</a>
+          <a class="btn btn-ghost" href="https://wa.me/573002112871?text=Hola%20Gritt%2C%20quiero%20hablar%20sobre%20mi%20marca">Ordenar ahora →</a>
           <p class="price-micro"><span class="dot-red-s"></span> Solo 3 espacios hoy · <em>100% garantía de devolución</em></p>
           <p class="tier-note">Todo lo del Premium +</p>
           <ul>
@@ -348,12 +303,12 @@
           </ul>
         </article>
       </div>
-      <a class="bookbar reveal" href="mailto:hola@gritt.studio">Agendar llamada →</a>
+      <a class="bookbar reveal" href="https://wa.me/573002112871?text=Hola%20Gritt%2C%20quiero%20hablar%20sobre%20mi%20marca">Agendar llamada →</a>
       <div class="guarantee reveal">
         <h3>Garantía de satisfacción 100% libre de riesgo</h3>
         <p>Estamos comprometidos con tu éxito. Si no quedas completamente feliz con tu marca, <strong>seguimos trabajando hasta que lo estés</strong> — o te devolvemos tu dinero.</p>
       </div>
-      <p class="pricing-note reveal" style="text-align:center">Sistema Vivo (hosting del brand hub) se agrega a cualquier paquete por $29 USD/mes · Precios placeholder para revisión interna.</p>
+      <p class="pricing-note reveal" style="text-align:center">El plan Sistema Vivo (hosting de tu sistema de marca) se agrega a cualquier paquete por $99.000 COP/mes.</p>
     </section>
 
 
@@ -416,7 +371,7 @@
     <section class="cta" id="cta">
       <h2 class="reveal">Tu negocio es increíble.<br>Que tu marca <em>lo diga</em>.</h2>
       <p class="reveal">Empieza con tu logo hoy — y cuando estés listo, lo crecemos a marca completa.</p>
-      <a class="btn btn-light btn-lg reveal" href="mailto:hola@gritt.studio">Empezar mi marca</a>
+      <a class="btn btn-light btn-lg reveal" href="https://wa.me/573002112871?text=Hola%20Gritt%2C%20quiero%20hablar%20sobre%20mi%20marca">Empezar mi marca</a>
     </section>
 
   </main>
@@ -438,7 +393,7 @@
       </div>
       <div>
         <h4>Contacto</h4>
-        <a href="mailto:hola@gritt.studio">hola@gritt.studio</a><a href="#">Instagram</a><a href="#">LinkedIn</a>
+        <a href="https://wa.me/573002112871?text=Hola%20Gritt%2C%20quiero%20hablar%20sobre%20mi%20marca">WhatsApp</a><a href="#">Instagram</a><a href="#">LinkedIn</a>
       </div>
     </div>
     <p class="footer-copy">© 2026 Gritt</p>

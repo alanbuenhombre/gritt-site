@@ -28,6 +28,73 @@ if (rotate) {
   }, 2600);
 }
 
+// Hero slider: 4 fotos verticales que rotan aleatoriamente sin repetirse en pantalla
+(function(){
+  const slider = document.getElementById('heroSlider');
+  if (!slider || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const base = 'propias/opt/';
+  const pool = ['005-1-bone-mesh.jpg','branding-posittioning.jpg','001-norvell-top.jpg',
+                '003-roselilab-photo.jpg','005-top.jpg','006-top.jpg'];
+  const imgs = [...slider.querySelectorAll('img')];
+  let visible = imgs.map(i => i.src.split('/').pop());
+  setInterval(() => {
+    const slot = Math.floor(Math.random() * imgs.length);
+    const notVisible = pool.filter(p => !visible.includes(p));
+    if (!notVisible.length) return;
+    const next = notVisible[Math.floor(Math.random() * notVisible.length)];
+    visible[slot] = next;
+    const img = imgs[slot];
+    img.style.transition = 'opacity .6s ease';
+    img.style.opacity = '0';
+    setTimeout(() => { img.src = base + next; img.style.opacity = '1'; }, 550);
+  }, 3800);
+})();
+
+// Trabajo reciente: grid de 6 que rota entre el pool sin repetir en pantalla + lightbox
+(function(){
+  const grid = document.getElementById('casesGrid');
+  if (!grid) return;
+  const base = 'propias/opt/';
+  const pool = ['001-norvell.jpg','002.jpg','003-lumea.jpg','003-roselilab.jpg','004-voxen.jpg',
+                '005-bone-mesh.jpg','006-aptest.jpg','007-ikkaros.jpg','009-sounda.jpg','010-solartrade.jpg'];
+  const cells = [...grid.querySelectorAll('.case-card')];
+  const shuffle = a => { a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+
+  let visible = shuffle(pool).slice(0, cells.length); // 6 iniciales, todas distintas
+  cells.forEach((c, i) => {
+    const img = document.createElement('img');
+    img.src = base + visible[i]; img.alt = ''; img.loading = 'lazy';
+    c.appendChild(img);
+    const cue = document.createElement('span');
+    cue.className = 'zoomcue'; cue.innerHTML = '⤢'; c.appendChild(cue);
+    c.dataset.src = visible[i];
+    c.addEventListener('click', () => openLB(base + c.dataset.src));
+  });
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce) {
+    setInterval(() => {
+      // elige una celda al azar y la cambia por una imagen del pool que NO esté visible
+      const slot = Math.floor(Math.random() * cells.length);
+      const notVisible = pool.filter(p => !visible.includes(p));
+      if (!notVisible.length) return;
+      const next = notVisible[Math.floor(Math.random() * notVisible.length)];
+      visible[slot] = next;
+      const cell = cells[slot], img = cell.querySelector('img');
+      img.style.opacity = '0';
+      setTimeout(() => { img.src = base + next; cell.dataset.src = next; img.style.opacity = '1'; }, 500);
+    }, 3200);
+  }
+
+  // Lightbox
+  const lb = document.getElementById('lightbox'), lbImg = document.getElementById('lbImg');
+  const openLB = src => { lbImg.src = src; lb.classList.add('open'); lb.setAttribute('aria-hidden','false'); };
+  const closeLB = () => { lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); };
+  document.getElementById('lbClose').addEventListener('click', closeLB);
+  lb.addEventListener('click', e => { if (e.target === lb) closeLB(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLB(); });
+})();
+
 // Typewriter: rota la palabra final (grupos que quieren crear/mejorar su marca)
 const tw = document.getElementById('twword');
 if (tw && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
