@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>María &amp; Tomás — Muro en vivo</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#100c07;--card:#1c160e;--cream:#EAE0CC;--gold:#C9A96A;--muted:#8a7d63;--line:rgba(201,169,106,.16)}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{font-family:'Manrope',system-ui,sans-serif;background:radial-gradient(120% 90% at 50% 0%,#1a1409,var(--bg));color:var(--cream);overflow:hidden;display:flex;flex-direction:column}
+  .head{display:flex;align-items:center;justify-content:space-between;padding:24px 44px;border-bottom:1px solid var(--line);flex:none}
+  .brand{display:flex;align-items:center;gap:16px}
+  .brand img{width:46px;height:auto}
+  .brand .t{font-family:'Cormorant Garamond',serif;letter-spacing:.34em;text-transform:uppercase;font-size:1.35rem;color:var(--gold)}
+  .brand .s{font-size:.72rem;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;margin-top:2px}
+  .live{display:flex;align-items:center;gap:20px}
+  .counter{text-align:right}
+  .counter b{font-family:'Cormorant Garamond',serif;font-size:2.6rem;color:var(--cream);line-height:1;display:block}
+  .counter span{font-size:.68rem;color:var(--muted);letter-spacing:.18em;text-transform:uppercase}
+  .dot{width:10px;height:10px;border-radius:50%;background:#7ee08a;box-shadow:0 0 12px #7ee08a;animation:blip 1.4s infinite}
+  @keyframes blip{50%{opacity:.35}}
+
+  /* Foto protagonista */
+  .feature{flex:1;position:relative;display:flex;align-items:center;justify-content:center;padding:30px 44px 14px;min-height:0}
+  .fcard{position:relative;height:100%;max-width:82vw;border-radius:18px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.55)}
+  .fcard img{height:100%;width:auto;max-width:82vw;object-fit:cover;display:block}
+  .fcard .who{position:absolute;left:22px;bottom:20px;font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:#fff;background:rgba(0,0,0,.4);backdrop-filter:blur(4px);padding:6px 20px;border-radius:99px}
+  .feat-in{animation:featIn 1s cubic-bezier(.22,1,.36,1)}
+  @keyframes featIn{from{opacity:0;transform:scale(1.05)}to{opacity:1;transform:none}}
+  .badge{position:absolute;top:26px;left:50%;transform:translateX(-50%);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);background:rgba(20,16,9,.7);border:1px solid var(--line);padding:6px 16px;border-radius:99px;backdrop-filter:blur(4px)}
+
+  /* Fila de recientes */
+  .strip{flex:none;display:flex;gap:14px;padding:8px 44px 30px;align-items:center;height:20vh;min-height:130px;overflow:hidden}
+  .thumb{flex:none;height:100%;border-radius:12px;overflow:hidden;position:relative;box-shadow:0 12px 30px rgba(0,0,0,.4);animation:slideIn .7s cubic-bezier(.22,1,.36,1)}
+  .thumb img{height:100%;width:auto;object-fit:cover;display:block}
+  .thumb .who{position:absolute;left:8px;bottom:7px;font-size:.66rem;color:#fff;background:rgba(0,0,0,.42);padding:2px 9px;border-radius:99px}
+  @keyframes slideIn{from{opacity:0;transform:translateX(-30px) scale(.9)}to{opacity:1;transform:none}}
+
+  .pause{position:fixed;bottom:16px;right:18px;font-size:.66rem;color:var(--muted);background:var(--card);border:1px solid var(--line);padding:7px 14px;border-radius:99px;cursor:pointer;opacity:.22;transition:.3s}
+  .pause:hover{opacity:1}
+  .tag{position:fixed;bottom:16px;left:20px;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  @media(max-width:640px){.head{padding:16px 18px}.brand .t{font-size:1rem}.feature{padding:16px 18px 8px}.strip{padding:8px 18px 20px}}
+</style>
+</head>
+<body>
+  <header class="head">
+    <div class="brand">
+      <img src="../mt-monogram.svg" alt="M&amp;T">
+      <div><div class="t">María&nbsp;✕&nbsp;Tomás</div><div class="s">Muro de fotos en vivo</div></div>
+    </div>
+    <div class="live">
+      <span class="dot"></span>
+      <div class="counter"><b id="count">0</b><span>fotos de invitados</span></div>
+    </div>
+  </header>
+
+  <section class="feature"><div class="fcard" id="feature"></div></section>
+  <div class="strip" id="strip"></div>
+
+  <div class="pause" id="pause">⏸ Pausar</div>
+  <div class="tag">Prototipo · display en vivo</div>
+
+<script>
+  const pool=['../opt/bodas-01.jpg','../opt/bodas-02.jpg','../opt/bodas-03.jpg','../opt/bodas-04.jpg','../opt/bodas-05.jpg','../opt/bodas-06.jpg','../opt/bodas-07.jpg','../opt/bodas-08.jpg','../opt/bodas-09.jpg','../opt/compromiso.jpg','../opt/boda.jpg','../opt/ceremonia.jpg'];
+  const names=['Laura','Andrés','','Sofía','Camila','Daniel','','Valentina','Mateo','','Juanita','Felipe'];
+  const feature=document.getElementById('feature'), strip=document.getElementById('strip'), countEl=document.getElementById('count');
+  let count=124, paused=false, ni=0, current=null;
+  countEl.textContent=count;
+
+  function thumbHTML(p){return '<img src="'+p.src+'">'+(p.who?'<span class="who">'+p.who+'</span>':'');}
+
+  function add(src,who){
+    // la foto protagonista actual pasa a la fila de recientes
+    if(current){
+      const t=document.createElement('div'); t.className='thumb'; t.innerHTML=thumbHTML(current);
+      strip.prepend(t);
+      while(strip.children.length>9) strip.lastElementChild.remove();
+    }
+    // nueva protagonista
+    current={src,who};
+    feature.classList.remove('feat-in'); void feature.offsetWidth;
+    feature.innerHTML='<span class="badge">✦ Recién compartida</span><img src="'+src+'">'+(who?'<span class="who">'+who+'</span>':'');
+    feature.classList.add('feat-in');
+    count++; countEl.textContent=count;
+  }
+
+  // Semilla: fila con algunas + una protagonista
+  for(let i=0;i<8;i++){const p={src:pool[i%pool.length],who:names[i%names.length]};const t=document.createElement('div');t.className='thumb';t.innerHTML=thumbHTML(p);strip.appendChild(t);}
+  add(pool[2],'Sofía');
+
+  setInterval(()=>{ if(paused) return; add(pool[ni%pool.length], names[ni%names.length]); ni++; }, 3000);
+
+  if('BroadcastChannel' in window){ const bc=new BroadcastChannel('mt-fotos');
+    bc.onmessage=e=>{ if(!paused) add(e.data.src, e.data.who); }; }
+
+  const pb=document.getElementById('pause');
+  pb.onclick=()=>{paused=!paused; pb.textContent=paused?'▶ Reanudar':'⏸ Pausar';};
+  addEventListener('keydown',e=>{if(e.key==='p')pb.click();});
+</script>
+</body>
+</html>

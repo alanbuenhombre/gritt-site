@@ -10,3 +10,7 @@ propias/*.png
 propias/*.jpg
 propias/*.jpeg
 !propias/opt/
+
+# Originales pesados de la boda. El sitio usa proyectos/opt/*.jpg
+proyectos/*.png
+!proyectos/opt/

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Muro de fotos en vivo — Prototipo · Gritt</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#141009;--card:#1e1810;--cream:#EAE0CC;--gold:#C9A96A;--muted:#8a7d63;--line:rgba(201,169,106,.18)}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Manrope',system-ui,sans-serif;background:radial-gradient(120% 80% at 50% 0%,#1a1409,var(--bg));color:var(--cream);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 22px;text-align:center}
+  .mono{width:56px;height:auto;margin-bottom:18px;opacity:.95}
+  .kick{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(2.2rem,6vw,3.6rem);line-height:1.05;max-width:16ch}
+  h1 em{font-style:italic;color:var(--gold)}
+  p.lead{color:var(--muted);max-width:52ch;margin:20px auto 0;font-size:1.02rem;line-height:1.6}
+  .cards{display:flex;gap:18px;margin-top:44px;flex-wrap:wrap;justify-content:center}
+  a.card{width:280px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:30px 26px;text-align:left;transition:.25s;text-decoration:none;color:inherit}
+  a.card:hover{transform:translateY(-4px);border-color:var(--gold)}
+  a.card .ic{font-size:1.6rem;color:var(--gold)}
+  a.card .ic svg{width:30px;height:30px}
+  a.card h3{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.5rem;margin:12px 0 8px;color:var(--cream)}
+  a.card p{font-size:.9rem;color:var(--muted);line-height:1.5}
+  a.card .go{display:inline-block;margin-top:16px;font-size:.82rem;color:var(--gold);font-weight:600}
+  .note{margin-top:38px;font-size:.76rem;color:var(--muted);max-width:46ch}
+  .back{position:fixed;top:20px;left:24px;font-size:.82rem;color:var(--muted);text-decoration:none}
+  .back:hover{color:var(--cream)}
+</style>
+</head>
+<body>
+  <a class="back" href="../boda-maria-tomas.html">← Volver al caso</a>
+  <img class="mono" src="../mt-monogram.svg" alt="M&amp;T">
+  <p class="kick">María &amp; Tomás · App de fotos</p>
+  <h1>La fiesta, contada por <em>sus invitados</em>.</h1>
+  <p class="lead">Un QR en cada mesa. Los invitados comparten fotos sin instalar nada, y aparecen al instante en una pantalla en vivo durante la celebración. Explora las dos vistas:</p>
+
+  <div class="cards">
+    <a class="card" href="invitados.html">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.2"/><line x1="10.8" y1="18.6" x2="13.2" y2="18.6"/></svg></div>
+      <h3>Vista invitados</h3>
+      <p>Lo que ve el invitado al escanear el QR: galería en vivo y botón para compartir su foto.</p>
+      <span class="go">Abrir vista móvil →</span>
+    </a>
+    <a class="card" href="tv.html" target="_blank" rel="noopener">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6.5" width="19" height="12" rx="2"/><path d="M8.2 3.4 12 6.4l3.8-3"/></svg></div>
+      <h3>Display en la TV</h3>
+      <p>El muro que se proyecta en la fiesta: las fotos entran en tiempo real, con contador en vivo.</p>
+      <span class="go">Abrir display →</span>
+    </a>
+  </div>
+
+  <p class="note">Prototipo de demostración · Las fotos son de muestra. La versión final se conecta a Google Drive y sincroniza en tiempo real entre los teléfonos de los invitados y la pantalla.</p>
+</body>
+</html>
