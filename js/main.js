@@ -112,6 +112,23 @@ if (tw && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   setTimeout(tick, 1200);
 }
 
+// Typewriter del hero: cicla atributos de lo que construyen los fundadores
+const hw = document.getElementById('hword');
+if (hw && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const words = ['serio', 'grande', 'memorable', 'increíble', 'único'];
+  let wi = 0, ci = words[0].length, deleting = true;
+  const tick = () => {
+    const w = words[wi];
+    ci += deleting ? -1 : 1;
+    hw.textContent = w.slice(0, ci);
+    let delay = deleting ? 45 : 95;
+    if (!deleting && ci === w.length) { delay = 1600; deleting = true; }
+    else if (deleting && ci === 0) { deleting = false; wi = (wi + 1) % words.length; delay = 300; }
+    setTimeout(tick, delay);
+  };
+  setTimeout(tick, 1800);
+}
+
 // Preview del agente: cicla las 3 escenas con zoom + barra de progreso
 const demo = document.querySelector('.agent-demo');
 if (demo && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
