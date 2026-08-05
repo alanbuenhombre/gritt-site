@@ -4,12 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Muro de fotos en vivo — Prototipo · Gritt</title>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Ballet&display=swap" rel="stylesheet">
 <style>
   :root{--bg:#141009;--card:#1e1810;--cream:#EAE0CC;--gold:#C9A96A;--muted:#8a7d63;--line:rgba(201,169,106,.18)}
   *{margin:0;padding:0;box-sizing:border-box}
   body{font-family:'Manrope',system-ui,sans-serif;background:radial-gradient(120% 80% at 50% 0%,#1a1409,var(--bg));color:var(--cream);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 22px;text-align:center}
-  .mono{width:56px;height:auto;margin-bottom:18px;opacity:.95}
+  .mono{margin-bottom:18px;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:52px;line-height:1;color:var(--cream);display:inline-flex;align-items:center;letter-spacing:.01em}
+  .mono .amp{font-family:'Ballet',cursive;font-weight:400;color:var(--gold);margin:0 .02em}
   .kick{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
   h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(2.2rem,6vw,3.6rem);line-height:1.05;max-width:16ch}
   h1 em{font-style:italic;color:var(--gold)}
@@ -29,7 +30,7 @@
 </head>
 <body>
   <a class="back" href="../boda-maria-tomas.html">← Volver al caso</a>
-  <img class="mono" src="../mt-monogram.svg" alt="M&amp;T">
+  <div class="mono" role="img" aria-label="María y Tomás">M<span class="amp">&amp;</span>T</div>
   <p class="kick">María &amp; Tomás · App de fotos</p>
   <h1>La fiesta, contada por <em>sus invitados</em>.</h1>
   <p class="lead">Un QR en cada mesa. Los invitados comparten fotos sin instalar nada, y aparecen al instante en una pantalla en vivo durante la celebración. Explora las dos vistas:</p>

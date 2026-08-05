@@ -7,12 +7,13 @@
   <meta name="description" content="Diseñamos la boda de María y Tomás como una marca: identidad, sitio, invitación mobile y una app de fotos para invitados con display en vivo.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=Cormorant+Garamond:wght@500&family=Ballet&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/studio.css">
   <style>
     .case-hero{max-width:1000px;margin:0 auto;padding:130px 40px 30px}
-    .case-back{font-size:.86rem;color:var(--muted)}.case-back:hover{color:var(--ink)}
-    .case-mono{display:block;width:64px;height:auto;margin:40px 0 6px;opacity:.9}
+    .case-back{display:inline-block;font-size:.86rem;color:var(--muted)}.case-back:hover{color:var(--ink)}
+    .case-mono{display:flex;width:fit-content;margin:40px 0 6px;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:64px;line-height:1;color:var(--ink);align-items:center;letter-spacing:.01em}
+    .case-mono .amp{font-family:'Ballet',cursive;font-weight:400;color:#C9A96A;margin:0 .02em;font-size:.92em}
     .case-tag{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:34px 0 18px}
     .case-title{font-family:var(--serif);font-weight:400;font-size:clamp(2.8rem,7vw,5rem);line-height:1;letter-spacing:-.01em}
     .case-lead{max-width:56ch;margin-top:24px;font-size:1.14rem;color:#55514a}
@@ -61,7 +62,7 @@
     <!-- HERO -->
     <section class="case-hero">
       <a class="case-back" href="../index.html#casestudies">← Todos los proyectos</a>
-      <img class="case-mono reveal" src="mt-monogram-dark.svg" alt="Monograma María &amp; Tomás">
+      <div class="case-mono reveal" role="img" aria-label="María y Tomás">M<span class="amp">&amp;</span>T</div>
       <p class="case-tag reveal">Boda · Experiencia de marca · 2026</p>
       <h1 class="case-title reveal">María &amp; Tomás</h1>
       <p class="case-lead reveal">No querían “una boda más”. Querían que todo —del <em>save the date</em> al recuerdo final— se sintiera como una sola marca, y que sus invitados fueran parte de capturar la noche.</p>

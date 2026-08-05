@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>María &amp; Tomás — Muro en vivo</title>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Ballet&display=swap" rel="stylesheet">
 <style>
   :root{--bg:#100c07;--card:#1c160e;--cream:#EAE0CC;--gold:#C9A96A;--muted:#8a7d63;--line:rgba(201,169,106,.16)}
   *{margin:0;padding:0;box-sizing:border-box}
@@ -12,7 +12,8 @@
   body{font-family:'Manrope',system-ui,sans-serif;background:radial-gradient(120% 90% at 50% 0%,#1a1409,var(--bg));color:var(--cream);overflow:hidden;display:flex;flex-direction:column}
   .head{display:flex;align-items:center;justify-content:space-between;padding:24px 44px;border-bottom:1px solid var(--line);flex:none}
   .brand{display:flex;align-items:center;gap:16px}
-  .brand img{width:46px;height:auto}
+  .brand .mono{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:44px;line-height:1;color:var(--cream);display:inline-flex;align-items:center}
+  .brand .mono .amp{font-family:'Ballet',cursive;font-weight:400;color:var(--gold);margin:0 .02em}
   .brand .t{font-family:'Cormorant Garamond',serif;letter-spacing:.34em;text-transform:uppercase;font-size:1.35rem;color:var(--gold)}
   .brand .s{font-size:.72rem;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;margin-top:2px}
   .live{display:flex;align-items:center;gap:20px}
@@ -47,7 +48,7 @@
 <body>
   <header class="head">
     <div class="brand">
-      <img src="../mt-monogram.svg" alt="M&amp;T">
+      <div class="mono" role="img" aria-label="María y Tomás">M<span class="amp">&amp;</span>T</div>
       <div><div class="t">María&nbsp;✕&nbsp;Tomás</div><div class="s">Muro de fotos en vivo</div></div>
     </div>
     <div class="live">

@@ -4,13 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>María &amp; Tomás — Comparte tus fotos</title>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Ballet&display=swap" rel="stylesheet">
 <style>
   :root{--bg:#141009;--card:#1e1810;--cream:#EAE0CC;--gold:#C9A96A;--muted:#8a7d63;--line:rgba(201,169,106,.18)}
   *{margin:0;padding:0;box-sizing:border-box}
   body{font-family:'Manrope',system-ui,sans-serif;background:var(--bg);color:var(--cream);min-height:100vh;-webkit-font-smoothing:antialiased}
   .top{position:sticky;top:0;z-index:10;background:linear-gradient(var(--bg),rgba(20,16,9,.85));backdrop-filter:blur(8px);padding:18px 18px 14px;text-align:center;border-bottom:1px solid var(--line)}
-  .mono{width:38px;height:auto;opacity:.95;margin-bottom:6px}
+  .mono{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:34px;line-height:1;color:var(--cream);display:inline-flex;align-items:center;margin-bottom:4px}
+  .mono .amp{font-family:'Ballet',cursive;font-weight:400;color:var(--gold);margin:0 .02em}
   .couple{font-family:'Cormorant Garamond',serif;font-size:1.05rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold)}
   .sub{font-size:.74rem;color:var(--muted);margin-top:3px}
   .count{font-size:.72rem;color:var(--gold);margin-top:8px;letter-spacing:.08em}
@@ -35,7 +36,7 @@
   <span class="tag">Prototipo</span>
   <div class="prog" id="prog"></div>
   <header class="top">
-    <img class="mono" src="../mt-monogram.svg" alt="M&amp;T">
+    <div class="mono" role="img" aria-label="María y Tomás">M<span class="amp">&amp;</span>T</div>
     <div class="couple">María &nbsp;✕&nbsp; Tomás</div>
     <div class="sub">Comparte tus fotos de la noche</div>
     <div class="count"><b id="count">0</b> fotos compartidas</div>
