@@ -9,6 +9,34 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/studio.css">
+  <style>
+    /* ===== Híbrido: kickers mono + banda oscura + card flotante ===== */
+    .mono-kick{display:flex;flex-wrap:wrap;gap:22px;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:26px}
+    .mono-kick span{opacity:.85}
+
+    /* Banda oscura cinematográfica */
+    .darkband{background:#0E0E0C;color:#F4F1EA;padding:130px 0;margin:40px 0;position:relative;overflow:hidden}
+    .darkband .wrap{position:relative;z-index:2}
+    .darkband .db-kick{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:28px}
+    .darkband h2{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,7vw,5.4rem);line-height:1.02;letter-spacing:-.01em;max-width:16ch}
+    .darkband h2 em{font-style:italic;color:var(--accent)}
+    .darkband .db-sub{max-width:52ch;margin-top:26px;font-size:1.12rem;line-height:1.6;color:rgba(244,241,234,.72)}
+    .darkband .db-glow{position:absolute;inset:auto -10% -60% auto;width:70%;height:120%;background:radial-gradient(circle at 30% 40%,rgba(201,232,74,.10),transparent 60%);z-index:1;pointer-events:none}
+
+    /* Métricas en las cards de trabajo */
+    .work-metrics{display:flex;gap:34px;margin:16px 0 4px}
+    .work-metrics .m b{display:block;font-family:var(--serif);font-style:italic;font-size:1.9rem;line-height:1;color:var(--ink)}
+    .work-metrics .m span{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+    /* Card flotante humana (estilo Sanjaya) */
+    .float-cta{position:fixed;right:22px;bottom:22px;z-index:60;display:flex;align-items:center;gap:14px;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:12px 16px 12px 12px;box-shadow:0 20px 50px rgba(0,0,0,.16);text-decoration:none;color:var(--ink);transition:transform .25s,box-shadow .25s;max-width:calc(100vw - 44px)}
+    .float-cta:hover{transform:translateY(-3px);box-shadow:0 26px 60px rgba(0,0,0,.22)}
+    .float-cta .fc-av{width:46px;height:46px;border-radius:12px;object-fit:cover;flex:none}
+    .float-cta .fc-t b{display:block;font-size:.92rem;font-weight:600}
+    .float-cta .fc-t span{font-size:.74rem;color:var(--muted)}
+    .float-cta .fc-go{margin-left:6px;font-size:.8rem;color:var(--accent);font-weight:600;white-space:nowrap}
+    @media(max-width:620px){.float-cta .fc-t span{display:none}.darkband{padding:90px 0}}
+  </style>
 </head>
 <body>
 
@@ -18,7 +46,7 @@
       <a href="#trabajo">Trabajo</a>
       <a href="#estudio">Estudio</a>
       <a href="#contacto">Contacto</a>
-      <a class="nav-express" href="a-gent/">a-gent ↗</a>
+      <a class="nav-express" href="../a-gent/">a-gent ↗</a>
     </nav>
   </header>
 
@@ -27,6 +55,7 @@
     <!-- HERO editorial (21st · felipemenezes098/hero-05, adaptado) -->
     <section class="hero-ed">
       <div class="wrap hero-ed-grid">
+        <div class="mono-kick reveal"><span>/ Identidad</span><span>/ Sistemas de marca</span><span>/ Experiencias</span></div>
         <p class="hero-ed-tag reveal">Marca, producto e historia para quienes construyen algo que perdura.</p>
         <div class="hero-ed-main">
           <h1 class="reveal">Un estudio para fundadores que quieren que su marca se sienta <em>pensada</em>.</h1>
@@ -38,9 +67,19 @@
         </div>
       </div>
       <div class="hero-strip">
-        <figure class="hs-fig" data-speed="1.12"><img src="a-gent/propias/opt/005-top.jpg" alt=""></figure>
-        <figure class="hs-fig hs-tall" data-speed="0.9"><img src="a-gent/propias/opt/001-norvell-top.jpg" alt=""></figure>
-        <figure class="hs-fig" data-speed="1.18"><img src="a-gent/propias/opt/003-roselilab-photo.jpg" alt=""></figure>
+        <figure class="hs-fig" data-speed="1.12"><img src="../propias/opt/005-top.jpg" alt=""></figure>
+        <figure class="hs-fig hs-tall" data-speed="0.9"><img src="../propias/opt/001-norvell-top.jpg" alt=""></figure>
+        <figure class="hs-fig" data-speed="1.18"><img src="../propias/opt/003-roselilab-photo.jpg" alt=""></figure>
+      </div>
+    </section>
+
+    <!-- BANDA OSCURA (statement cinematográfico) -->
+    <section class="darkband">
+      <div class="db-glow"></div>
+      <div class="wrap">
+        <p class="db-kick reveal">/ Nuestra forma de trabajar</p>
+        <h2 class="reveal">Pensada. Precisa. <em>Tuya.</em></h2>
+        <p class="db-sub reveal">No producimos en serie. Tomamos pocos proyectos y los llevamos a profundidad — investigación asistida por IA, dirección y craft 100% humanos. El resultado se siente pensado, nunca generado.</p>
       </div>
     </section>
 
@@ -55,40 +94,40 @@
 
       <div class="works">
         <article class="work reveal">
-          <div class="work-media"><img src="a-gent/propias/opt/001-norvell.jpg" alt="Norvell"></div>
+          <div class="work-media"><img src="../propias/opt/001-norvell.jpg" alt="Norvell"></div>
           <div class="work-body">
             <span class="work-idx">01</span>
             <h3>Norvell</h3>
             <div class="work-meta"><span>Plataforma digital</span><span>Identidad + sistema</span><span>2026</span></div>
             <p class="work-desc">Una plataforma de analítica con producto sólido pero imagen genérica. Le dimos una identidad tan precisa como su tecnología.</p>
-            <a class="work-link" href="a-gent/casos/norvell.html">Ver proyecto</a>
+            <a class="work-link" href="../casos/norvell.html">Ver proyecto</a>
           </div>
         </article>
 
         <article class="work reveal">
-          <div class="work-media"><img src="a-gent/propias/opt/005-bone-mesh.jpg" alt="Bone Mesh"></div>
+          <div class="work-media"><img src="../propias/opt/005-bone-mesh.jpg" alt="Bone Mesh"></div>
           <div class="work-body">
             <span class="work-idx">02</span>
             <h3>Bone Mesh</h3>
             <div class="work-meta"><span>Joyería de lujo</span><span>Identidad + empaque</span><span>2026</span></div>
             <p class="work-desc">Una casa de joyería que necesitaba una identidad sofisticada y cálida — a la altura de sus piezas.</p>
-            <a class="work-link" href="a-gent/casos/bone-mesh.html">Ver proyecto</a>
+            <a class="work-link" href="../casos/bone-mesh.html">Ver proyecto</a>
           </div>
         </article>
 
         <article class="work reveal">
-          <div class="work-media"><img src="a-gent/propias/opt/005-cardinova.jpg" alt="Cardinova"></div>
+          <div class="work-media"><img src="../propias/opt/005-cardinova.jpg" alt="Cardinova"></div>
           <div class="work-body">
             <span class="work-idx">03</span>
             <h3>Cardinova</h3>
             <div class="work-meta"><span>HealthTech</span><span>Identidad + señalética</span><span>2026</span></div>
             <p class="work-desc">Tecnología clínica que buscaba proyectar confianza médica con una personalidad moderna y humana.</p>
-            <a class="work-link" href="a-gent/casos/cardinova.html">Ver proyecto</a>
+            <a class="work-link" href="../casos/cardinova.html">Ver proyecto</a>
           </div>
         </article>
 
         <article class="work reveal">
-          <div class="work-media"><img src="a-gent/propias/opt/004-voxen.jpg" alt="Voxen"></div>
+          <div class="work-media"><img src="../propias/opt/004-voxen.jpg" alt="Voxen"></div>
           <div class="work-body">
             <span class="work-idx">04</span>
             <h3>Voxen</h3>
@@ -153,8 +192,14 @@
       <h2 class="reveal">Trabajemos <em>juntos</em>.</h2>
       <p class="reveal">Cuéntanos sobre tu marca y qué quieres construir. Respondemos personalmente.</p>
       <a class="btn reveal" href="https://wa.me/573002112871?text=Hola%20Gritt%2C%20quiero%20hablar%20de%20un%20proyecto" target="_blank" rel="noopener">Escríbenos por WhatsApp →</a>
-      <p class="contact-alt reveal">¿Buscas algo rápido y por paquetes? Conoce <a href="a-gent/">a-gent</a>, nuestra línea express.</p>
+      <p class="contact-alt reveal">¿Buscas algo rápido y por paquetes? Conoce <a href="../a-gent/">a-gent</a>, nuestra línea express.</p>
     </section>
+
+    <a class="float-cta" href="https://wa.me/573002112871?text=Hola%20Gritt%2C%20quiero%20agendar%20una%20llamada" target="_blank" rel="noopener">
+      <img class="fc-av" src="../propias/opt/alan.jpg" alt="Alan">
+      <span class="fc-t"><b>Habla con Alan</b><span>Dirección creativa · Gritt</span></span>
+      <span class="fc-go">Agenda 15 min →</span>
+    </a>
 
   </main>
 
@@ -175,6 +220,11 @@
   (function(){
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const revealAll = ()=>document.querySelectorAll('.reveal,.reveal-media,.hs-fig').forEach(e=>e.classList.add('in'));
+
+    // Failsafe: nunca dejar la página en blanco. Si algo falla (CDN, IO, timing),
+    // a los 800ms se revela todo sí o sí. Las animaciones solo son un plus.
+    setTimeout(revealAll, 800);
+    window.addEventListener('load', ()=>setTimeout(revealAll, 300));
 
     // Fallback si GSAP no cargó (CDN) o reduce-motion: mostrar todo con IntersectionObserver simple
     if (typeof gsap === 'undefined' || reduce){
