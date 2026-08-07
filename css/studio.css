@@ -75,7 +75,8 @@ section{padding:110px 0}
 /* Enfoque */
 .principles{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;border-top:1px solid var(--line)}
 .principle{padding:38px 0;border-bottom:1px solid var(--line)}
-.principle:not(:last-child){border-right:1px solid var(--line);padding-right:34px}
+.principle:not(:last-child){border-right:1px solid var(--line);padding-right:40px}
+.principle:not(:first-child){padding-left:40px}
 .principle .n{font-family:var(--serif);font-style:italic;color:var(--muted)}
 .principle h4{font-size:1.15rem;font-weight:600;margin:14px 0 8px}
 .principle p{font-size:.92rem;color:#55514a}
