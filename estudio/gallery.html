@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gritt — Estudio de identidad (gallery)</title>
+<meta name="description" content="Estudio de identidad de marca para fundadores y productos de tecnología, SaaS y salud — y las experiencias que los rodean.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Lora:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#000; --paper:#fff; --char:#1c1c1c; --midnight:#070707; --mist:#e5e4e4;
+    --smoke:#8d8d8d; --pewter:#666; --ember:#b75928; --pine:#193f32; --tide:#002934;
+    --sans:'Montserrat',ui-sans-serif,system-ui,sans-serif; --serif:'Lora',Georgia,serif;
+    --max:1200px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:400;font-size:15px;line-height:1.5;letter-spacing:.15px;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  img,video{display:block;max-width:100%}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 40px}
+
+  /* Botón text + flecha (ghost) */
+  .tab{display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:400;letter-spacing:.15px;color:var(--ink);transition:gap .3s}
+  .tab .arw{font-size:16px;transition:transform .3s}
+  .tab:hover{gap:14px}.tab:hover .arw{transform:translateX(3px)}
+  .tab.on-dark{color:var(--paper)}
+  .tab.ember{color:var(--ember)}
+  .tab.pill{border:1px solid currentColor;border-radius:80px;padding:14px 22px}
+
+  /* Nav pill */
+  .nav{position:fixed;top:24px;left:0;right:0;z-index:50}
+  .nav-in{max-width:var(--max);margin:0 auto;padding:0 40px;display:flex;justify-content:flex-end}
+  .navpill{display:inline-flex;align-items:center;gap:14px;background:var(--char);color:var(--paper);border-radius:1584px;padding:10px 18px;font-size:12px;font-weight:500;letter-spacing:.12px}
+  .navpill .bars{display:inline-flex;flex-direction:column;gap:3px}
+  .navpill .bars i{width:16px;height:1.5px;background:var(--paper);display:block}
+
+  /* Hero full-bleed */
+  .hero{position:relative;width:100vw;height:100vh;min-height:640px;overflow:hidden}
+  .hero video,.hero img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(.2) contrast(1.02)}
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,7,7,.35),transparent 30%,transparent 55%,rgba(7,7,7,.6))}
+  .hero-intro{position:absolute;top:96px;left:0;right:0;z-index:3}
+  .hero-intro .wrap{max-width:var(--max)}
+  .hero-intro p{max-width:400px;color:var(--paper);font-size:15px;line-height:1.5}
+  .hero-mark{position:absolute;bottom:36px;left:0;right:0;z-index:3}
+  .hero-mark .wrap{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .wordmark{font-weight:300;font-size:clamp(72px,15vw,168px);line-height:.8;letter-spacing:-.025em;color:var(--paper)}
+  .hero-mark .tab{margin-bottom:18px}
+
+  /* Sección canvas */
+  section.canvas{padding:96px 0}
+  .lbl{font-size:12px;font-weight:400;letter-spacing:.12px;color:var(--smoke);margin-bottom:8px}
+  h2.heading{font-weight:300;font-size:clamp(34px,5vw,62px);line-height:1.08;letter-spacing:-.025em;max-width:16ch}
+  .lead-serif{font-family:var(--serif);font-size:18px;line-height:1.5;letter-spacing:.011em;max-width:600px;margin-top:26px;color:var(--ink)}
+  .lead{max-width:600px;margin-top:22px;color:var(--pewter);font-size:15px;line-height:1.5}
+  .col-narrow{max-width:600px}
+  em.ember{font-style:normal;color:var(--ember)}
+  .mt40{margin-top:40px}.mt24{margin-top:24px}
+
+  /* Lista numerada */
+  .numlist{margin-top:44px;max-width:760px}
+  .numitem{display:flex;align-items:baseline;gap:24px;padding:22px 0;border-top:1px solid var(--mist)}
+  .numitem .n{font-size:12px;color:var(--smoke);min-width:24px}
+  .numitem .t{font-size:18px;font-weight:400}
+  .numitem .d{margin-left:auto;font-size:14px;color:var(--pewter);max-width:46ch;text-align:right}
+  @media(max-width:680px){.numitem{flex-wrap:wrap}.numitem .d{margin-left:44px;text-align:left}}
+
+  /* Banda full-bleed foto */
+  .band{position:relative;width:100vw;height:78vh;min-height:480px;overflow:hidden;margin:0}
+  .band img{width:100%;height:100%;object-fit:cover;filter:grayscale(.15)}
+  .band .cap{position:absolute;left:0;right:0;bottom:40px;z-index:2}
+  .band .cap .lbl{color:var(--mist)}
+  .band .cap h3{font-weight:300;font-size:clamp(28px,4vw,48px);line-height:1.05;letter-spacing:-.02em;color:var(--paper);max-width:18ch}
+  .band::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(7,7,7,.6))}
+
+  /* Trabajo — gallery grid */
+  .gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:44px}
+  .g-item{position:relative;border-radius:8px;overflow:hidden;aspect-ratio:1400/861;display:block}
+  .g-item img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.22,1,.36,1);filter:grayscale(.12)}
+  .g-item:hover img{transform:scale(1.04)}
+  .g-item .meta{position:absolute;left:0;right:0;bottom:0;padding:20px;z-index:2;display:flex;justify-content:space-between;align-items:flex-end}
+  .g-item .meta .nm{font-size:18px;font-weight:400;color:var(--paper)}
+  .g-item .meta .cat{font-size:12px;color:var(--mist)}
+  .g-item::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(7,7,7,.7))}
+  @media(max-width:760px){.gallery{grid-template-columns:1fr}}
+
+  /* Two-column feature cards */
+  .features{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:44px}
+  .fcard{border-radius:8px;padding:40px 32px;min-height:340px;display:flex;flex-direction:column;justify-content:space-between}
+  .fcard.mist{background:var(--mist)}
+  .fcard.photo{position:relative;overflow:hidden;padding:0}
+  .fcard.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .fcard.photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,7,7,.25),rgba(7,7,7,.55))}
+  .fcard.photo .inner{position:relative;z-index:2;padding:40px 32px;display:flex;flex-direction:column;justify-content:space-between;height:100%}
+  .fcard h3{font-weight:300;font-size:clamp(28px,3.4vw,42px);line-height:1.06;letter-spacing:-.02em}
+  .fcard.photo h3,.fcard.photo .lbl{color:var(--paper)}
+  .fcard .row{display:flex;justify-content:space-between;align-items:flex-end;margin-top:30px}
+  .fmark{font-weight:300;font-size:30px;line-height:1;letter-spacing:-.02em;opacity:.5}
+  @media(max-width:760px){.features{grid-template-columns:1fr}}
+
+  /* Contacto */
+  .contact{padding:110px 0;text-align:left}
+  .contact h2{font-weight:300;font-size:clamp(34px,5.4vw,62px);line-height:1.06;letter-spacing:-.025em;max-width:16ch}
+
+  footer{border-top:1px solid var(--mist);padding:48px 0}
+  .foot-in{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px}
+  .foot-in .wm{font-weight:300;font-size:48px;letter-spacing:-.025em;line-height:.9}
+  .foot-r{font-size:12px;color:var(--smoke);text-align:right}
+  .foot-r a{color:var(--ember)}
+
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+
+  <div class="nav">
+    <div class="nav-in">
+      <a class="navpill" href="#contacto">GRITT <span class="bars"><i></i><i></i><i></i></span></a>
+    </div>
+  </div>
+
+  <!-- HERO full-bleed -->
+  <section class="hero">
+    <video autoplay muted loop playsinline poster="../propias/opt/001-norvell-top.jpg">
+      <source src="https://alanbuenhombre.github.io/clockwork-preview/v3%20assets/hero-banner.mp4" type="video/mp4">
+    </video>
+    <img class="bg" src="../propias/opt/001-norvell-top.jpg" alt="" style="display:none">
+    <div class="hero-intro">
+      <div class="wrap">
+        <p>Estudio de identidad de marca para fundadores y productos de tecnología, SaaS y salud — y las experiencias que los rodean.</p>
+      </div>
+    </div>
+    <div class="hero-mark">
+      <div class="wrap">
+        <div class="wordmark">Gritt</div>
+        <a class="tab on-dark" href="#trabajo">Ver trabajo <span class="arw">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATEMENT (canvas blanco) -->
+  <section class="canvas">
+    <div class="wrap col-narrow">
+      <p class="lbl reveal">Estudio de identidad · Colombia</p>
+      <h2 class="heading reveal">Marca que se siente <em class="ember">pensada</em>, no generada.</h2>
+      <p class="lead-serif reveal">No producimos en serie. Tomamos pocos proyectos y los llevamos a profundidad — investigación asistida por IA, dirección y craft 100% humanos. El resultado se siente pensado, nunca generado.</p>
+      <div class="mt40 reveal"><a class="tab ember" href="#contacto">Conversemos <span class="arw">→</span></a></div>
+    </div>
+  </section>
+
+  <!-- QUÉ HACEMOS (lista numerada) -->
+  <section class="canvas" style="padding-top:0">
+    <div class="wrap">
+      <p class="lbl reveal">Cómo trabajamos</p>
+      <h2 class="heading reveal">El agente prepara.<br>El ojo humano afina.</h2>
+      <div class="numlist reveal">
+        <div class="numitem"><span class="n">01</span><span class="t">Estrategia</span><span class="d">Entendemos negocio, mercado y propósito antes de dibujar.</span></div>
+        <div class="numitem"><span class="n">02</span><span class="t">Investigación con IA</span><span class="d">Agentes propios preparan research y una primera dirección.</span></div>
+        <div class="numitem"><span class="n">03</span><span class="t">Dirección humana</span><span class="d">Cada decisión final la toma un ojo de diseño.</span></div>
+        <div class="numitem"><span class="n">04</span><span class="t">Sistema, no piezas</span><span class="d">Identidad operativa, coherente en cada punto de contacto.</span></div>
+        <div class="numitem"><span class="n">05</span><span class="t">Experiencias</span><span class="d">Llevamos la marca a momentos reales — como una boda.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BANDA full-bleed -->
+  <div class="band">
+    <img src="../proyectos/opt/ceremonia.jpg" alt="María & Tomás">
+    <div class="cap"><div class="wrap"><p class="lbl">Experiencia de marca · 2026</p><h3>Una boda diseñada como una marca.</h3></div></div>
+  </div>
+
+  <!-- TRABAJO gallery -->
+  <section class="canvas" id="trabajo">
+    <div class="wrap">
+      <p class="lbl reveal">Trabajo seleccionado</p>
+      <h2 class="heading reveal">Marcas que sus dueños habitan.</h2>
+      <div class="gallery">
+        <a class="g-item reveal" href="../casos/norvell.html"><img src="../propias/opt/001-norvell.jpg" alt="Norvell"><div class="meta"><span class="nm">Norvell</span><span class="cat">Plataforma digital</span></div></a>
+        <a class="g-item reveal" href="../casos/bone-mesh.html"><img src="../propias/opt/005-bone-mesh.jpg" alt="Bone Mesh"><div class="meta"><span class="nm">Bone Mesh</span><span class="cat">Joyería de lujo</span></div></a>
+        <a class="g-item reveal" href="../casos/cardinova.html"><img src="../propias/opt/005-cardinova.jpg" alt="Cardinova"><div class="meta"><span class="nm">Cardinova</span><span class="cat">HealthTech</span></div></a>
+        <a class="g-item reveal" href="../proyectos/boda-maria-tomas.html"><img src="../proyectos/opt/ceremonia.jpg" alt="María & Tomás"><div class="meta"><span class="nm">María &amp; Tomás</span><span class="cat">Boda · Experiencia</span></div></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE two-column -->
+  <section class="canvas" style="padding-top:0">
+    <div class="wrap">
+      <div class="features">
+        <div class="fcard mist reveal">
+          <div><p class="lbl">Trabajemos juntos</p><h3>Cuéntanos qué quieres construir.</h3></div>
+          <div class="row"><a class="tab" href="https://wa.me/573002112871?text=Hola%20Gritt%2C%20quiero%20hablar%20de%20un%20proyecto" target="_blank" rel="noopener">Escríbenos <span class="arw">→</span></a><span class="fmark">Gritt</span></div>
+        </div>
+        <div class="fcard photo reveal"><img src="../propias/opt/005-top.jpg" alt="">
+          <div class="inner"><div><p class="lbl">Pocos clientes, foco total</p><h3>Trabajamos a profundidad, no por volumen.</h3></div>
+            <div class="row"><a class="tab on-dark" href="#trabajo">Ver trabajo <span class="arw">→</span></a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="contact" id="contacto">
+    <div class="wrap">
+      <p class="lbl reveal">Contacto</p>
+      <h2 class="reveal">Trabajemos <em class="ember">juntos</em>.</h2>
+      <p class="lead reveal">Cuéntanos sobre tu marca y qué quieres construir. Respondemos personalmente.</p>
+      <div class="mt40 reveal"><a class="tab pill ember" href="https://wa.me/573002112871?text=Hola%20Gritt%2C%20quiero%20hablar%20de%20un%20proyecto" target="_blank" rel="noopener">Escríbenos por WhatsApp <span class="arw">→</span></a></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap foot-in">
+      <div class="wm">Gritt</div>
+      <div class="foot-r"><a href="https://wa.me/573002112871" target="_blank" rel="noopener">WhatsApp</a><br>© 2026 Gritt · Colombia<br>Graphical · Response · Tactical · Transformation</div>
+    </div>
+  </footer>
+
+  <script>
+    var els=document.querySelectorAll('.reveal');
+    var show=function(){els.forEach(function(e){e.classList.add('in');});};
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+      els.forEach(function(el,i){el.style.transitionDelay=(i%4)*70+'ms';io.observe(el);});
+      setTimeout(show,1000);
+    } else { show(); }
+  </script>
+</body>
+</html>
