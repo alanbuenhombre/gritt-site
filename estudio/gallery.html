@@ -116,6 +116,15 @@
   .svc-pine{background:#0e0e0e;border:1px solid rgba(255,255,255,.08)} .svc-tide{background:#151515;border:1px solid rgba(255,255,255,.08)} .svc-cedar{background:#1c1c1c;border:1px solid rgba(255,255,255,.08)}
   @media(max-width:760px){.svc{grid-template-columns:1fr}}
 
+  /* Franja AI-first (verde) */
+  .aifirst{background:#0e211a;border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:64px 48px;position:relative;overflow:hidden}
+  .aifirst .lbl{color:rgba(198,242,78,.85)}
+  .aifirst h2{font-weight:300;font-size:clamp(30px,4.6vw,58px);line-height:1.05;letter-spacing:-.025em;margin-top:10px;max-width:20ch;color:var(--paper)}
+  .aifirst h2 em{font-style:italic;color:var(--ember)}
+  .aifirst p{margin-top:20px;max-width:58ch;color:rgba(243,245,241,.78);font-size:16px}
+  .aifirst .glow{position:absolute;right:-8%;bottom:-45%;width:48%;height:130%;background:radial-gradient(circle,rgba(198,242,78,.14),transparent 60%);pointer-events:none}
+  @media(max-width:600px){.aifirst{padding:44px 26px}}
+
   /* Two-column feature cards */
   .features{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:44px}
   .fcard{border-radius:8px;padding:40px 32px;min-height:340px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .5s cubic-bezier(.22,1,.36,1)}
@@ -236,15 +245,27 @@
     </div>
   </section>
 
-  <!-- SERVICIOS — cards de color -->
+  <!-- AI-FIRST (franja verde) -->
+  <section class="canvas" id="ia" style="padding-top:0">
+    <div class="wrap">
+      <div class="aifirst reveal">
+        <div class="glow"></div>
+        <p class="lbl">El futuro del trabajo creativo</p>
+        <h2>Más que “con IA”.<br>Creativo <em>AI-first</em>, hecho para subir el nivel.</h2>
+        <p>Construimos el proceso alrededor de cómo trabajan mejor humanos e IA: briefs más afilados, menos rondas de revisión, más consistencia de marca y piezas que de verdad funcionan.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS / pilares -->
   <section class="canvas" id="servicios" style="padding-top:0">
     <div class="wrap">
-      <p class="lbl reveal">Qué construimos</p>
-      <h2 class="heading reveal">Un sistema completo,<br>pieza por pieza.</h2>
+      <p class="lbl reveal">Tu ventaja creativa</p>
+      <h2 class="heading reveal">Talento de primer nivel.<br>Sistemas más <em style="font-style:italic;color:var(--ember)">inteligentes</em>.</h2>
       <div class="svc">
-        <div class="svc-card svc-pine reveal"><span class="num">01</span><div><h4>Identidad</h4><p>Logo, color, tipografía e imaginería — un mundo de marca coherente.</p></div></div>
-        <div class="svc-card svc-tide reveal"><span class="num">02</span><div><h4>Estrategia</h4><p>Posicionamiento, voz y dirección que conectan visuales con objetivos.</p></div></div>
-        <div class="svc-card svc-cedar reveal"><span class="num">03</span><div><h4>Sistema &amp; assets</h4><p>Guidelines y piezas de aplicación que tu equipo usa todos los días.</p></div></div>
+        <div class="svc-card svc-pine reveal"><span class="num">01</span><div><h4>Identidad de marca</h4><p>Logo, sistema visual y guidelines. La base coherente sobre la que vive todo lo demás.</p></div></div>
+        <div class="svc-card svc-tide reveal"><span class="num">02</span><div><h4>Contenido audiovisual</h4><p>Piezas para redes — video, motion y gráfica — producidas con workflows de IA, sin sacrificar craft.</p></div></div>
+        <div class="svc-card svc-cedar reveal"><span class="num">03</span><div><h4>Sistemas con IA</h4><p>IA embebida en todo el proceso: menos rework, marca protegida y más calidad en cada entrega.</p></div></div>
       </div>
     </div>
   </section>
