@@ -8,13 +8,18 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Lora:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="aker-tokens.css">
 <style>
   :root{
-    --ink:#000; --paper:#fff; --char:#1c1c1c; --midnight:#070707; --iron:#262626; --mist:#e5e4e4;
-    --smoke:#8d8d8d; --pewter:#666; --ember:#c6f24e; --pine:#193f32; --tide:#002934;
-    --cedar:#776157; --coral:#df6a6b; --driftwood:#537179;
-    --sans:'Montserrat',ui-sans-serif,system-ui,sans-serif; --serif:'Lora',Georgia,serif;
-    --max:1200px;
+    /* Consumidos del sistema Aker (aker-tokens.css) + tema negro/lima */
+    --ink:var(--color-ink); --paper:var(--color-paper); --char:var(--color-char);
+    --midnight:var(--color-midnight); --iron:var(--color-iron); --mist:var(--color-mist);
+    --smoke:var(--color-smoke); --pewter:var(--color-pewter);
+    --ember:var(--accent); /* acento = lima (override del tema) */
+    --pine:var(--color-pine); --tide:var(--color-tide); --cedar:var(--color-cedar);
+    --coral:var(--color-coral); --driftwood:var(--color-driftwood);
+    --sans:var(--font-proxima-nova); --serif:var(--font-lora);
+    --max:var(--page-max-width);
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}

@@ -1,0 +1,73 @@
+/* ============================================================
+   Sistema de diseño Aker — tokens oficiales
+   + capa de tema Gritt (negro + lima)
+   Base: DESIGN.md / variables.css (Aker Style Reference)
+   ============================================================ */
+:root {
+  /* --- Colores del sistema (Aker) --- */
+  --color-ink: #000000;
+  --color-paper: #ffffff;
+  --color-char: #1c1c1c;
+  --color-midnight: #070707;
+  --color-iron: #262626;
+  --color-slate: #38464a;
+  --color-mist: #e5e4e4;
+  --color-smoke: #8d8d8d;
+  --color-pewter: #666666;
+  --color-ember: #b75928;   /* acento original Aker (terracota) */
+  --color-pine: #193f32;
+  --color-tide: #002934;
+  --color-driftwood: #537179;
+  --color-cedar: #776157;
+  --color-coral: #df6a6b;
+  --color-primary-action-fill: #494949;
+
+  /* --- Tipografía (sustitutos web) --- */
+  --font-proxima-nova: 'Montserrat', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-lora: 'Lora', Georgia, serif;
+
+  /* Escala tipográfica */
+  --text-body: 15px;          --leading-body: 1.5;        --tracking-body: 0.15px;
+  --text-subheading: 18px;    --leading-subheading: 1.5;  --tracking-subheading: 0.18px;
+  --text-heading-sm: 22px;    --leading-heading-sm: 1.25; --tracking-heading-sm: -0.44px;
+  --text-heading: 36px;       --leading-heading: 1.2;     --tracking-heading: -0.72px;
+  --text-heading-lg: 62px;    --leading-heading-lg: 1.1;  --tracking-heading-lg: -1.55px;
+  --text-display: 168px;      --leading-display: 0.8;     --tracking-display: -4.2px;
+
+  --font-weight-light: 300;  --font-weight-regular: 400;
+  --font-weight-medium: 500; --font-weight-semibold: 600;
+
+  /* Spacing */
+  --spacing-4:4px;   --spacing-5:5px;   --spacing-6:6px;   --spacing-8:8px;
+  --spacing-10:10px; --spacing-12:12px; --spacing-13:13px; --spacing-14:14px;
+  --spacing-16:16px; --spacing-19:19px; --spacing-20:20px; --spacing-22:22px;
+  --spacing-24:24px; --spacing-32:32px; --spacing-48:48px; --spacing-64:64px;
+
+  /* Layout */
+  --page-max-width: 1200px;
+  --section-gap: 80px;
+  --card-padding: 16px;
+  --element-gap: 16px;
+
+  /* Radios */
+  --radius-md: 3.2px;   --radius-lg: 8px;   --radius-full: 80px;
+  --radius-full-2: 160px; --radius-full-3: 800px; --radius-full-4: 1584px;
+  --radius-cards: 8px; --radius-small: 3.2px; --radius-badges: 1584px;
+  --radius-images: 8px; --radius-buttons: 80px;
+
+  /* ============================================================
+     TEMA GRITT — negro + lima (override sobre el sistema)
+     ============================================================ */
+  --lime: #C6F24E;
+
+  /* Roles semánticos (usar estos en los componentes) */
+  --bg: #000000;                    /* canvas de página */
+  --fg: var(--color-paper);         /* texto principal */
+  --fg-muted: #a0a0a0;              /* texto secundario */
+  --accent: var(--lime);           /* acento único (reemplaza a Ember) */
+  --panel: #131313;                 /* card oscura (reemplaza a Mist) */
+  --panel-2: #0e0e0e;               /* card oscura alterna */
+  --panel-3: #1c1c1c;               /* card oscura elevada */
+  --hairline: rgba(255,255,255,.13);/* bordes/hairlines sobre negro */
+  --green-band: #0e211a;            /* franja verde AI-first */
+}
