@@ -11,21 +11,21 @@
 <style>
   :root{
     --ink:#000; --paper:#fff; --char:#1c1c1c; --midnight:#070707; --iron:#262626; --mist:#e5e4e4;
-    --smoke:#8d8d8d; --pewter:#666; --ember:#b75928; --pine:#193f32; --tide:#002934;
+    --smoke:#8d8d8d; --pewter:#666; --ember:#c6f24e; --pine:#193f32; --tide:#002934;
     --cedar:#776157; --coral:#df6a6b; --driftwood:#537179;
     --sans:'Montserrat',ui-sans-serif,system-ui,sans-serif; --serif:'Lora',Georgia,serif;
     --max:1200px;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:400;font-size:15px;line-height:1.5;letter-spacing:.15px;-webkit-font-smoothing:antialiased}
+  body{background:#000;color:var(--paper);font-family:var(--sans);font-weight:400;font-size:15px;line-height:1.5;letter-spacing:.15px;-webkit-font-smoothing:antialiased}
   a{color:inherit;text-decoration:none}
   img,video{display:block;max-width:100%}
   .wrap{max-width:var(--max);margin:0 auto;padding:0 40px}
   @media(max-width:600px){.wrap{padding:0 22px}}
 
   /* Botón text + flecha (ghost) */
-  .tab{display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:400;letter-spacing:.15px;color:var(--ink);transition:gap .3s}
+  .tab{display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:400;letter-spacing:.15px;color:var(--paper);transition:gap .3s}
   .tab .arw{font-size:16px;transition:transform .3s}
   .tab:hover{gap:14px}.tab:hover .arw{transform:translateX(3px)}
   .tab.on-dark{color:var(--paper)}
@@ -72,18 +72,18 @@
   .lbl{font-size:12px;font-weight:400;letter-spacing:.12px;color:var(--smoke);margin-bottom:8px;text-transform:none}
   h2.heading{font-weight:300;font-size:clamp(34px,5vw,62px);line-height:1.08;letter-spacing:-.025em;max-width:16ch}
   h3.heading-sm{font-weight:300;font-size:clamp(26px,3.4vw,42px);line-height:1.08;letter-spacing:-.02em}
-  .lead-serif{font-family:var(--serif);font-size:18px;line-height:1.5;letter-spacing:.011em;max-width:600px;margin-top:26px;color:var(--ink)}
-  .lead{max-width:600px;margin-top:22px;color:var(--pewter);font-size:15px;line-height:1.5}
+  .lead-serif{font-family:var(--serif);font-size:18px;line-height:1.5;letter-spacing:.011em;max-width:600px;margin-top:26px;color:rgba(255,255,255,.82)}
+  .lead{max-width:600px;margin-top:22px;color:#b0b0b0;font-size:15px;line-height:1.5}
   .col-narrow{max-width:600px}
   em.ember{font-style:normal;color:var(--ember)}
   .mt40{margin-top:40px}.mt24{margin-top:24px}
 
   /* Lista numerada */
   .numlist{margin-top:44px;max-width:820px}
-  .numitem{display:flex;align-items:baseline;gap:24px;padding:22px 0;border-top:1px solid var(--mist)}
-  .numitem .n{font-size:12px;color:var(--smoke);min-width:24px}
+  .numitem{display:flex;align-items:baseline;gap:24px;padding:22px 0;border-top:1px solid rgba(255,255,255,.13)}
+  .numitem .n{font-size:12px;color:var(--ember);min-width:24px}
   .numitem .t{font-size:18px;font-weight:400}
-  .numitem .d{margin-left:auto;font-size:14px;color:var(--pewter);max-width:46ch;text-align:right}
+  .numitem .d{margin-left:auto;font-size:14px;color:#a0a0a0;max-width:46ch;text-align:right}
   @media(max-width:680px){.numitem{flex-wrap:wrap}.numitem .d{margin-left:44px;text-align:left}}
 
   /* Banda full-bleed foto */
@@ -112,15 +112,15 @@
   .svc-card .lbl{color:rgba(255,255,255,.6)}
   .svc-card h4{font-weight:300;font-size:26px;line-height:1.1;letter-spacing:-.02em;color:var(--paper)}
   .svc-card p{font-size:14px;color:rgba(255,255,255,.72);margin-top:12px}
-  .svc-card .num{font-size:12px;color:rgba(255,255,255,.5)}
-  .svc-pine{background:var(--pine)} .svc-tide{background:var(--tide)} .svc-cedar{background:var(--cedar)}
+  .svc-card .num{font-size:12px;color:var(--ember)}
+  .svc-pine{background:#0e0e0e;border:1px solid rgba(255,255,255,.08)} .svc-tide{background:#151515;border:1px solid rgba(255,255,255,.08)} .svc-cedar{background:#1c1c1c;border:1px solid rgba(255,255,255,.08)}
   @media(max-width:760px){.svc{grid-template-columns:1fr}}
 
   /* Two-column feature cards */
   .features{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:44px}
   .fcard{border-radius:8px;padding:40px 32px;min-height:340px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .5s cubic-bezier(.22,1,.36,1)}
   .fcard:hover{transform:translateY(-6px)}
-  .fcard.mist{background:var(--mist)}
+  .fcard.mist{background:#131313;border:1px solid rgba(255,255,255,.08)}
   .fcard.photo{position:relative;overflow:hidden;padding:0}
   .fcard.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.22,1,.36,1)}
   .fcard.photo:hover img{transform:scale(1.05)}
@@ -139,7 +139,7 @@
   .contact{padding:110px 0}
   .contact h2{font-weight:300;font-size:clamp(34px,5.4vw,62px);line-height:1.06;letter-spacing:-.025em;max-width:16ch}
 
-  footer{border-top:1px solid var(--mist);padding:48px 0}
+  footer{border-top:1px solid rgba(255,255,255,.13);padding:48px 0}
   .foot-in{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px}
   .foot-in .wm{font-weight:300;font-size:clamp(48px,8vw,96px);letter-spacing:-.025em;line-height:.85}
   .foot-r{font-size:12px;color:var(--smoke);text-align:right}
@@ -189,12 +189,12 @@
 
   <!-- STATEMENT -->
   <section class="canvas">
-    <div class="wrap col-narrow">
+    <div class="wrap"><div class="col-narrow">
       <p class="lbl reveal">Estudio de identidad · Colombia</p>
       <h2 class="heading reveal">Marca que se siente <em class="ember">pensada</em>, no generada.</h2>
       <p class="lead-serif reveal">No producimos en serie. Tomamos pocos proyectos y los llevamos a profundidad — investigación asistida por IA, dirección y craft 100% humanos. El resultado se siente pensado, nunca generado.</p>
       <div class="mt40 reveal"><a class="tab ember" href="#contacto">Conversemos <span class="arw">→</span></a></div>
-    </div>
+    </div></div>
   </section>
 
   <!-- ÁREAS + feature cards -->
@@ -251,7 +251,7 @@
 
   <!-- EDITORIAL (Lora) -->
   <section class="canvas" id="estudio" style="padding-top:0">
-    <div class="wrap editorial">
+    <div class="wrap"><div class="editorial">
       <p class="lbl reveal">El estudio</p>
       <h3 class="heading-sm reveal">Pocos clientes. Foco total.</h3>
       <p class="lead-serif reveal">Gritt es un estudio de identidad. Trabajamos de cerca, con pocos proyectos a la vez, para construir sistemas de marca que perduran. La IA acelera la investigación; el criterio y la mano son humanos.</p>
@@ -261,7 +261,7 @@
         <div class="numitem"><span class="n">03</span><span class="t">Dirección humana</span><span class="d">Cada decisión final la toma un ojo de diseño.</span></div>
         <div class="numitem"><span class="n">04</span><span class="t">Sistema, no piezas</span><span class="d">Coherente en cada punto de contacto.</span></div>
       </div>
-    </div>
+    </div></div>
   </section>
 
   <!-- BANDA 2 -->
