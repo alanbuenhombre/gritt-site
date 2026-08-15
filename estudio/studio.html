@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gritt — Estudio creativo potenciado con IA</title>
+<meta name="description" content="Estudio de identidad de marca y contenido audiovisual para redes — craft humano + workflows de IA.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#050605; --panel:#0d100d; --ink:#F3F5F1; --muted:#9aa197; --line:rgba(255,255,255,.10);
+    --lime:#C6F24E; --green:#0e211a;
+    --sans:'Manrope',system-ui,sans-serif; --serif:'Instrument Serif',Georgia,serif;
+    --max:1240px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 40px}
+  @media(max-width:600px){.wrap{padding:0 22px}}
+  em{font-family:var(--serif);font-style:italic;font-weight:400}
+
+  .over{font-size:.74rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .over .dot{color:var(--lime)}
+
+  /* Buttons */
+  .btn{display:inline-flex;align-items:center;gap:9px;border-radius:999px;font-weight:600;font-size:.95rem;padding:14px 24px;transition:transform .25s,background .25s}
+  .btn-lime{background:var(--lime);color:#0b1004}
+  .btn-lime:hover{transform:translateY(-2px)}
+  .btn-ghost{border:1px solid var(--line);color:var(--ink)}
+  .btn-ghost:hover{border-color:rgba(255,255,255,.35)}
+
+  /* Nav */
+  .nav{position:absolute;top:0;left:0;right:0;z-index:20}
+  .nav-in{max-width:var(--max);margin:0 auto;padding:24px 40px;display:flex;align-items:center;justify-content:space-between}
+  .logo{font-family:var(--serif);font-size:1.7rem;letter-spacing:.01em}
+  .logo span{color:var(--lime)}
+  .nav-links{display:flex;gap:28px;font-size:.92rem;color:var(--muted)}
+  .nav-links a:hover{color:var(--ink)}
+  @media(max-width:900px){.nav-links{display:none}}
+
+  /* Hero */
+  .hero{padding:130px 0 70px;position:relative;overflow:hidden}
+  .hero-glow{position:absolute;top:-10%;right:-6%;width:46vw;height:46vw;background:radial-gradient(circle,rgba(198,242,78,.10),transparent 62%);filter:blur(30px);pointer-events:none;z-index:0}
+  .hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.02fr .98fr;gap:50px;align-items:center}
+  .h-tag{margin-bottom:22px}
+  h1.h-title{font-size:clamp(2.6rem,5.4vw,4.6rem);line-height:1.02;letter-spacing:-.02em;font-weight:600}
+  h1.h-title em{color:var(--lime)}
+  .h-sub{margin-top:22px;max-width:46ch;color:var(--muted);font-size:1.08rem}
+  .h-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+  .h-trust{margin-top:34px;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+  /* Mosaic */
+  .mosaic{columns:3;column-gap:12px}
+  .mosaic .tile{break-inside:avoid;margin-bottom:12px;border-radius:14px;overflow:hidden;position:relative;background:var(--panel)}
+  .mosaic .tile img{width:100%;display:block;transition:transform .8s cubic-bezier(.22,1,.36,1)}
+  .mosaic .tile:hover img{transform:scale(1.05)}
+  .mosaic .tile.lime{background:var(--lime);aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;color:#0b1004;font-family:var(--serif);font-style:italic;font-size:1.6rem;padding:16px;text-align:center}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr}.mosaic{columns:3}}
+  @media(max-width:520px){.mosaic{columns:2}}
+
+  /* Secciones */
+  section.band{padding:96px 0}
+  .sec-head{max-width:760px;margin-bottom:20px}
+  .sec-head h2{font-size:clamp(2rem,4.4vw,3.4rem);line-height:1.06;letter-spacing:-.02em;font-weight:600;margin-top:14px}
+  .sec-head h2 em{color:var(--lime)}
+  .sec-head p{margin-top:16px;color:var(--muted);font-size:1.06rem;max-width:54ch}
+
+  /* Pilares */
+  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
+  .pillar{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:30px 26px;transition:transform .5s cubic-bezier(.22,1,.36,1)}
+  .pillar:hover{transform:translateY(-6px)}
+  .pillar .pn{font-family:var(--serif);font-style:italic;font-size:1.5rem;color:var(--lime)}
+  .pillar h3{font-size:1.3rem;font-weight:600;margin:12px 0 8px}
+  .pillar p{color:var(--muted);font-size:.95rem}
+  @media(max-width:820px){.pillars{grid-template-columns:1fr}}
+
+  /* Franja AI-first */
+  .aifirst{background:var(--green);border-radius:24px;padding:64px 48px;position:relative;overflow:hidden}
+  .aifirst .over{color:rgba(198,242,78,.8)}
+  .aifirst h2{font-size:clamp(2rem,4.6vw,3.6rem);line-height:1.05;letter-spacing:-.02em;font-weight:600;margin-top:16px;max-width:20ch}
+  .aifirst h2 em{color:var(--lime)}
+  .aifirst p{margin-top:18px;max-width:56ch;color:rgba(243,245,241,.78)}
+  .aifirst .glow{position:absolute;right:-10%;bottom:-40%;width:50%;height:120%;background:radial-gradient(circle,rgba(198,242,78,.14),transparent 60%);pointer-events:none}
+
+  /* Trabajo grid */
+  .works{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:44px}
+  .work{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:1400/861;display:block}
+  .work img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.22,1,.36,1)}
+  .work:hover img{transform:scale(1.05)}
+  .work .meta{position:absolute;left:0;right:0;bottom:0;padding:20px;z-index:2;display:flex;justify-content:space-between;align-items:flex-end}
+  .work .nm{font-size:1.15rem;font-weight:600}.work .cat{font-size:.78rem;color:var(--muted)}
+  .work::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(5,6,5,.8))}
+  @media(max-width:760px){.works{grid-template-columns:1fr}}
+
+  /* Contacto */
+  .contact{padding:110px 0;text-align:center}
+  .contact h2{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:600;letter-spacing:-.02em}
+  .contact h2 em{color:var(--lime)}
+  .contact p{color:var(--muted);margin:16px auto 0;max-width:44ch}
+  .contact .btn{margin-top:28px}
+
+  footer{border-top:1px solid var(--line);padding:40px 0;color:var(--muted);font-size:.85rem}
+  .foot-in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;align-items:center}
+  .foot-in .logo{color:var(--ink)}
+
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav-in">
+      <a class="logo" href="/">Gritt<span>.</span></a>
+      <nav class="nav-links"><a href="#servicios">Servicios</a><a href="#trabajo">Trabajo</a><a href="#ia">IA</a><a href="#contacto">Contacto</a></nav>
+      <a class="btn btn-lime" href="https://wa.me/573002112871?text=Hola%20Gritt%2C%20quiero%20agendar%20una%20llamada" target="_blank" rel="noopener">Agenda una llamada</a>
+    </div>
+  </header>
+
+  <!-- HERO con mosaico -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="wrap hero-grid">
+      <div class="h-left">
+        <div class="over h-tag reveal">Estudio creativo <span class="dot">·</span> potenciado con IA</div>
+        <h1 class="h-title reveal">Tu marca y tu <em>contenido</em>, potenciados con IA.</h1>
+        <p class="h-sub reveal">Estudio de identidad y contenido audiovisual para redes. Craft humano + workflows de IA — rápido, coherente y a la altura de tu marca.</p>
+        <div class="h-cta reveal">
+          <a class="btn btn-lime" href="https://wa.me/573002112871?text=Hola%20Gritt%2C%20quiero%20agendar%20una%20llamada" target="_blank" rel="noopener">Agenda una llamada →</a>
+          <a class="btn btn-ghost" href="#trabajo">Ver trabajo</a>
+        </div>
+        <div class="h-trust reveal">Marca · Contenido audiovisual · Social · Workflows con IA</div>
+      </div>
+      <div class="mosaic reveal">
+        <div class="tile"><img src="../propias/opt/001-norvell.jpg" alt=""></div>
+        <div class="tile lime">Craft humano + IA</div>
+        <div class="tile"><img src="../propias/opt/005-cardinova.jpg" alt=""></div>
+        <div class="tile"><img src="../proyectos/opt/ceremonia.jpg" alt=""></div>
+        <div class="tile"><img src="../propias/opt/005-bone-mesh.jpg" alt=""></div>
+        <div class="tile"><img src="../propias/opt/004-voxen.jpg" alt=""></div>
+        <div class="tile"><img src="../proyectos/opt/identidad.jpg" alt=""></div>
+        <div class="tile"><img src="../propias/opt/003-roselilab-photo.jpg" alt=""></div>
+        <div class="tile"><img src="../proyectos/opt/app-fotos.jpg" alt=""></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI-FIRST -->
+  <section class="band" id="ia">
+    <div class="wrap">
+      <div class="aifirst reveal">
+        <div class="glow"></div>
+        <div class="over">El futuro del trabajo creativo</div>
+        <h2>Más que “con IA”.<br>Creativo <em>AI-first</em>, hecho para subir el nivel.</h2>
+        <p>Construimos el proceso alrededor de cómo trabajan mejor humanos e IA: briefs más afilados, menos rondas de revisión, más consistencia de marca y piezas que de verdad funcionan.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PILARES / SERVICIOS -->
+  <section class="band" id="servicios" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="over">Tu ventaja creativa</div>
+        <h2>Talento de primer nivel.<br>Sistemas más <em>inteligentes</em>.</h2>
+      </div>
+      <div class="pillars">
+        <div class="pillar reveal"><div class="pn">01</div><h3>Identidad de marca</h3><p>Logo, sistema visual y guidelines. La base coherente sobre la que vive todo lo demás.</p></div>
+        <div class="pillar reveal"><div class="pn">02</div><h3>Contenido audiovisual</h3><p>Piezas para redes — video, motion y gráfica — producidas con workflows de IA, sin sacrificar craft.</p></div>
+        <div class="pillar reveal"><div class="pn">03</div><h3>Sistemas con IA</h3><p>IA embebida en todo el proceso: menos rework, marca protegida y más calidad en cada entrega.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRABAJO -->
+  <section class="band" id="trabajo" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="over">Trabajo seleccionado</div>
+        <h2>Marcas que sus dueños <em>habitan</em>.</h2>
+      </div>
+      <div class="works">
+        <a class="work reveal" href="../casos/norvell.html"><img src="../propias/opt/001-norvell.jpg" alt="Norvell"><div class="meta"><span class="nm">Norvell</span><span class="cat">Plataforma digital</span></div></a>
+        <a class="work reveal" href="../casos/bone-mesh.html"><img src="../propias/opt/005-bone-mesh.jpg" alt="Bone Mesh"><div class="meta"><span class="nm">Bone Mesh</span><span class="cat">Joyería de lujo</span></div></a>
+        <a class="work reveal" href="../casos/cardinova.html"><img src="../propias/opt/005-cardinova.jpg" alt="Cardinova"><div class="meta"><span class="nm">Cardinova</span><span class="cat">HealthTech</span></div></a>
+        <a class="work reveal" href="../proyectos/boda-maria-tomas.html"><img src="../proyectos/opt/ceremonia.jpg" alt="María & Tomás"><div class="meta"><span class="nm">María &amp; Tomás</span><span class="cat">Boda · Experiencia</span></div></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="contact" id="contacto">
+    <div class="wrap">
+      <div class="over reveal" style="justify-content:center">Trabajemos juntos</div>
+      <h2 class="reveal">El equipo creativo que <em>tu equipo</em> pedía.</h2>
+      <p class="reveal">Cuéntanos tu marca y qué quieres construir. Respondemos personalmente.</p>
+      <div class="reveal"><a class="btn btn-lime" href="https://wa.me/573002112871?text=Hola%20Gritt%2C%20quiero%20agendar%20una%20llamada" target="_blank" rel="noopener">Agenda una llamada →</a></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap foot-in">
+      <a class="logo" href="/">Gritt<span>.</span></a>
+      <div>© 2026 Gritt · Colombia · <a href="https://wa.me/573002112871" style="color:var(--lime)">WhatsApp</a></div>
+    </div>
+  </footer>
+
+  <script>
+    var els=document.querySelectorAll('.reveal');
+    var show=function(){els.forEach(function(e){e.classList.add('in');});};
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.1});
+      els.forEach(function(el,i){el.style.transitionDelay=(i%4)*70+'ms';io.observe(el);});
+      setTimeout(show,1000);
+    } else { show(); }
+  </script>
+</body>
+</html>
