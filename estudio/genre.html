@@ -63,6 +63,14 @@
   .flow .pulse{fill:#eaffb0;filter:drop-shadow(0 0 7px var(--lime))}
   .flow .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;fill:rgba(198,242,78,.78)}
   .flow .ring{fill:none;stroke:rgba(198,242,78,.45);stroke-width:1}
+  /* Cards del flujo del agente */
+  .flow .card-bg{fill:rgba(18,22,14,.9);stroke:rgba(198,242,78,.28);stroke-width:1}
+  .flow .card-ic{fill:rgba(198,242,78,.14);stroke:rgba(198,242,78,.55);stroke-width:1}
+  .flow .card-t{fill:#eaf3df;font-family:var(--sans);font-weight:600;font-size:13px}
+  .flow .card-m{fill:rgba(198,242,78,.72);font-family:var(--mono);font-size:9px;letter-spacing:.1em}
+  .flow.back .card-bg{fill:rgba(14,17,11,.82);stroke:rgba(198,242,78,.16)}
+  .flow.back .card-t{fill:rgba(234,243,223,.55)}
+  .flow .check{fill:none;stroke:var(--lime);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
   @media(prefers-reduced-motion:reduce){.flow .dash{animation:none}.flow .pulse,.flow .node{display:none}}
 
   .hero-cap{position:absolute;bottom:64px;left:0;right:0;z-index:3;text-align:center}
@@ -158,46 +166,79 @@
     <!-- Flujo del AGENTE — capa DETRÁS de la tipografía -->
     <svg class="flow back" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
       <!-- brief → Valores (arriba, tras las letras) → deck -->
-      <path class="wire dim" d="M120,300 C300,235 470,190 600,150"/>
-      <path class="wire dim dash" d="M120,300 C300,235 470,190 600,150"/>
-      <path class="wire dim" d="M600,150 C800,135 960,205 1080,300"/>
-      <path class="wire dim dash" d="M600,150 C800,135 960,205 1080,300" style="animation-duration:4.2s"/>
-      <!-- brief → Identidad (abajo-der, tras las letras) → deck -->
-      <path class="wire dim" d="M120,300 C330,365 570,425 790,445"/>
-      <path class="wire dim dash" d="M120,300 C330,365 570,425 790,445" style="animation-duration:4.6s"/>
-      <path class="wire dim" d="M790,445 C930,432 1015,372 1080,300"/>
-      <path class="wire dim dash" d="M790,445 C930,432 1015,372 1080,300" style="animation-duration:3.8s"/>
-      <circle class="node" cx="600" cy="150" r="4"/>
-      <circle class="node" cx="790" cy="445" r="4"/>
-      <circle class="node" r="3"><animateMotion dur="5s" repeatCount="indefinite" path="M120,300 C300,235 470,190 600,150 C800,135 960,205 1080,300"/></circle>
+      <path class="wire dim" d="M175,300 C330,225 500,150 590,120"/>
+      <path class="wire dim dash" d="M175,300 C330,225 500,150 590,120"/>
+      <path class="wire dim" d="M740,120 C860,120 980,210 1035,290"/>
+      <path class="wire dim dash" d="M740,120 C860,120 980,210 1035,290" style="animation-duration:4.2s"/>
+      <!-- card Valores (detrás) -->
+      <g class="card back-card" transform="translate(590,94)">
+        <rect class="card-bg" width="150" height="52" rx="10"/>
+        <rect class="card-ic" x="12" y="14" width="24" height="24" rx="7"/>
+        <text class="card-t" x="46" y="24">Valores</text>
+        <text class="card-m" x="46" y="39">MOMENTO 02</text>
+      </g>
+      <circle class="node" r="3"><animateMotion dur="5s" repeatCount="indefinite" path="M175,300 C330,225 500,150 590,120"/></circle>
     </svg>
 
     <div class="neon" aria-label="Gritt"><span class="ltr">G</span><span class="ltr">r</span><span class="ltr">i</span><span class="ltr">t</span><span class="ltr">t</span></div>
 
     <!-- Flujo del AGENTE — capa DELANTE de la tipografía -->
     <svg class="flow front" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-      <!-- brief → Propósito (arriba-izq, delante) → deck -->
-      <path class="wire bright" d="M120,300 C235,252 320,208 385,175"/>
-      <path class="wire bright dash" d="M120,300 C235,252 320,208 385,175"/>
-      <path class="wire bright" d="M385,175 C570,120 865,150 1080,300"/>
-      <path class="wire bright dash" d="M385,175 C570,120 865,150 1080,300" style="animation-duration:4s"/>
-      <!-- brief → Posicionamiento (abajo-izq, delante) → deck -->
-      <path class="wire bright" d="M120,300 C265,362 405,422 505,455"/>
-      <path class="wire bright dash" d="M120,300 C265,362 405,422 505,455" style="animation-duration:4.4s"/>
-      <path class="wire bright" d="M505,455 C705,470 925,420 1080,300"/>
-      <path class="wire bright dash" d="M505,455 C705,470 925,420 1080,300" style="animation-duration:3.6s"/>
-      <!-- nodos etapa -->
-      <circle class="node" cx="385" cy="175" r="4.5"/>
-      <circle class="node" cx="505" cy="455" r="4.5"/>
-      <!-- endpoints: brief y deck -->
-      <circle class="pulse" cx="120" cy="300" r="6"/>
-      <circle class="ring" cx="120" cy="300" r="12"><animate attributeName="r" values="8;18;8" dur="2.6s" repeatCount="indefinite"/><animate attributeName="opacity" values=".5;0;.5" dur="2.6s" repeatCount="indefinite"/></circle>
-      <circle class="pulse" cx="1080" cy="300" r="6"/>
-      <text class="lbl" x="120" y="336" text-anchor="middle">brief</text>
-      <text class="lbl" x="1080" y="336" text-anchor="middle">deck vivo</text>
-      <!-- energía recorriendo el flujo completo -->
-      <circle class="pulse" r="5"><animateMotion dur="3.8s" repeatCount="indefinite" path="M120,300 C235,252 320,208 385,175 C570,120 865,150 1080,300"/></circle>
-      <circle class="pulse" r="4"><animateMotion dur="4.6s" repeatCount="indefinite" begin="-1.6s" path="M120,300 C265,362 405,422 505,455 C705,470 925,420 1080,300"/></circle>
+      <!-- cables -->
+      <path class="wire bright" d="M190,300 C235,215 255,140 280,110"/>
+      <path class="wire bright dash" d="M190,300 C235,215 255,140 280,110"/>
+      <path class="wire bright" d="M435,106 C660,80 900,120 1010,296"/>
+      <path class="wire bright dash" d="M435,106 C660,80 900,120 1010,296" style="animation-duration:4s"/>
+      <path class="wire bright" d="M190,300 C205,365 220,420 235,452"/>
+      <path class="wire bright dash" d="M190,300 C205,365 220,420 235,452" style="animation-duration:4.4s"/>
+      <path class="wire bright" d="M411,456 C660,492 905,415 1010,304"/>
+      <path class="wire bright dash" d="M411,456 C660,492 905,415 1010,304" style="animation-duration:3.6s"/>
+      <path class="wire bright" d="M190,300 C360,395 515,450 630,466" style="opacity:.8"/>
+      <path class="wire bright dash" d="M190,300 C360,395 515,450 630,466" style="animation-duration:4.8s;opacity:.8"/>
+      <path class="wire bright" d="M785,468 C880,452 965,378 1010,306" style="opacity:.8"/>
+      <path class="wire bright dash" d="M785,468 C880,452 965,378 1010,306" style="animation-duration:4.2s;opacity:.8"/>
+
+      <!-- CARDS -->
+      <g class="card" transform="translate(40,274)">
+        <rect class="card-bg" width="150" height="52" rx="10"/>
+        <rect class="card-ic" x="12" y="14" width="24" height="24" rx="7"/>
+        <text class="card-t" x="46" y="24">Brief recibido</text>
+        <text class="card-m" x="46" y="39">ENTRADA</text>
+        <circle class="ring" cx="24" cy="26" r="16"><animate attributeName="r" values="10;20;10" dur="2.6s" repeatCount="indefinite"/><animate attributeName="opacity" values=".5;0;.5" dur="2.6s" repeatCount="indefinite"/></circle>
+      </g>
+      <g class="card" transform="translate(280,80)">
+        <rect class="card-bg" width="155" height="52" rx="10"/>
+        <rect class="card-ic" x="12" y="14" width="24" height="24" rx="7"/>
+        <text class="card-t" x="46" y="24">Propósito</text>
+        <text class="card-m" x="46" y="39">MOMENTO 01</text>
+        <path class="check" d="M133,20 l4,4 l7,-8"/>
+      </g>
+      <g class="card" transform="translate(235,430)">
+        <rect class="card-bg" width="176" height="52" rx="10"/>
+        <rect class="card-ic" x="12" y="14" width="24" height="24" rx="7"/>
+        <text class="card-t" x="46" y="24">Posicionamiento</text>
+        <text class="card-m" x="46" y="39">MOMENTO 03</text>
+        <path class="check" d="M154,20 l4,4 l7,-8"/>
+      </g>
+      <g class="card" transform="translate(630,442)">
+        <rect class="card-bg" width="155" height="52" rx="10"/>
+        <rect class="card-ic" x="12" y="14" width="24" height="24" rx="7"/>
+        <text class="card-t" x="46" y="24">Identidad</text>
+        <text class="card-m" x="46" y="39">MOMENTO 04</text>
+        <path class="check" d="M133,20 l4,4 l7,-8"/>
+      </g>
+      <g class="card" transform="translate(1010,274)">
+        <rect class="card-bg" width="150" height="52" rx="10"/>
+        <rect class="card-ic" x="12" y="14" width="24" height="24" rx="7"/>
+        <text class="card-t" x="46" y="24">Deck vivo</text>
+        <text class="card-m" x="46" y="39">SALIDA</text>
+        <circle class="pulse" cx="24" cy="26" r="4"/>
+      </g>
+
+      <!-- energía viajando por el flujo -->
+      <circle class="pulse" r="5"><animateMotion dur="4s" repeatCount="indefinite" path="M435,106 C660,80 900,120 1010,296"/></circle>
+      <circle class="pulse" r="4.5"><animateMotion dur="4.6s" repeatCount="indefinite" begin="-1.6s" path="M190,300 C205,365 220,420 235,452"/></circle>
+      <circle class="pulse" r="4"><animateMotion dur="4.2s" repeatCount="indefinite" begin="-2.4s" path="M785,468 C880,452 965,378 1010,306"/></circle>
     </svg>
     <div class="hero-cap"><span class="mono">Estudio creativo AI-native · Marca &amp; contenido</span></div>
     <div class="hero-arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 12.5l6 6 6-6"/></svg></div>
