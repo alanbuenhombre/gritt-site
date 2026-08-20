@@ -321,26 +321,10 @@
         <a href="https://wa.me/573002112871?text=Hola%20Gritt%2C%20quiero%20hablar%20sobre%20mi%20marca">WhatsApp</a><a href="#">Instagram</a><a href="#">LinkedIn</a>
       </div>
     </div>
-    <p class="footer-copy">© 2026 Gritt<span id="visitasWrap" style="display:none"> · <span id="visitas">—</span> visitas</span></p>
+    <p class="footer-copy">© 2026 Gritt</p>
   </footer>
 
   <script src="js/main.js"></script>
-  <script>
-    // Número visible de visitas — GoatCounter (visitor counter)
-    (function(){
-      var el=document.getElementById('visitas');
-      if(!el || !window.fetch) return;
-      fetch('https://gritt.goatcounter.com/counter/TOTAL.json')
-        .then(function(r){ if(!r.ok) throw 0; return r.json(); })
-        .then(function(d){
-          var raw = (d && (d.count_unique || d.count)) || '0';
-          var n = parseInt(String(raw).replace(/[^0-9]/g,''),10) || 0;
-          el.textContent = n.toLocaleString('es-CO');
-          document.getElementById('visitasWrap').style.display='';
-        })
-        .catch(function(){ /* si el contador no está habilitado, no se muestra nada */ });
-    })();
-  </script>
   <script data-goatcounter="https://gritt.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
