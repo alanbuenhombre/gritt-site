@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/tasa-orbiter-display" rel="stylesheet">
 <style>
   :root{
     --dark:#0a0b09; --dark2:#111311; --cream:#ECE9E0; --cream2:#E3DFD4;
@@ -44,11 +45,24 @@
     background:radial-gradient(120% 90% at 50% 46%,#17190f 0%,#0b0c0a 55%,#050604 100%)}
   .hero-glow{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);width:80vw;height:44vw;
     background:radial-gradient(ellipse,rgba(198,242,78,.16),transparent 65%);filter:blur(30px);z-index:1}
-  .neon{position:relative;z-index:3;display:inline-flex;font-weight:800;font-size:clamp(4.5rem,20vw,15rem);line-height:.9;letter-spacing:-.02em;transition:transform .3s}
+  .neon{position:relative;z-index:3;display:inline-flex;font-family:'TASA Orbiter Display','TASA Orbiter',var(--sans);font-weight:800;font-size:clamp(4.5rem,20vw,15rem);line-height:.9;letter-spacing:-.01em;transition:transform .3s}
   .neon.full{transform:scale(1.015)}
   .neon .ltr{display:inline-block;color:transparent;-webkit-text-stroke:1.6px rgba(232,255,176,.15);transition:-webkit-text-stroke-color .12s ease,filter .18s ease}
   .neon .ltr.on{-webkit-text-stroke-color:var(--lime-soft);
     filter:drop-shadow(0 0 3px var(--lime)) drop-shadow(0 0 12px rgba(198,242,78,.85)) drop-shadow(0 0 34px rgba(198,242,78,.5))}
+  /* Flujos que cruzan la tipografía (detrás y delante) */
+  .flow{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+  .flow.back{z-index:2}
+  .flow.front{z-index:4}
+  .flow .wire{fill:none;stroke-linecap:round}
+  .flow .dim{stroke:rgba(198,242,78,.30);stroke-width:1.1;filter:drop-shadow(0 0 3px rgba(198,242,78,.45))}
+  .flow .bright{stroke:rgba(198,242,78,.85);stroke-width:1.9;filter:drop-shadow(0 0 6px rgba(198,242,78,.85))}
+  .flow .dash{stroke-dasharray:5 210;animation:flowdash 3.4s linear infinite}
+  @keyframes flowdash{to{stroke-dashoffset:-430}}
+  .flow .node{fill:rgba(198,242,78,.7);filter:drop-shadow(0 0 5px var(--lime))}
+  .flow .pulse{fill:#eaffb0;filter:drop-shadow(0 0 7px var(--lime))}
+  @media(prefers-reduced-motion:reduce){.flow .dash{animation:none}.flow .pulse,.flow .node{display:none}}
+
   .hero-cap{position:absolute;bottom:64px;left:0;right:0;z-index:3;text-align:center}
   .hero-cap .mono{color:var(--muted-d)}
   .hero-arrow{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:3;color:var(--muted-d);animation:bob 1.8s ease-in-out infinite}
@@ -138,7 +152,28 @@
   <!-- HERO neón -->
   <section class="hero">
     <div class="hero-glow"></div>
+
+    <!-- Flujo DETRÁS de la tipografía -->
+    <svg class="flow back" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <path class="wire dim" d="M-60,300 C240,150 460,150 620,300 S960,470 1260,320"/>
+      <path class="wire dim dash" d="M-60,300 C240,150 460,150 620,300 S960,470 1260,320"/>
+      <path class="wire dim" d="M-60,420 C300,520 560,300 900,360 S1160,410 1260,380"/>
+      <path class="wire dim dash" d="M-60,420 C300,520 560,300 900,360 S1160,410 1260,380" style="animation-duration:4.6s"/>
+      <circle class="node" r="3.5"><animateMotion dur="4.2s" repeatCount="indefinite" path="M-60,300 C240,150 460,150 620,300 S960,470 1260,320"/></circle>
+      <circle class="node" r="3"><animateMotion dur="5.4s" repeatCount="indefinite" begin="-2s" path="M-60,420 C300,520 560,300 900,360 S1160,410 1260,380"/></circle>
+    </svg>
+
     <div class="neon" aria-label="Gritt"><span class="ltr">G</span><span class="ltr">r</span><span class="ltr">i</span><span class="ltr">t</span><span class="ltr">t</span></div>
+
+    <!-- Flujo DELANTE de la tipografía -->
+    <svg class="flow front" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <path class="wire bright" d="M-60,258 C300,360 500,300 660,322 S1000,220 1260,268"/>
+      <path class="wire bright dash" d="M-60,258 C300,360 500,300 660,322 S1000,220 1260,268"/>
+      <path class="wire bright" d="M-60,392 C360,300 680,470 900,360 S1160,300 1260,340" style="stroke-width:1.4;opacity:.85"/>
+      <path class="wire bright dash" d="M-60,392 C360,300 680,470 900,360 S1160,300 1260,340" style="animation-duration:4s;stroke-width:1.4"/>
+      <circle class="pulse" r="4.5"><animateMotion dur="3.6s" repeatCount="indefinite" path="M-60,258 C300,360 500,300 660,322 S1000,220 1260,268"/></circle>
+      <circle class="pulse" r="3.6"><animateMotion dur="4.8s" repeatCount="indefinite" begin="-1.6s" path="M-60,392 C360,300 680,470 900,360 S1160,300 1260,340"/></circle>
+    </svg>
     <div class="hero-cap"><span class="mono">Estudio creativo AI-native · Marca &amp; contenido</span></div>
     <div class="hero-arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 12.5l6 6 6-6"/></svg></div>
   </section>
