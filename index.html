@@ -321,9 +321,24 @@
         <a href="https://wa.me/573002112871?text=Hola%20Gritt%2C%20quiero%20hablar%20sobre%20mi%20marca">WhatsApp</a><a href="#">Instagram</a><a href="#">LinkedIn</a>
       </div>
     </div>
-    <p class="footer-copy">© 2026 Gritt</p>
+    <p class="footer-copy">© 2026 Gritt<span id="visitasWrap" style="display:none"> · <span id="visitas">—</span> visitas</span></p>
   </footer>
 
   <script src="js/main.js"></script>
+  <script>
+    // Contador de visitas (Abacus — servicio gratuito, sin cuenta)
+    (function(){
+      var el=document.getElementById('visitas');
+      if(!el || !window.fetch) return;
+      fetch('https://abacus.jasoncameron.dev/hit/gritt-design/home')
+        .then(function(r){ return r.json(); })
+        .then(function(d){
+          var n = (d && (d.value!=null ? d.value : d.count)) || 0;
+          el.textContent = n.toLocaleString('es-CO');
+          document.getElementById('visitasWrap').style.display='';
+        })
+        .catch(function(){ /* si el servicio no responde, no se muestra nada */ });
+    })();
+  </script>
 </body>
 </html>
