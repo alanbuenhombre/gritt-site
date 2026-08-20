@@ -326,19 +326,21 @@
 
   <script src="js/main.js"></script>
   <script>
-    // Contador de visitas (Abacus — servicio gratuito, sin cuenta)
+    // Número visible de visitas — GoatCounter (visitor counter)
     (function(){
       var el=document.getElementById('visitas');
       if(!el || !window.fetch) return;
-      fetch('https://abacus.jasoncameron.dev/hit/gritt-design/home')
-        .then(function(r){ return r.json(); })
+      fetch('https://gritt.goatcounter.com/counter/TOTAL.json')
+        .then(function(r){ if(!r.ok) throw 0; return r.json(); })
         .then(function(d){
-          var n = (d && (d.value!=null ? d.value : d.count)) || 0;
+          var raw = (d && (d.count_unique || d.count)) || '0';
+          var n = parseInt(String(raw).replace(/[^0-9]/g,''),10) || 0;
           el.textContent = n.toLocaleString('es-CO');
           document.getElementById('visitasWrap').style.display='';
         })
-        .catch(function(){ /* si el servicio no responde, no se muestra nada */ });
+        .catch(function(){ /* si el contador no está habilitado, no se muestra nada */ });
     })();
   </script>
+  <script data-goatcounter="https://gritt.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
