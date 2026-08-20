@@ -99,6 +99,15 @@
   .foot-in .brand{color:var(--cream);font-family:var(--sans);font-size:1.4rem}
   .foot-in a{color:var(--lime)}
 
+  /* Intro: flow del agente → negro → neón */
+  #intro{position:fixed;inset:0;z-index:100;background:var(--dark);overflow:hidden;opacity:1;transition:opacity .85s ease}
+  #intro.gone{opacity:0;pointer-events:none}
+  #intro iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:var(--dark)}
+  #intro .toblack{position:absolute;inset:0;background:#000;opacity:0;transition:opacity .85s ease;z-index:2}
+  #intro.black .toblack{opacity:1}
+  #intro .skip{position:absolute;bottom:22px;right:26px;z-index:3;font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-d);cursor:pointer;background:none;border:1px solid rgba(255,255,255,.16);border-radius:99px;padding:8px 14px}
+  #intro .skip:hover{color:var(--cream);border-color:rgba(255,255,255,.4)}
+
   .reveal{opacity:0;transform:translateY(16px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
   .reveal.in{opacity:1;transform:none}
   @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.neon{animation:none}}
@@ -106,6 +115,13 @@
 </head>
 <body>
   <div class="grain"></div>
+
+  <!-- INTRO: flow del agente -->
+  <div id="intro">
+    <iframe src="../casos/agente/paso-1-investigacion.html" title="Agente · flujo neural" scrolling="no" loading="eager"></iframe>
+    <div class="toblack"></div>
+    <button class="skip" id="introSkip">Saltar intro ✕</button>
+  </div>
 
   <header class="nav">
     <div class="nav-in">
@@ -236,7 +252,26 @@
           }
         }, 300);
       }
-      cycle();
+      window.__startNeon = cycle; // lo arranca la intro
+    })();
+  </script>
+  <script>
+    // Secuencia de intro: flow del agente → a negro → aparece el neón Gritt
+    (function(){
+      var intro=document.getElementById('intro');
+      var startNeon=function(){ if(window.__startNeon) window.__startNeon(); };
+      if(!intro){ startNeon(); return; }
+      if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+        if(intro.parentNode) intro.parentNode.removeChild(intro); startNeon(); return;
+      }
+      function finish(){
+        intro.classList.add('black');                                   // el agente se va a negro
+        setTimeout(function(){ intro.classList.add('gone'); startNeon(); }, 850); // aparece el neón
+        setTimeout(function(){ if(intro.parentNode) intro.parentNode.removeChild(intro); }, 1750);
+      }
+      var timer=setTimeout(finish, 6400);                               // deja correr el flow ~6.4s
+      var skip=document.getElementById('introSkip');
+      if(skip) skip.addEventListener('click', function(){ clearTimeout(timer); finish(); });
     })();
   </script>
   <script data-goatcounter="https://gritt.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
