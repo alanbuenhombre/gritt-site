@@ -7,11 +7,11 @@
 <meta name="description" content="Ayudamos a marcas ambiciosas a convertir ideas audaces en experiencias inolvidables.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#080807; --ink:#F5F4F1; --muted:rgba(245,244,241,.72); --line:rgba(245,244,241,.22);
-    --lime:#C6F24E; --sans:'Inter',system-ui,sans-serif; --serif:'Fraunces',Georgia,serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+    --lime:#C6F24E; --sans:'Inter',system-ui,sans-serif; --serif:'Instrument Serif',Georgia,serif; --mono:'JetBrains Mono',ui-monospace,monospace;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   body{background:var(--bg);color:var(--ink);font-family:var(--sans);letter-spacing:-.01em;-webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -64,13 +64,27 @@
   @media(max-width:600px){.frame{inset:8px;border-radius:18px}.content{padding:20px 22px 26px}}
 
   /* Nav pill */
-  .nav{display:flex;align-items:center;justify-content:center;position:relative}
-  .navpill{display:flex;align-items:center;gap:18px;border:1px solid var(--line);border-radius:999px;padding:10px 24px;backdrop-filter:blur(6px);background:rgba(255,255,255,.02)}
-  .navpill a{font-size:.8rem;font-weight:400;letter-spacing:.02em;color:var(--ink);opacity:.8}
-  .navpill a:hover{opacity:1;color:var(--lime)}
-  .navpill .sep{width:26px;height:1px;background:var(--line)}
-  .astk{position:absolute;right:0;top:50%;transform:translateY(-50%);font-size:1.6rem;color:var(--ink)}
-  @media(max-width:760px){.navpill .sep{display:none}.navpill{gap:12px;padding:10px 18px}.navpill a{font-size:.72rem}.astk{display:none}}
+  /* Nav a la derecha, solo texto (sin pill) */
+  .nav{display:flex;align-items:flex-start;justify-content:space-between}
+  .astk{font-size:1.4rem;color:var(--ink);line-height:1}
+  .navr{display:flex;gap:24px}
+  .navr a{font-size:.82rem;font-weight:400;letter-spacing:.02em;color:var(--ink);opacity:.78}
+  .navr a:hover{opacity:1;color:var(--lime)}
+
+  /* Stack editorial (centro-izquierda) */
+  .hero-stack{position:absolute;left:40px;top:50%;transform:translateY(-50%);z-index:5;max-width:88%}
+  .hs-line{display:flex;align-items:baseline;gap:22px;flex-wrap:wrap}
+  .hs-line{margin:2px 0}
+  .hs-big{font-family:var(--sans);font-weight:700;font-size:clamp(1.7rem,4.8vw,4rem);line-height:.98;letter-spacing:-.035em}
+  .hs-it{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(1.9rem,5.4vw,4.6rem);letter-spacing:-.005em;line-height:.95}
+  .hs-tag{font-family:var(--mono);font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);max-width:18ch;line-height:1.45;align-self:center}
+  @media(max-width:600px){.hero-stack{left:22px;max-width:94%}.hs-tag{display:none}}
+
+  /* Base centrada: flecha + crédito */
+  .base{position:absolute;left:0;right:0;bottom:30px;z-index:5;display:flex;flex-direction:column;align-items:center;gap:9px}
+  .base .arw{opacity:.7;animation:bob 1.9s ease-in-out infinite}
+  @keyframes bob{50%{transform:translateY(5px)}}
+  .base .credit{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 
   /* Intro + CTA */
   .intro{margin-top:40px;max-width:44ch}
@@ -111,25 +125,27 @@
     <!-- Contenido -->
     <div class="content">
       <nav class="nav">
-        <div class="navpill">
-          <a href="#">Estudio</a><span class="sep"></span>
-          <a href="#trabajo">Trabajo</a><span class="sep"></span>
+        <div class="astk">✳</div>
+        <div class="navr">
+          <a href="#">Estudio</a>
+          <a href="#trabajo">Trabajo</a>
           <a href="#contacto">Contacto</a>
         </div>
-        <div class="astk">✳</div>
       </nav>
 
-      <div class="intro reveal">
-        <p>Unimos craft, creatividad y curiosidad con IA generativa para producir marca, campañas y contenido visual excepcional. Trabajo <em style="font-style:italic;opacity:.9">human-centered</em> para las marcas que definen lo que viene.</p>
-        <a class="cta" href="https://wa.me/573002112871?text=Hola%20Gritt%2C%20quiero%20empezar%20un%20proyecto" target="_blank" rel="noopener">Empieza tu proyecto →</a>
+      <!-- Stack editorial -->
+      <div class="hero-stack reveal">
+        <div class="hs-line"><span class="hs-big">MARCA</span><span class="hs-tag">Diseño &amp; sistema de identidad</span></div>
+        <div class="hs-line"><span class="hs-it">con criterio</span><span class="hs-tag">No solo logos bonitos</span></div>
+        <div class="hs-line"><span class="hs-big">Contenido</span></div>
+        <div class="hs-line"><span class="hs-it">potenciado con IA</span><span class="hs-tag">Craft humano + workflows</span></div>
+        <div class="hs-line"><span class="hs-big">Claridad</span><span class="hs-tag">Marcas que definen lo que viene</span></div>
       </div>
 
-      <div class="bottom">
-        <div class="mark reveal">
-          <div class="wordmark">GRITT</div>
-          <div class="tlabel" style="margin-top:7px">Estudio creativo · Marca · Contenido · IA — © 2026 · BOG, CO</div>
-        </div>
-        <a class="arrow reveal" href="#" aria-label="Bajar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
+      <!-- Base centrada -->
+      <div class="base reveal">
+        <span class="arw"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg></span>
+        <span class="credit">Gritt · Estudio creativo · 2026 · .co</span>
       </div>
     </div>
 
