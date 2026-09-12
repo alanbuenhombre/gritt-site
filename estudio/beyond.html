@@ -69,14 +69,10 @@
     <!-- Carrusel de clips (placeholder) -->
     <div class="stage" id="stage">
       <div class="slide logo active"><div class="mk">Gritt<span>.</span></div></div>
-      <div class="slide">
-        <video autoplay muted loop playsinline poster="../propias/opt/001-norvell-top.jpg">
-          <source src="https://alanbuenhombre.github.io/clockwork-preview/v3%20assets/hero-banner.mp4" type="video/mp4">
-        </video>
-      </div>
-      <div class="slide ken"><img src="../propias/opt/001-norvell-top.jpg" alt=""></div>
-      <div class="slide ken"><img src="../propias/opt/005-1-bone-mesh.jpg" alt=""></div>
-      <div class="slide ken"><img src="../propias/opt/005-cardinova.jpg" alt=""></div>
+      <div class="slide"><video muted loop playsinline preload="metadata"><source src="../videos/0_Dark_Shadow_1280x720.mp4" type="video/mp4"></video></div>
+      <div class="slide"><video muted loop playsinline preload="metadata"><source src="../videos/0_Boxing_Fighter_1280x720.mp4" type="video/mp4"></video></div>
+      <div class="slide"><video muted loop playsinline preload="metadata"><source src="../videos/0_Boxing_Exercise_1280x720.mp4" type="video/mp4"></video></div>
+      <div class="slide"><video muted loop playsinline preload="metadata"><source src="../videos/0_Arrow_Up_1280x720.mp4" type="video/mp4"></video></div>
     </div>
 
     <!-- Contenido -->
@@ -110,13 +106,14 @@
     (function(){
       var slides=[].slice.call(document.querySelectorAll('.stage .slide'));
       var i=0;
-      var DUR=[2600,4200,4200,4200,4200]; // logo más corto
+      var DUR=[2400,5200,5200,5200,5200]; // logo más corto, clips ~5.2s
       function next(){
         slides[i].classList.remove('active');
         i=(i+1)%slides.length;
         slides[i].classList.add('active');
+        slides.forEach(function(s){ var vv=s.querySelector('video'); if(vv && s!==slides[i]){ vv.pause(); } });
         var v=slides[i].querySelector('video'); if(v){ try{v.currentTime=0;v.play();}catch(e){} }
-        setTimeout(next, DUR[i]||4000);
+        setTimeout(next, DUR[i]||5000);
       }
       setTimeout(next, DUR[0]);
     })();
