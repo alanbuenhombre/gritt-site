@@ -31,12 +31,12 @@
   /* Labels técnicos (mono) */
   .tlabel{font-family:var(--mono);font-weight:400;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;line-height:1.55;color:var(--muted)}
 
-  .workview{position:absolute;inset:0;z-index:6;opacity:0;transition:opacity .5s ease;display:flex;align-items:center;justify-content:flex-end;padding:40px 56px}
-  .wl{display:flex;flex-direction:column;gap:22px;text-align:right}
-  .wl .wl-head{margin-bottom:4px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+  .workview{position:absolute;inset:0;z-index:6;opacity:0;transition:opacity .5s ease;display:flex;align-items:center;justify-content:space-between;padding:56px}
+  .wv-head{align-self:center}
+  .wl{display:flex;flex-direction:column;gap:20px;text-align:right}
   .wl-i{display:block;text-align:right}
   .wl-i .wl-ix{font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;color:var(--muted)}
-  .wl-i .wl-n{display:block;font-family:var(--sans);font-weight:500;font-size:clamp(1.6rem,3.6vw,2.9rem);letter-spacing:-.02em;line-height:1.02;color:rgba(245,244,241,.4);transition:color .35s}
+  .wl-i .wl-n{display:block;font-family:var(--sans);font-weight:500;font-size:clamp(1.4rem,2.8vw,2.1rem);letter-spacing:-.02em;line-height:1.05;color:rgba(245,244,241,.4);transition:color .35s}
   .wl-i:hover .wl-n{color:#fff}
   .wl-i .wl-meta{display:block;font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:5px}
   .wl-i:hover .wl-meta{color:var(--lime)}
@@ -87,12 +87,13 @@
   .base .credit{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 
   /* Sección Servicios (acordeón) que sube sobre el hero */
-  .after{position:relative;z-index:10;margin-top:100vh;background:var(--bg);border-top:1px solid var(--line);border-radius:26px 26px 0 0;box-shadow:0 -50px 90px rgba(0,0,0,.55)}
+  .after{position:relative;z-index:10;margin-top:175vh;background:var(--bg);border-top:1px solid var(--line);border-radius:26px 26px 0 0;box-shadow:0 -50px 90px rgba(0,0,0,.55)}
   .services{max-width:1240px;margin:0 auto;padding:66px 40px 90px}
-  .svc-lbl{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:24px}
-  .svc-lbl::before{content:"";width:9px;height:9px;border-radius:50%;border:1.5px solid var(--lime)}
-  .svc-h{font-family:var(--sans);font-weight:700;font-size:clamp(2.8rem,9vw,6.4rem);letter-spacing:-.04em;line-height:.9;margin-bottom:30px}
-  .svc-h sup{font-size:.24em;vertical-align:super;color:var(--muted);font-weight:400;margin-left:.08em}
+  /* Sistema de títulos de sección (unificado) */
+  .svc-lbl{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+  .svc-lbl::before{content:"";width:8px;height:8px;border-radius:50%;border:1.5px solid var(--lime)}
+  .svc-h{font-family:var(--sans);font-weight:700;font-size:clamp(1.9rem,4.2vw,3.1rem);letter-spacing:-.03em;line-height:1;margin-bottom:28px}
+  .svc-h sup{font-size:.34em;vertical-align:super;color:var(--muted);font-weight:400;margin-left:.1em}
   .svc-list{border-bottom:1px solid var(--line)}
   .svc{border-top:1px solid var(--line)}
   .svc-head{display:grid;grid-template-columns:64px 1fr 44px;gap:22px;align-items:center;padding:26px 0;cursor:pointer}
@@ -137,7 +138,8 @@
 
     <!-- Carrusel de clips (placeholder) -->
     <div class="stage" id="stage">
-      <div class="slide active"><video muted loop playsinline preload="none"><source src="../videos/0_Dark_Shadow_1280x720.mp4" type="video/mp4"></video></div>
+      <div class="slide active"><video muted loop playsinline preload="auto"><source src="../videos/griit%20001.mp4" type="video/mp4"></video></div>
+      <div class="slide"><video muted loop playsinline preload="none"><source src="../videos/0_Dark_Shadow_1280x720.mp4" type="video/mp4"></video></div>
       <div class="slide"><video muted loop playsinline preload="none"><source src="../videos/0_Woman_Walking_1280x720.mp4" type="video/mp4"></video></div>
       <div class="slide"><video muted loop playsinline preload="none"><source src="../videos/0_Boxing_Fighter_1280x720.mp4" type="video/mp4"></video></div>
       <div class="slide"><video muted loop playsinline preload="none"><source src="../videos/0_Nightclub_Dancing_1280x720.mp4" type="video/mp4"></video></div>
@@ -189,8 +191,11 @@
 
     <!-- Lista minimalista de nombres (derecha) -->
     <div class="workview" id="workview">
+      <div class="wv-head">
+        <span class="svc-lbl">Trabajo</span>
+        <h2 class="svc-h">Selected work<sup>(03)</sup></h2>
+      </div>
       <div class="wl">
-        <div class="wl-head tlabel">Gritt — Trabajo seleccionado / Index 01–03 · © 2026</div>
         <a class="wl-i" data-k="norvell" href="../casos/norvell.html"><span class="wl-ix">N°01</span><span class="wl-n">Norvell</span><span class="wl-meta">Identity · Platform — 2026</span></a>
         <a class="wl-i" data-k="bonemesh" href="../casos/bone-mesh.html"><span class="wl-ix">N°02</span><span class="wl-n">Bone Mesh</span><span class="wl-meta">Identity · Luxury — 2026</span></a>
         <a class="wl-i" data-k="roseelilab" href="#"><span class="wl-ix">N°03</span><span class="wl-n">Roseelilab</span><span class="wl-meta">Identity · Skincare — 2026</span></a>
