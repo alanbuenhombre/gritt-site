@@ -31,8 +31,7 @@
   .workview{position:absolute;inset:0;z-index:6;opacity:0;transition:opacity .5s ease;display:flex;align-items:center;justify-content:flex-end;padding:40px 60px}
   .wl{display:flex;flex-direction:column;gap:6px;text-align:right}
   .wl .wl-lbl{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
-  .wl-i{font-family:var(--serif);font-weight:500;font-size:clamp(1.8rem,4vw,3.2rem);letter-spacing:-.01em;line-height:1.2;color:rgba(245,244,241,.42);transition:color .35s}
-  .wl-i:hover{font-style:italic}
+  .wl-i{font-family:var(--sans);font-weight:600;font-size:clamp(1.7rem,3.8vw,3rem);letter-spacing:-.02em;line-height:1.16;color:rgba(245,244,241,.42);transition:color .35s}
   .wl-i:hover{color:#fff}
   @media(max-width:600px){.workview{padding:22px}}
 
@@ -69,7 +68,7 @@
 
   /* Wordmark + arrow (abajo) */
   .bottom{margin-top:auto;display:flex;align-items:flex-end;justify-content:space-between;gap:20px}
-  .wordmark{font-family:var(--serif);font-weight:600;font-size:clamp(4rem,17vw,13rem);line-height:.82;letter-spacing:-.015em}
+  .wordmark{font-family:var(--sans);font-weight:700;font-size:clamp(4rem,17vw,13rem);line-height:.82;letter-spacing:-.035em}
   .arrow{flex:none;width:74px;height:74px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;transition:background .25s,color .25s}
   .arrow:hover{background:var(--ink);color:#0b0b0a}
   .arrow svg{width:22px;height:22px}
@@ -84,11 +83,17 @@
 
     <!-- Carrusel de clips (placeholder) -->
     <div class="stage" id="stage">
-      <div class="slide logo active"><div class="mk">Gritt<span>.</span></div></div>
-      <div class="slide"><video muted loop playsinline preload="metadata"><source src="../videos/0_Dark_Shadow_1280x720.mp4" type="video/mp4"></video></div>
-      <div class="slide"><video muted loop playsinline preload="metadata"><source src="../videos/0_Boxing_Fighter_1280x720.mp4" type="video/mp4"></video></div>
-      <div class="slide"><video muted loop playsinline preload="metadata"><source src="../videos/0_Boxing_Exercise_1280x720.mp4" type="video/mp4"></video></div>
-      <div class="slide"><video muted loop playsinline preload="metadata"><source src="../videos/0_Arrow_Up_1280x720.mp4" type="video/mp4"></video></div>
+      <div class="slide active"><video muted loop playsinline preload="none"><source src="../videos/0_Dark_Shadow_1280x720.mp4" type="video/mp4"></video></div>
+      <div class="slide"><video muted loop playsinline preload="none"><source src="../videos/0_Woman_Walking_1280x720.mp4" type="video/mp4"></video></div>
+      <div class="slide"><video muted loop playsinline preload="none"><source src="../videos/0_Boxing_Fighter_1280x720.mp4" type="video/mp4"></video></div>
+      <div class="slide"><video muted loop playsinline preload="none"><source src="../videos/0_Nightclub_Dancing_1280x720.mp4" type="video/mp4"></video></div>
+      <div class="slide"><video muted loop playsinline preload="none"><source src="../videos/GettyImages-1289396152.mp4" type="video/mp4"></video></div>
+      <div class="slide"><video muted loop playsinline preload="none"><source src="../videos/0_Purple_Flare_Magenta_1280x720.mp4" type="video/mp4"></video></div>
+      <div class="slide"><video muted loop playsinline preload="none"><source src="../videos/GettyImages-1354070139.mp4" type="video/mp4"></video></div>
+      <div class="slide"><video muted loop playsinline preload="none"><source src="../videos/0_Boxing_Exercise_1280x720.mp4" type="video/mp4"></video></div>
+      <div class="slide"><video muted loop playsinline preload="none"><source src="../videos/GettyImages-1367411493.mp4" type="video/mp4"></video></div>
+      <div class="slide"><video muted loop playsinline preload="none"><source src="../videos/0_Arrow_Up_1280x720.mp4" type="video/mp4"></video></div>
+      <div class="slide"><video muted loop playsinline preload="none"><source src="../videos/GettyImages-985569494.mp4" type="video/mp4"></video></div>
     </div>
 
     <!-- Contenido -->
@@ -142,20 +147,19 @@
   <div class="scroll-space"></div>
 
   <script>
-    // Carrusel: arranca con el logo, luego clips uno tras otro (loop)
+    // Carrusel de clips: orden random, solo reproduce el activo
     (function(){
       var slides=[].slice.call(document.querySelectorAll('.stage .slide'));
       var i=0;
-      var DUR=[2400,5200,5200,5200,5200]; // logo más corto, clips ~5.2s
+      function playActive(){ slides.forEach(function(s,idx){ var v=s.querySelector('video'); if(!v) return; if(idx===i){ try{v.currentTime=0;v.play();}catch(e){} } else { v.pause(); } }); }
+      playActive();
       function next(){
         slides[i].classList.remove('active');
-        i=(i+1)%slides.length;
-        slides[i].classList.add('active');
-        slides.forEach(function(s){ var vv=s.querySelector('video'); if(vv && s!==slides[i]){ vv.pause(); } });
-        var v=slides[i].querySelector('video'); if(v){ try{v.currentTime=0;v.play();}catch(e){} }
-        setTimeout(next, DUR[i]||5000);
+        var n; do{ n=Math.floor(Math.random()*slides.length); } while(n===i && slides.length>1);
+        i=n; slides[i].classList.add('active'); playActive();
+        setTimeout(next, 5000);
       }
-      setTimeout(next, DUR[0]);
+      setTimeout(next, 5000);
     })();
     // Reveals del hero
     setTimeout(function(){ document.querySelectorAll('.reveal').forEach(function(e,i){ setTimeout(function(){e.classList.add('in');}, 300+i*140); }); }, 200);
