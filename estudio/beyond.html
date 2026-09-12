@@ -7,15 +7,16 @@
 <meta name="description" content="Ayudamos a marcas ambiciosas a convertir ideas audaces en experiencias inolvidables.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#080807; --ink:#F5F4F1; --muted:rgba(245,244,241,.72); --line:rgba(245,244,241,.22);
-    --lime:#C6F24E; --sans:'Archivo',system-ui,sans-serif;
+    --lime:#C6F24E; --sans:'Inter',system-ui,sans-serif; --serif:'Fraunces',Georgia,serif;
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);letter-spacing:-.01em;-webkit-font-smoothing:antialiased;overflow-x:hidden}
   a{color:inherit;text-decoration:none}
+  em{font-family:var(--serif);font-style:italic;font-weight:400}
 
   /* Hero fijo (no se mueve al scrollear) */
   .frame{position:fixed;inset:14px;border:1px solid var(--line);border-radius:26px;overflow:hidden;z-index:1}
@@ -30,7 +31,8 @@
   .workview{position:absolute;inset:0;z-index:6;opacity:0;transition:opacity .5s ease;display:flex;align-items:center;justify-content:flex-end;padding:40px 60px}
   .wl{display:flex;flex-direction:column;gap:6px;text-align:right}
   .wl .wl-lbl{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
-  .wl-i{font-weight:700;font-size:clamp(1.7rem,3.8vw,3rem);letter-spacing:-.02em;line-height:1.14;color:rgba(245,244,241,.42);transition:color .35s}
+  .wl-i{font-family:var(--serif);font-weight:500;font-size:clamp(1.8rem,4vw,3.2rem);letter-spacing:-.01em;line-height:1.2;color:rgba(245,244,241,.42);transition:color .35s}
+  .wl-i:hover{font-style:italic}
   .wl-i:hover{color:#fff}
   @media(max-width:600px){.workview{padding:22px}}
 
@@ -43,7 +45,7 @@
   @keyframes ken{from{transform:scale(1.14)}to{transform:scale(1)}}
   /* Slide del logo (inicio) */
   .slide.logo{background:#000;display:flex;align-items:center;justify-content:center}
-  .slide.logo .mk{font-weight:800;font-size:clamp(3rem,9vw,7rem);letter-spacing:-.02em;color:#fff;opacity:.9}
+  .slide.logo .mk{font-family:var(--serif);font-weight:600;font-size:clamp(3rem,9vw,7rem);letter-spacing:-.015em;color:#fff;opacity:.9}
   .slide.logo .mk span{color:var(--lime)}
   .stage::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 120% at 30% 20%,rgba(8,8,7,.35),rgba(8,8,7,.72));z-index:2}
 
@@ -67,7 +69,7 @@
 
   /* Wordmark + arrow (abajo) */
   .bottom{margin-top:auto;display:flex;align-items:flex-end;justify-content:space-between;gap:20px}
-  .wordmark{font-weight:800;font-size:clamp(4rem,17vw,13rem);line-height:.82;letter-spacing:-.03em}
+  .wordmark{font-family:var(--serif);font-weight:600;font-size:clamp(4rem,17vw,13rem);line-height:.82;letter-spacing:-.015em}
   .arrow{flex:none;width:74px;height:74px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;transition:background .25s,color .25s}
   .arrow:hover{background:var(--ink);color:#0b0b0a}
   .arrow svg{width:22px;height:22px}
