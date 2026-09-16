@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gritt — Work · Crema</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#eae6dc; --cream-2:#e3ded2; --ink:#1a1815; --smoke:#7a746a; --line:rgba(26,24,21,.14);
+    --sans:'Inter',system-ui,sans-serif; --serif:'Instrument Serif',Georgia,serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--cream);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+  /* ── Sección 2 de Work: cruz AG1 ──────────────────────────────
+   * Objeto central grande (vertical) + tira horizontal de cards que
+   * corre lento en loop. Al hacer hover en una card, el objeto central
+   * cambia de escena (crossfade) y actualiza nombre + tagline.
+   * ─────────────────────────────────────────────────────────── */
+  .stage2{position:relative;width:100%;min-height:100dvh;background:
+      radial-gradient(120% 90% at 50% 45%, var(--cream) 0%, var(--cream-2) 100%);
+      overflow:hidden;display:flex;align-items:center;justify-content:center}
+
+  /* Objeto central — dos capas que hacen crossfade */
+  .hero-obj{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:min(64vw,780px);aspect-ratio:13/8;z-index:1;
+    filter:drop-shadow(0 40px 70px rgba(26,24,21,.28))}
+  .hero-obj .layer{position:absolute;inset:0;opacity:0;transition:opacity .7s cubic-bezier(.4,0,.2,1);
+    border-radius:6px;overflow:hidden}
+  .hero-obj .layer.show{opacity:1}
+  .hero-obj .layer img{width:100%;height:100%;object-fit:cover;filter:grayscale(.06) contrast(1.02)}
+
+  /* Tira horizontal (el brazo de la cruz) */
+  .strip{position:absolute;top:50%;left:0;right:0;transform:translateY(-50%);z-index:3;
+    height:132px;overflow:hidden;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+            mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+  .track{display:flex;gap:0;width:max-content;height:100%;animation:slide 55s linear infinite}
+  .strip:hover .track{animation-play-state:paused}
+  @keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .cell{flex:none;width:132px;height:132px;position:relative;cursor:pointer;
+    filter:grayscale(.1) contrast(1.02);transition:transform .4s cubic-bezier(.16,1,.3,1),filter .4s}
+  .cell img{width:100%;height:100%;object-fit:cover;display:block}
+  .cell::after{content:"";position:absolute;inset:0;background:rgba(234,230,220,.12);transition:background .4s}
+  .cell:hover{transform:scale(1.07);filter:grayscale(0) contrast(1.05);z-index:4}
+  .cell:hover::after{background:transparent}
+  .cell.active{filter:grayscale(0)}
+
+  /* Créditos / labels (esquinas) */
+  .brandmark{position:absolute;left:40px;bottom:40px;z-index:5}
+  .brandmark .bm-name{font-family:var(--sans);font-weight:600;font-size:1.7rem;letter-spacing:-.02em;line-height:1}
+  .brandmark .bm-sub{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--smoke);margin-top:8px}
+  .tagline{position:absolute;right:40px;bottom:40px;z-index:5;text-align:right;max-width:34ch}
+  .tagline .tl-t{font-size:.92rem;line-height:1.45;color:var(--ink)}
+  .tagline .tl-u{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--smoke);margin-top:10px;display:block}
+
+  /* Header persistente (el mismo de beyond.html, tema crema) */
+  .nav2{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:center;justify-content:space-between;
+    padding:20px 40px;background:linear-gradient(180deg,rgba(234,230,220,.9),rgba(234,230,220,0));
+    -webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+  .nav2 .astk{font-size:1.35rem;color:var(--ink);line-height:1}
+  .nav2 .navr{display:flex;gap:26px;align-items:center}
+  .nav2 .navr a{font-size:.82rem;font-weight:400;letter-spacing:.01em;color:var(--ink);opacity:.72;transition:opacity .2s}
+  .nav2 .navr a:hover{opacity:1}
+  .nav2 .navr a.pillnav{opacity:1;border:1px solid var(--line);border-radius:9999px;padding:8px 16px;font-size:.76rem;text-transform:uppercase;letter-spacing:.04em}
+  .nav2 .navr a.pillnav:hover{background:var(--ink);color:var(--cream)}
+  @media(max-width:640px){.nav2{padding:16px 20px}.nav2 .navr{gap:16px}.nav2 .navr a:not(.pillnav){display:none}}
+
+  /* Label de sección */
+  .s2head{position:absolute;left:40px;top:84px;z-index:5}
+  .s2head .lbl{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--smoke)}
+  .s2head .lbl::before{content:"";width:7px;height:7px;border-radius:50%;background:#3d6b2f}
+  @media(max-width:640px){
+    .hero-obj{width:64vw}.strip{height:96px}.cell{width:96px;height:96px}
+    .brandmark,.tagline{left:20px;right:20px;bottom:24px}
+    .s2head{left:20px;top:64px}
+    .tagline{text-align:left;top:auto;bottom:96px}
+  }
+</style>
+</head>
+<body>
+  <!-- Header persistente (mismo sistema que beyond.html) -->
+  <nav class="nav2">
+    <div class="astk">✳</div>
+    <div class="navr">
+      <a href="beyond.html#servicios">Estudio</a>
+      <a href="#trabajo">Trabajo</a>
+      <a class="pillnav" href="https://wa.me/573002112871" target="_blank" rel="noopener">Contacto</a>
+    </div>
+  </nav>
+
+  <section class="stage2" id="trabajo">
+    <div class="s2head"><span class="lbl">Selected work · Vol.2</span></div>
+
+    <!-- Objeto central -->
+    <div class="hero-obj" id="heroObj">
+      <div class="layer show"><img id="layerA" src="../propias/opt/norvell-bg.jpg" alt=""></div>
+      <div class="layer"><img id="layerB" src="" alt=""></div>
+    </div>
+
+    <!-- Tira de cards -->
+    <div class="strip">
+      <div class="track" id="track"></div>
+    </div>
+
+    <!-- Créditos -->
+    <div class="brandmark">
+      <div class="bm-name" id="bmName">Norvell</div>
+      <div class="bm-sub">Gritt · Estudio creativo</div>
+    </div>
+    <div class="tagline">
+      <div class="tl-t" id="tlText">Identidad y sistema visual para una marca que quería verse tan seria como su producto.</div>
+      <span class="tl-u" id="tlUrl">Identity · Platform — 2026</span>
+    </div>
+  </section>
+
+  <script>
+  (function(){
+    // card = thumbnail de la tira · scene = escena central (horizontal 13:8). Si no hay scene, usa card.
+    var BRANDS = [
+      {card:'001-norvell.jpg',    scene:'norvell-bg.jpg', name:'Norvell',    tag:'Identidad y sistema visual para una marca que quería verse tan seria como su producto.', meta:'Identity · Platform — 2026'},
+      {card:'005-bone-mesh.jpg',                          name:'Bone Mesh',  tag:'Dirección de arte y branding de lujo con textura y silencio.',                          meta:'Identity · Luxury — 2026'},
+      {card:'003-roselilab.jpg',                          name:'Roseelilab', tag:'Marca de skincare: limpia, botánica, con calidez humana.',                              meta:'Identity · Skincare — 2026'},
+      {card:'003-lumea.jpg',                              name:'Lumea',      tag:'Sistema de marca luminoso para un producto de bienestar.',                              meta:'Identity · Wellness — 2026'},
+      {card:'007-ikkaros.jpg',                            name:'Ikkaros',    tag:'Identidad tecnológica con precisión y movimiento.',                                     meta:'Identity · Tech — 2026'},
+      {card:'009-sounda.jpg',                             name:'Sounda',     tag:'Branding sonoro y visual para una plataforma de audio.',                                meta:'Identity · Audio — 2026'},
+      {card:'010-solartrade.jpg',                         name:'Solartrade', tag:'Marca de energía con optimismo y claridad estructural.',                                meta:'Identity · Energy — 2026'},
+      {card:'004-voxen.jpg',                              name:'Voxen',      tag:'Sistema modular para una marca de producto en crecimiento.',                            meta:'Identity · Product — 2026'}
+    ];
+    BRANDS.forEach(function(b){ if(!b.scene) b.scene=b.card; });
+    var BASE='../propias/opt/';
+    var track=document.getElementById('track');
+    var layerA=document.getElementById('layerA'), layerB=document.getElementById('layerB');
+    var wrapA=layerA.parentElement, wrapB=layerB.parentElement;
+    var bmName=document.getElementById('bmName');
+    var tlText=document.getElementById('tlText'), tlUrl=document.getElementById('tlUrl');
+    var frontIsA=true, currentScene=BRANDS[0].scene;
+
+    // Cards duplicadas x2 para loop continuo sin costura
+    function makeCells(){
+      var html='';
+      for(var pass=0;pass<2;pass++){
+        BRANDS.forEach(function(b,idx){
+          html+='<div class="cell" data-i="'+idx+'"><img src="'+BASE+b.card+'" alt="'+b.name+'" draggable="false"></div>';
+        });
+      }
+      track.innerHTML=html;
+    }
+    makeCells();
+
+    function setScene(b){
+      if(b.scene===currentScene) return;
+      currentScene=b.scene;
+      var incoming = frontIsA ? wrapB : wrapA;
+      var incImg   = frontIsA ? layerB : layerA;
+      var outgoing = frontIsA ? wrapA : wrapB;
+      incImg.src = BASE + b.scene;
+      incoming.classList.add('show');
+      outgoing.classList.remove('show');
+      frontIsA = !frontIsA;
+      bmName.textContent   = b.name;
+      tlText.textContent   = b.tag;
+      tlUrl.textContent    = b.meta;
+    }
+
+    track.addEventListener('mouseover', function(e){
+      var cell=e.target.closest('.cell'); if(!cell) return;
+      document.querySelectorAll('.cell.active').forEach(function(c){c.classList.remove('active');});
+      cell.classList.add('active');
+      setScene(BRANDS[+cell.dataset.i]);
+    });
+    // Click también fija la escena (touch)
+    track.addEventListener('click', function(e){
+      var cell=e.target.closest('.cell'); if(!cell) return;
+      setScene(BRANDS[+cell.dataset.i]);
+    });
+  })();
+  </script>
+  <script data-goatcounter="https://gritt.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

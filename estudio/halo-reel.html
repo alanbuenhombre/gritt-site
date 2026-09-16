@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gritt — Halo Reel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --obsidian:#000; --chalk:#f3f3f3; --smoke:#9c9c9c; --graphite:#212121; --iron:#474747;
+    --sans:'Inter',system-ui,sans-serif; --serif:'Instrument Serif',Georgia,serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--obsidian);color:var(--chalk);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+  /* ── Halo Reel ──────────────────────────────────────────────
+   * Las cards viajan sobre una elipse. La card i va en θ = i·step + rot:
+   *   x = rx·cos θ   y = ry·sin θ   scale = min + (1−min)·(cos θ+1)/2
+   * cos θ hace todo: la ubica, la escala y la apila (z = scale). Un solo
+   * número gobierna tres propiedades, así lo que se ve al frente ES el frente.
+   * ─────────────────────────────────────────────────────────── */
+  .stage{
+    position:relative;width:100%;height:100dvh;overflow:hidden;
+    background:var(--obsidian);touch-action:pan-y;user-select:none;outline:none;
+    cursor:grab;
+  }
+  .stage:active{cursor:grabbing}
+  .stage:focus-visible{box-shadow:inset 0 0 0 2px var(--iron)}
+
+  .center-label{
+    position:absolute;top:0;bottom:0;z-index:0;display:flex;align-items:center;
+    justify-content:center;padding:0 16px;text-align:center;pointer-events:none;
+  }
+  .center-label .cl-lbl{
+    display:block;font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--smoke);margin-bottom:14px;
+  }
+  .center-label .cl-lbl::before{
+    content:"";display:inline-block;width:7px;height:7px;border-radius:50%;
+    background:#98ff38;margin-right:9px;vertical-align:middle;
+  }
+  .center-label .cl-big{
+    display:block;font-family:var(--sans);font-weight:400;
+    font-size:clamp(1.6rem,3.4vw,2.8rem);letter-spacing:-.03em;line-height:1;color:var(--chalk);
+  }
+  .center-label .cl-big em{font-family:var(--serif);font-style:italic}
+
+  .card{
+    position:absolute;top:50%;overflow:hidden;border-radius:4px;
+    box-shadow:0 20px 45px rgba(0,0,0,.6);will-change:transform;
+    background:#0c0c0c;
+  }
+  .card img{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    pointer-events:none;user-select:none;filter:grayscale(.12) contrast(1.02);
+  }
+  .card .face{
+    display:flex;height:100%;width:100%;flex-direction:column;align-items:center;
+    justify-content:center;gap:6px;padding:12px;text-align:center;background:#0c0c0c;
+  }
+  .card .face .ft{font-size:1.4rem;font-weight:700;line-height:1}
+  .card .face .fs{font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--smoke)}
+
+  /* controles opcionales */
+  .hint{
+    position:absolute;left:0;right:0;bottom:26px;z-index:20;text-align:center;
+    font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--smoke);pointer-events:none;
+  }
+</style>
+</head>
+<body>
+  <div class="stage" id="stage" role="region" aria-roledescription="carousel" aria-label="Trabajo seleccionado" tabindex="0">
+    <div class="center-label" id="centerLabel">
+      <div>
+        <span class="cl-lbl">Trabajo</span>
+        <span class="cl-big">Selected <em>works</em></span>
+      </div>
+    </div>
+    <div class="hint">Arrastra · ← → para girar</div>
+  </div>
+
+  <script>
+  (function(){
+    /* ── Config (equivalente a las props del componente React) ── */
+    const CFG = {
+      cardWidth: 175, cardHeight: 240,
+      minScale: 0.42,
+      radiusXRatio: 0.34, radiusYRatio: 0.4,
+      centerXRatio: 0.18,          // elipse corrida a la izquierda; el label vive a la derecha
+      autoPlay: true, holdDuration: 1000, stepDuration: 700,
+      pauseOnHover: true, draggable: true, spread: 1.7, maxCards: 64,
+      dragSensitivity: 1,
+    };
+
+    const ITEMS = [
+      {src:'../propias/opt/001-norvell-top.jpg', alt:'Norvell'},
+      {src:'../propias/opt/005-1-bone-mesh.jpg', alt:'Bone Mesh'},
+      {src:'../propias/opt/003-roselilab-photo.jpg', alt:'Roseelilab'},
+      {src:'../propias/opt/003-lumea.jpg', alt:'Lumea'},
+      {src:'../propias/opt/007-ikkaros.jpg', alt:'Ikkaros'},
+      {src:'../propias/opt/009-sounda.jpg', alt:'Sounda'},
+      {src:'../propias/opt/010-solartrade.jpg', alt:'Solartrade'},
+      {src:'../propias/opt/0011-bakery.jpg', alt:'Bakery'},
+    ];
+
+    const TAU = Math.PI*2;
+    const clamp = (v,lo,hi)=>Math.max(lo,Math.min(hi,v));
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const stage = document.getElementById('stage');
+    const centerLabel = document.getElementById('centerLabel');
+    const count = ITEMS.length;
+
+    let rotation = 0;                 // el único valor que gobierna todo el ring
+    let dragging = false, hovering = false;
+    let W=0, H=0, radiusX=0, radiusY=0, slots=count, step=0, cardW=CFG.cardWidth, cardH=CFG.cardHeight;
+    const cards = [];                 // {el, index}
+
+    /* ── medir + (re)construir el ring ── */
+    function measure(){
+      W = stage.offsetWidth; H = stage.offsetHeight;
+      radiusX = W*CFG.radiusXRatio; radiusY = H*CFG.radiusYRatio;
+
+      // El ring lo dimensiona el stage y lo LLENA repitiendo items: por eso
+      // un ring ancho da MÁS cards en vez de gaps grandes. El eje más apretado
+      // decide cuántos slots.
+      slots = clamp(
+        Math.ceil(TAU*Math.max(radiusX/(CFG.cardWidth*CFG.spread), radiusY/(CFG.cardHeight*CFG.spread))),
+        count, Math.max(count, CFG.maxCards)
+      );
+      step = slots ? TAU/slots : 0;
+
+      // Las cards se encogen de forma continua para caber en la caja dada.
+      const fit = W ? clamp(Math.min(W/(radiusX+CFG.cardWidth), H/(2*radiusY+CFG.cardHeight)), 0.45, 1) : 1;
+      cardW = CFG.cardWidth*fit; cardH = CFG.cardHeight*fit;
+
+      buildCards();
+      positionLabel();
+      render();
+    }
+
+    function buildCards(){
+      if(cards.length === slots) return;         // solo reconstruye si cambió el conteo
+      cards.forEach(c=>c.el.remove()); cards.length = 0;
+      for(let i=0;i<slots;i++){
+        const item = ITEMS[i%count];
+        const decorative = i>=count;             // el ring repite items; solo la 1ª vuelta es contenido real
+        const el = document.createElement('div');
+        el.className='card';
+        el.style.width=cardW+'px'; el.style.height=cardH+'px';
+        el.style.marginLeft=(-cardW/2)+'px'; el.style.marginTop=(-cardH/2)+'px';
+        el.style.left=(CFG.centerXRatio*100)+'%';
+        if(!decorative){ el.setAttribute('role','group'); el.setAttribute('aria-roledescription','slide'); }
+        else el.setAttribute('aria-hidden','true');
+        if(item.src){
+          const img=document.createElement('img');
+          img.src=item.src; img.alt=decorative?'':(item.alt||''); img.draggable=false;
+          el.appendChild(img);
+        }else{
+          el.innerHTML='<div class="face"><span class="ft">'+(item.title||'')+'</span><span class="fs">'+(item.subtitle||'')+'</span></div>';
+        }
+        el.addEventListener('pointerenter',()=>hovering=true);
+        el.addEventListener('pointerleave',()=>hovering=false);
+        stage.appendChild(el);
+        cards.push({el, index:i});
+      }
+    }
+
+    function positionLabel(){
+      centerLabel.style.left=(W*CFG.centerXRatio + radiusX + cardW/2)+'px';
+      centerLabel.style.right='0';
+    }
+
+    /* ── render: deriva cada transform de `rotation` (sin re-render de estado) ── */
+    function render(){
+      for(const c of cards){
+        const cos=Math.cos(c.index*step+rotation);
+        const sin=Math.sin(c.index*step+rotation);
+        const x=cos*radiusX, y=sin*radiusY;
+        const scale=CFG.minScale+(1-CFG.minScale)*((cos+1)/2);
+        c.el.style.transform='translate('+x+'px,'+y+'px) scale('+scale+')';
+        c.el.style.zIndex=Math.round(scale*1000);
+      }
+    }
+
+    /* ── animación de `rotation` con easing (reemplaza framer `animate`) ── */
+    let raf=0;
+    function animateTo(target, durationMs, ease, onComplete){
+      cancelAnimationFrame(raf);
+      if(reduce){ rotation=target; render(); onComplete&&onComplete(); return; }
+      const from=rotation, delta=target-from, t0=performance.now();
+      function frame(now){
+        const p=clamp((now-t0)/durationMs,0,1);
+        rotation=from+delta*ease(p);
+        render();
+        if(p<1) raf=requestAnimationFrame(frame);
+        else onComplete&&onComplete();
+      }
+      raf=requestAnimationFrame(frame);
+    }
+    // easings: material [0.4,0,0.2,1] y expo-out [0.16,1,0.3,1] via cubic-bezier
+    function cubicBezier(x1,y1,x2,y2){
+      return function(t){
+        if(t<=0)return 0; if(t>=1)return 1;
+        let lo=0,hi=1,mid;
+        for(let i=0;i<20;i++){ mid=(lo+hi)/2;
+          const cx=3*(1-mid)*(1-mid)*mid*x1+3*(1-mid)*mid*mid*x2+mid*mid*mid;
+          if(cx<t)lo=mid; else hi=mid; }
+        const u=(lo+hi)/2;
+        return 3*(1-u)*(1-u)*u*y1+3*(1-u)*u*u*y2+u*u*u;
+      };
+    }
+    const easeStd=cubicBezier(0.4,0,0.2,1), easeOut=cubicBezier(0.16,1,0.3,1);
+
+    /* ── autoplay: cada paso agenda el siguiente; un tick en pausa no cuesta nada ── */
+    let hold=0;
+    function tick(){
+      hold=setTimeout(()=>{
+        if(dragging || (CFG.pauseOnHover && hovering)){ tick(); return; }
+        animateTo(rotation-step, CFG.stepDuration, easeStd, tick);
+      }, CFG.holdDuration);
+    }
+    if(CFG.autoPlay && !reduce && count) tick();
+
+    /* ── drag ── */
+    const drag={left:0,top:0,angle:0};
+    function pointerAngle(e){
+      // normalizar por los radios des-aplasta la elipse: arrastrar por el lado
+      // plano gira lo mismo que por el lado alto.
+      return Math.atan2((e.clientY-drag.top-H/2)/(radiusY||1),(e.clientX-drag.left-W*CFG.centerXRatio)/(radiusX||1));
+    }
+    stage.addEventListener('pointerdown',e=>{
+      if(!CFG.draggable || (e.pointerType==='mouse'&&e.button!==0)) return;
+      const r=stage.getBoundingClientRect(); drag.left=r.left; drag.top=r.top;
+      drag.angle=pointerAngle(e); dragging=true; stage.setPointerCapture(e.pointerId);
+    });
+    stage.addEventListener('pointermove',e=>{
+      if(!dragging) return;
+      const a=pointerAngle(e);
+      const delta=((a-drag.angle+Math.PI*3)%TAU)-Math.PI; // envuelve en (−π,π]
+      drag.angle=a; rotation+=delta*CFG.dragSensitivity; render();
+    });
+    function endDrag(e){
+      if(!dragging) return; dragging=false;
+      if(stage.hasPointerCapture(e.pointerId)) stage.releasePointerCapture(e.pointerId);
+      const snapped=Math.round(rotation/step)*step;      // nunca descansa entre dos cards
+      animateTo(snapped,500,easeOut);
+    }
+    stage.addEventListener('pointerup',endDrag);
+    stage.addEventListener('pointercancel',endDrag);
+
+    /* ── teclado ── */
+    function spinBy(dir){
+      const target=Math.round(rotation/step)*step-dir*step;
+      animateTo(target,CFG.stepDuration,easeStd);
+    }
+    stage.addEventListener('keydown',e=>{
+      const dir={ArrowRight:1,ArrowLeft:-1}[e.key];
+      if(!dir) return; e.preventDefault(); spinBy(dir);
+    });
+
+    /* ── init ── */
+    const ro=new ResizeObserver(measure); ro.observe(stage);
+    measure();
+  })();
+  </script>
+  <script data-goatcounter="https://gritt.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
