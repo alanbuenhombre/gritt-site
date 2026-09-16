@@ -1,329 +1,382 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gritt — Estudio de identidad para founders, producto y experiencias</title>
-  <meta name="description" content="Estudio de identidad de marca especializado en fundadores y productos de tecnología, SaaS y salud — y en llevar esa marca a experiencias completas. Método con IA + dirección 100% humana.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=18">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gritt — Estudio de identidad para founders, producto y experiencias</title>
+<meta name="description" content="Estudio de identidad de marca especializado en fundadores y productos de tecnología, SaaS y salud — y en llevar esa marca a experiencias completas. Método con IA + dirección 100% humana.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#080807; --ink:#F5F4F1; --muted:rgba(245,244,241,.72); --line:rgba(245,244,241,.22);
+    --lime:#C6F24E; --sans:'Inter',system-ui,sans-serif; --serif:'Instrument Serif',Georgia,serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+    /* Hyperstudio — sistema para el resto de la página */
+    --obsidian:#101010; --carbon:#080808; --chalk:#f3f3f3; --smoke:#9c9c9c;
+    --graphite:#212121; --iron:#474747; --gold:#6f6759; --pulse:#98ff38;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);letter-spacing:-.01em;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  em{font-family:var(--serif);font-style:italic;font-weight:400}
+
+  /* Hero fijo (no se mueve al scrollear) */
+  .frame{position:fixed;inset:14px;border:1px solid var(--line);border-radius:26px;overflow:hidden;z-index:1}
+  .scroll-space{height:200vh}
+
+  /* Al scrollear: videos → negro, aparece la lista de trabajo, hover revela visual */
+  .blackout{position:absolute;inset:0;background:#000;opacity:0;z-index:2;pointer-events:none}
+  .preview{position:absolute;inset:0;z-index:3;pointer-events:none}
+  .preview img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .7s ease;filter:grayscale(.12) contrast(1.02)}
+  .preview img.show{opacity:1}
+  .preview::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.55),transparent 42%,rgba(0,0,0,.4))}
+  /* Labels técnicos (mono) */
+  .tlabel{font-family:var(--mono);font-weight:400;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;line-height:1.55;color:var(--muted)}
+
+  .workview{position:absolute;inset:0;z-index:6;opacity:0;transition:opacity .5s ease;display:flex;align-items:center;justify-content:space-between;padding:56px}
+  .wv-head{align-self:center}
+  .wl{display:flex;flex-direction:column;gap:20px;text-align:right}
+  .wl-i{display:block;text-align:right}
+  .wl-i .wl-ix{font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;color:var(--muted)}
+  .wl-i .wl-n{display:block;font-family:var(--sans);font-weight:500;font-size:clamp(1.4rem,2.8vw,2.1rem);letter-spacing:-.02em;line-height:1.05;color:rgba(245,244,241,.4);transition:color .35s}
+  .wl-i:hover .wl-n{color:#fff}
+  .wl-i .wl-meta{display:block;font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:5px}
+  .wl-i:hover .wl-meta{color:var(--lime)}
+
+  /* Labels de esquina en el hero */
+  .corner{position:absolute;z-index:7}
+  .corner.tl{top:80px;left:40px}
+  .corner.br{right:56px;bottom:38px;text-align:right}
+  @media(max-width:600px){.workview{padding:22px}.corner.tl{top:66px;left:22px}.corner.br{right:22px;bottom:24px}}
+
+  /* Carrusel de clips de fondo */
+  .stage{position:absolute;inset:0;z-index:0;background:#000}
+  .slide{position:absolute;inset:0;opacity:0;transition:opacity 1.1s ease}
+  .slide.active{opacity:1}
+  .slide img,.slide video{width:100%;height:100%;object-fit:cover;filter:brightness(1.55) contrast(1.02)}
+  .slide.ken.active img{animation:ken 7s ease-out forwards}
+  @keyframes ken{from{transform:scale(1.14)}to{transform:scale(1)}}
+  /* Slide del logo (inicio) */
+  .slide.logo{background:#000;display:flex;align-items:center;justify-content:center}
+  .slide.logo .mk{font-family:var(--serif);font-weight:600;font-size:clamp(3rem,9vw,7rem);letter-spacing:-.015em;color:#fff;opacity:.9}
+  .slide.logo .mk span{color:var(--lime)}
+  .stage::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 120% at 30% 20%,rgba(8,8,7,.05),rgba(8,8,7,.18));z-index:2}
+
+  .content{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;padding:30px 40px 40px}
+  @media(max-width:600px){.frame{inset:8px;border-radius:18px}.content{padding:20px 22px 26px}}
+
+  /* Nav pill */
+  /* Nav a la derecha, solo texto (sin pill) */
+  .nav{display:flex;align-items:flex-start;justify-content:space-between}
+  .astk{font-size:1.4rem;color:var(--ink);line-height:1}
+  .navr{display:flex;gap:24px}
+  .navr a{font-size:.82rem;font-weight:400;letter-spacing:.02em;color:var(--ink);opacity:.78}
+  .navr a:hover{opacity:1;color:var(--lime)}
+
+  /* Stack editorial (centro-izquierda) */
+  .hero-stack{position:absolute;left:40px;top:50%;transform:translateY(-50%);z-index:5;max-width:88%}
+  .hs-line{display:flex;align-items:baseline;gap:22px;flex-wrap:wrap}
+  .hs-line{margin:2px 0}
+  .hs-big{font-family:var(--sans);font-weight:700;font-size:clamp(2.4rem,6.6vw,5.6rem);line-height:.96;letter-spacing:-.04em}
+  .hs-it{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(2.7rem,7.4vw,6.2rem);letter-spacing:-.005em;line-height:.92}
+  .hs-hi{background:var(--lime);color:#0b1004;padding:0 .1em;border-radius:.06em;font-size:clamp(2.7rem,7.4vw,6.2rem)}
+  .hs-tag{font-family:var(--mono);font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);max-width:18ch;line-height:1.45;align-self:center}
+  @media(max-width:600px){.hero-stack{left:22px;max-width:94%}.hs-tag{display:none}}
+
+  /* Base centrada: flecha + crédito */
+  .base{position:absolute;left:0;right:0;bottom:30px;z-index:5;display:flex;flex-direction:column;align-items:center;gap:9px}
+  .base .arw{opacity:.7;animation:bob 1.9s ease-in-out infinite}
+  @keyframes bob{50%{transform:translateY(5px)}}
+  .base .credit{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+  /* ═══ Zona inferior (Hyperstudio): obsidiana + hairlines graphite ═══ */
+  .after{position:relative;z-index:10;margin-top:175vh;background:var(--obsidian);border-top:1px solid var(--graphite);border-radius:26px 26px 0 0;box-shadow:0 -50px 90px rgba(0,0,0,.55)}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 40px}
+  .services{max-width:1200px;margin:0 auto;padding:120px 40px 0}
+  /* Sistema de títulos de sección — peso 400, la escala carga la jerarquía */
+  .svc-lbl{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--smoke);margin-bottom:18px}
+  .svc-lbl::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--pulse)}
+  .svc-h{font-family:var(--sans);font-weight:400;font-size:clamp(2.1rem,4.6vw,3.6rem);letter-spacing:-.022em;line-height:1.02;margin-bottom:40px;color:var(--chalk)}
+  .svc-h sup{font-size:.32em;vertical-align:super;color:var(--smoke);font-weight:400;margin-left:.12em}
+  .svc-list{border-bottom:1px solid var(--graphite)}
+  .svc{border-top:1px solid var(--graphite)}
+  .svc-head{display:grid;grid-template-columns:64px 1fr 44px;gap:22px;align-items:center;padding:28px 0;cursor:pointer}
+  .svc-head .ix{font-family:var(--mono);font-size:.66rem;color:var(--smoke);letter-spacing:.02em}
+  .svc-head .t{font-size:clamp(1.3rem,2.6vw,2rem);font-weight:400;letter-spacing:-.02em;color:var(--chalk)}
+  .tg{justify-self:end;width:34px;height:34px;border:1px solid var(--graphite);border-radius:50%;position:relative;transition:border-color .3s}
+  .svc:hover .tg{border-color:var(--iron)}
+  .tg::before,.tg::after{content:"";position:absolute;top:50%;left:50%;background:var(--chalk);transition:opacity .3s,transform .3s}
+  .tg::before{width:12px;height:1.5px;transform:translate(-50%,-50%)}
+  .tg::after{width:1.5px;height:12px;transform:translate(-50%,-50%)}
+  .svc.open .tg::after{opacity:0}
+  .svc-body{display:grid;grid-template-columns:64px 1fr 320px;gap:22px;overflow:hidden;max-height:0;opacity:0;transition:max-height .5s ease,opacity .4s ease,padding .4s ease}
+  .svc.open .svc-body{max-height:260px;opacity:1;padding-bottom:30px}
+  .svc-body .desc{color:var(--smoke);font-size:1rem;line-height:1.5;max-width:44ch}
+  .svc-body .cl{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--smoke);margin-bottom:12px}
+  .svc-body .tags{display:flex;flex-wrap:wrap;gap:8px}
+  .svc-body .cat{border:1px solid var(--graphite);border-radius:4px;padding:6px 13px;font-size:.72rem;color:var(--chalk);white-space:nowrap}
+  @media(max-width:760px){.services{padding:80px 22px 0}.wrap{padding:0 22px}.svc-head{grid-template-columns:44px 1fr 40px;gap:14px}.svc-body{grid-template-columns:1fr;gap:16px}.svc.open .svc-body{max-height:560px}}
+
+  /* Pills / botones (Hyperstudio) */
+  .pill{display:inline-flex;align-items:center;gap:9px;background:var(--signal,#fff);color:var(--obsidian);font-family:var(--sans);font-weight:400;text-transform:uppercase;letter-spacing:.04em;border-radius:9999px;padding:13px 24px;font-size:.82rem;transition:transform .25s,opacity .25s}
+  .pill:hover{transform:translateY(-2px)}
+  .ghost{display:inline-flex;align-items:center;gap:9px;background:transparent;border:1px solid var(--iron);color:var(--chalk);font-family:var(--sans);font-weight:400;text-transform:uppercase;letter-spacing:.04em;border-radius:8px;padding:12px 22px;font-size:.82rem;transition:border-color .25s,background .25s}
+  .ghost:hover{border-color:var(--chalk)}
+
+  /* Método (3 pasos, grid con hairlines) */
+  .method{max-width:1200px;margin:0 auto;padding:120px 40px 0}
+  .method-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--graphite);border-left:1px solid var(--graphite)}
+  .mcell{border-right:1px solid var(--graphite);border-bottom:1px solid var(--graphite);padding:40px 32px;min-height:220px;display:flex;flex-direction:column;gap:14px}
+  .mcell .mico{width:32px;height:32px;color:var(--gold)}
+  .mcell .mix{font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--smoke)}
+  .mcell h3{font-size:1.15rem;font-weight:400;letter-spacing:-.01em;color:var(--chalk)}
+  .mcell p{font-size:.92rem;line-height:1.5;color:var(--smoke)}
+  @media(max-width:760px){.method{padding:80px 22px 0}.method-grid{grid-template-columns:1fr}}
+
+  /* Contacto */
+  .contact{max-width:1200px;margin:0 auto;padding:130px 40px 120px;text-align:center}
+  .contact .big{font-family:var(--sans);font-weight:400;font-size:clamp(2.6rem,7vw,4.4rem);letter-spacing:-.03em;line-height:1;color:var(--chalk);margin:8px 0 22px}
+  .contact .big em{color:var(--chalk)}
+  .contact .sub{font-size:1.02rem;color:var(--smoke);max-width:48ch;margin:0 auto 40px;line-height:1.5}
+  .contact .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  @media(max-width:760px){.contact{padding:90px 22px 90px}}
+
+  /* Footer */
+  .foot{border-top:1px solid var(--graphite)}
+  .foot-in{max-width:1200px;margin:0 auto;padding:32px 40px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .foot-in a.mail{font-size:1rem;color:var(--chalk)}
+  .foot-in .fmeta{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--smoke)}
+  .foot-in .flinks{display:flex;gap:20px}
+  .foot-in .flinks a{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--smoke)}
+  .foot-in .flinks a:hover{color:var(--chalk)}
+  @media(max-width:760px){.foot-in{padding:26px 22px}}
+
+  /* Intro + CTA */
+  .intro{margin-top:40px;max-width:44ch}
+  .intro p{font-size:clamp(.95rem,1.5vw,1.12rem);line-height:1.5;color:var(--ink)}
+  .intro .cta{margin-top:26px;display:inline-flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:999px;padding:13px 24px;font-size:.9rem;font-weight:600;transition:background .25s,color .25s}
+  .intro .cta:hover{background:var(--lime);color:#0b1004;border-color:var(--lime)}
+
+  /* Wordmark + arrow (abajo) */
+  .bottom{margin-top:auto;display:flex;align-items:flex-end;justify-content:space-between;gap:20px}
+  .wordmark{font-family:var(--sans);font-weight:300;font-size:clamp(1.3rem,2.2vw,1.9rem);line-height:1;letter-spacing:.01em}
+  .arrow{flex:none;width:74px;height:74px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;transition:background .25s,color .25s}
+  .arrow:hover{background:var(--ink);color:#0b0b0a}
+  .arrow svg{width:22px;height:22px}
+  @media(max-width:600px){.arrow{width:56px;height:56px}}
+
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+</style>
 </head>
 <body>
+  <!-- ancla para el nav "Trabajo": salta a la zona donde se revela la lista de trabajo -->
+  <a id="trabajo" aria-hidden="true" style="position:absolute;top:72vh;width:1px;height:1px"></a>
+  <div class="frame">
 
-  <div class="topbanner">Estudio de identidad de marca · Fundadores, producto <strong>tech · SaaS · salud</strong> y experiencias</div>
-  <header class="nav">
-    <div class="nav-inner">
-      <a class="logo" href="#">Gritt<span class="logo-dot">.</span></a>
-      <nav class="nav-links">
-        <a href="#casos">Trabajo</a>
-        <a href="#comparacion">Especialidad</a>
-        <a href="#incluye">Qué construimos</a>
-        <a href="#proceso">Método</a>
-        <a href="#pricing">Trabajemos</a>
+    <!-- Carrusel de clips (placeholder) -->
+    <div class="stage" id="stage">
+      <div class="slide active"><video muted loop playsinline preload="auto"><source src="videos/griit%20001.mp4" type="video/mp4"></video></div>
+      <div class="slide"><video muted loop playsinline preload="none"><source src="videos/0_Dark_Shadow_1280x720.mp4" type="video/mp4"></video></div>
+      <div class="slide"><video muted loop playsinline preload="none"><source src="videos/0_Woman_Walking_1280x720.mp4" type="video/mp4"></video></div>
+      <div class="slide"><video muted loop playsinline preload="none"><source src="videos/0_Boxing_Fighter_1280x720.mp4" type="video/mp4"></video></div>
+      <div class="slide"><video muted loop playsinline preload="none"><source src="videos/0_Nightclub_Dancing_1280x720.mp4" type="video/mp4"></video></div>
+      <div class="slide"><video muted loop playsinline preload="none"><source src="videos/GettyImages-1289396152.mp4" type="video/mp4"></video></div>
+      <div class="slide"><video muted loop playsinline preload="none"><source src="videos/0_Purple_Flare_Magenta_1280x720.mp4" type="video/mp4"></video></div>
+      <div class="slide"><video muted loop playsinline preload="none"><source src="videos/GettyImages-1354070139.mp4" type="video/mp4"></video></div>
+      <div class="slide"><video muted loop playsinline preload="none"><source src="videos/0_Boxing_Exercise_1280x720.mp4" type="video/mp4"></video></div>
+      <div class="slide"><video muted loop playsinline preload="none"><source src="videos/GettyImages-1367411493.mp4" type="video/mp4"></video></div>
+      <div class="slide"><video muted loop playsinline preload="none"><source src="videos/0_Arrow_Up_1280x720.mp4" type="video/mp4"></video></div>
+      <div class="slide"><video muted loop playsinline preload="none"><source src="videos/GettyImages-985569494.mp4" type="video/mp4"></video></div>
+    </div>
+
+    <!-- Contenido -->
+    <div class="content">
+      <nav class="nav">
+        <div class="astk">✳</div>
+        <div class="navr">
+          <a href="#servicios">Estudio</a>
+          <a href="#trabajo">Trabajo</a>
+          <a href="#contacto">Contacto</a>
+        </div>
       </nav>
-      <a class="btn btn-dark" href="#pricing">Hablemos</a>
-    </div>
-  </header>
 
-  <main>
-
-    <!-- HERO -->
-    <section class="hero hero-light">
-      <div class="hero-top">
-        <div class="badges reveal">
-          <span class="pill">Estudio de identidad de marca · Colombia</span>
-        </div>
-        <h1 class="hero-title reveal">
-          Identidad para fundadores que<br>
-          construyen algo <em id="hword" class="hero-tw">serio</em>.
-        </h1>
-        <p class="hero-sub reveal">
-          Somos un estudio especializado en marcas de <strong>tecnología, SaaS y salud</strong> — y en llevar esa identidad a <strong>experiencias completas</strong>.<br>
-          No hacemos volumen: cada proyecto se trabaja a profundidad, con método y criterio.
-        </p>
-        <div class="hero-cta reveal">
-          <a class="btn btn-dark btn-lg" href="#pricing">Cuéntanos tu proyecto →</a>
-          <a class="btn btn-ghost btn-lg" href="https://wa.me/573002112871?text=Hola%20Gritt%2C%20quiero%20hablar%20sobre%20mi%20marca">Agendar llamada</a>
-          <span class="hero-trust">
-            <span>Sistemas de marca <strong>a profundidad</strong></span>
-            <span class="ht-sep">|</span>
-            <span>Research con IA</span>
-            <span class="ht-sep">|</span>
-            <span>Dirección 100% humana</span>
-          </span>
-        </div>
+      <!-- Stack editorial -->
+      <div class="hero-stack reveal">
+        <div class="hs-line"><span class="hs-big">MARCA</span><span class="hs-tag">Diseño &amp; sistema de identidad</span></div>
+        <div class="hs-line"><span class="hs-it">y contenido</span></div>
+        <div class="hs-line"><span class="hs-big">con criterio</span><span class="hs-tag">Potenciado con IA · craft humano</span></div>
       </div>
 
-      <!-- Slider hero: 4 fotos verticales que rotan sin repetirse -->
-      <div class="hero-slider" id="heroSlider" aria-hidden="true">
-        <div class="hs-slot"><img src="propias/opt/005-1-bone-mesh.jpg" alt=""></div>
-        <div class="hs-slot"><img src="propias/opt/001-norvell-top.jpg" alt=""></div>
-        <div class="hs-slot"><img src="propias/opt/005-top.jpg" alt=""></div>
-        <div class="hs-slot"><img src="propias/opt/003-roselilab-photo.jpg" alt=""></div>
-      </div>
-    </section>
-
-
-
-
-
-    <!-- CREEMOS -->
-    <section class="believe">
-      <div class="believe-grid2 reveal">
-        <div class="believe-left">
-          <p class="believe-text">Tu identidad deja de ser algo efímero y pasa a verse como tu <span class="tw"><span id="twword">emprendimiento</span><span class="caret"></span></span>.</p>
-          <p class="believe-sub">La investigación y el benchmark los hace <strong>la IA</strong>. El logo y la identidad los diseña <strong>una persona</strong> — por eso el resultado no se siente «generado», <strong>se siente auténtico</strong>.</p>
-        </div>
-        <ul class="fval-list">
-          <li class="fval"><span class="fval-bar"></span><span class="fval-ic"><svg viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"><path d="M50.69,184.92A127.52,127.52,0,0,0,64,128a63.85,63.85,0,0,1,24-50"/><path d="M128,128a191.11,191.11,0,0,1-24,93"/><path d="M96,128a32,32,0,0,1,64,0,223.12,223.12,0,0,1-21.28,95.41"/><path d="M218.56,184A289.45,289.45,0,0,0,224,128a96,96,0,0,0-192,0,95.8,95.8,0,0,1-5.47,32"/><path d="M92.81,160a158.92,158.92,0,0,1-18.12,47.84"/><path d="M120,64.5a66,66,0,0,1,8-.49,64,64,0,0,1,64,64,259.86,259.86,0,0,1-2,32"/><path d="M183.94,192q-2.28,8.88-5.18,17.5"/></svg></span><span class="fval-t">Hacemos tu marca realmente auténtica</span></li>
-          <li class="fval"><span class="fval-bar"></span><span class="fval-ic"><svg viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"><path d="M128,56C48,56,16,128,16,128s32,72,112,72,112-72,112-72S208,56,128,56Z"/><circle cx="128" cy="128" r="40"/></svg></span><span class="fval-t">Creamos con criterio humano</span></li>
-          <li class="fval"><span class="fval-bar"></span><span class="fval-ic"><svg viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"><circle cx="112" cy="112" r="80"/><line x1="168.57" y1="168.57" x2="224" y2="224"/></svg></span><span class="fval-t">Investigación y benchmark con IA</span></li>
-          <li class="fval"><span class="fval-bar"></span><span class="fval-ic"><svg viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"><line x1="195.88" y1="195.88" x2="60.12" y2="60.12"/><circle cx="128" cy="128" r="96"/></svg></span><span class="fval-t">Buscamos el camino auténtico para tu marca, cero slop</span></li>
-          <li class="fval"><span class="fval-bar"></span><span class="fval-ic"><svg viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"><path d="M106.63,152.13l-8.69,9.81a48,48,0,1,1,0-67.88l60.12,67.88a48,48,0,1,0,0-67.88l-8.69,9.81"/></svg></span><span class="fval-t">Eres dueño de todo, para siempre</span></li>
-          <li class="fval"><span class="fval-bar"></span><span class="fval-ic"><svg viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"><polyline points="32 176 128 232 224 176"/><polyline points="32 128 128 184 224 128"/><polygon points="32 80 128 136 224 80 128 24 32 80"/></svg></span><span class="fval-t">Un sistema que tu equipo sí usa</span></li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- CASOS (trabajo reciente) -->
-    <section class="cases" id="casos">
-      <div class="section-head reveal">
-        <p class="kicker">TRABAJO SELECCIONADO</p>
-        <h2>Identidad para founders, producto<br>y las <em>experiencias</em> que los rodean.</h2>
-      </div>
-      <div class="cases-grid" id="casesGrid">
-        <button class="case-card case-img reveal" type="button"></button>
-        <button class="case-card case-img reveal" type="button"></button>
-        <button class="case-card case-img reveal" type="button"></button>
-        <button class="case-card case-img reveal" type="button"></button>
-        <button class="case-card case-img reveal" type="button"></button>
-        <button class="case-card case-img reveal" type="button"></button>
-      </div>
-    </section>
-
-    <!-- Lightbox para ampliar casos -->
-    <div class="lightbox" id="lightbox" aria-hidden="true">
-      <button class="lb-close" id="lbClose" aria-label="Cerrar">&times;</button>
-      <img class="lb-img" id="lbImg" src="" alt="">
-    </div>
-
-
-
-
-
-    <!-- ESPECIALIDAD -->
-    <section class="compare" id="comparacion">
-      <div class="compare-head reveal">
-        <p class="kicker">EN QUÉ NOS ESPECIALIZAMOS</p>
-        <h2>No hacemos de todo.<br>Hacemos <em>esto</em> muy bien.</h2>
-        <p class="compare-sub">Elegimos un foco para poder ir a profundidad — <strong>no para llenar un catálogo</strong>.</p>
-      </div>
-      <div class="spec-grid reveal" style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1080px;margin:0 auto">
-        <article style="border:1px solid var(--line,#e4e0d6);border-radius:16px;padding:30px 26px;text-align:left">
-          <span style="font-family:var(--serif,'Instrument Serif',serif);font-style:italic;font-size:1.1rem;opacity:.5">01</span>
-          <h3 style="font-size:1.35rem;margin:8px 0 10px">Fundadores &amp; startups</h3>
-          <p style="opacity:.72;line-height:1.55">Marcas que nacen o se relanzan. Somos el socio de diseño desde temprano: identidad que aguanta el crecimiento y la ronda que viene.</p>
-        </article>
-        <article style="border:1px solid var(--line,#e4e0d6);border-radius:16px;padding:30px 26px;text-align:left">
-          <span style="font-family:var(--serif,'Instrument Serif',serif);font-style:italic;font-size:1.1rem;opacity:.5">02</span>
-          <h3 style="font-size:1.35rem;margin:8px 0 10px">Tecnología, SaaS &amp; salud</h3>
-          <p style="opacity:.72;line-height:1.55">Productos que deben transmitir solidez y confianza. Traducimos algo técnico en una marca clara, humana y memorable.</p>
-        </article>
-        <article style="border:1px solid var(--line,#e4e0d6);border-radius:16px;padding:30px 26px;text-align:left">
-          <span style="font-family:var(--serif,'Instrument Serif',serif);font-style:italic;font-size:1.1rem;opacity:.5">03</span>
-          <h3 style="font-size:1.35rem;margin:8px 0 10px">Experiencias con marca</h3>
-          <p style="opacity:.72;line-height:1.55">Cuando un momento o producto merece ser una marca completa — identidad, digital y experiencia, en un solo mundo visual.</p>
-        </article>
-      </div>
-      <p class="center reveal" style="margin-top:34px"><a class="btn btn-dark btn-lg" href="#pricing">Hablemos de tu marca →</a></p>
-    </section>
-
-
-    <!-- QUÉ INCLUYE -->
-    <section class="features" id="incluye">
-      <div class="features-head reveal">
-        <h2>Un sistema de marca completo,<br>construido pieza por pieza.</h2>
-        <p>No entregamos un logo suelto. Construimos el sistema que tu equipo usa todos los días — con estrategia y craft en cada capa.</p>
-      </div>
-      <div class="pack-grid">
-        <article class="pack pack-wide reveal"><img src="propias/opt/3-conceptos-unicos.jpg" alt="" loading="lazy"><h3>3 conceptos únicos</h3><p>Direcciones creativas distintas para capturar la esencia de tu marca.</p></article>
-        <article class="pack pack-wide reveal"><img src="propias/opt/sistema-identidad-completo.jpg" alt="" loading="lazy"><h3>Sistema de identidad completo</h3><p>Del logo al color, tipografía e imaginería: un mundo de marca coherente.</p></article>
-        <article class="pack reveal"><img src="propias/opt/branding-posittioning.jpg" alt="" loading="lazy"><h3>Posicionamiento y estrategia</h3><p>Dirección creativa que conecta tus visuales con tus objetivos.</p></article>
-        <article class="pack reveal"><img src="propias/opt/social-media-kit.jpg" alt="" loading="lazy"><h3>Brand guidelines completas</h3><p>Todo para mantener tu marca consistente.</p></article>
-        <article class="pack reveal"><img src="propias/opt/stationery-and-mockups.jpg" alt="" loading="lazy"><h3>Papelería y mockups</h3><p>Tarjetas, previews 3D y mockups del mundo real.</p></article>
-      </div>
-      <p class="center reveal"><a class="btn btn-dark btn-lg" href="#pricing">Hablemos de tu marca →</a></p>
-    </section>
-
-
-
-    <!-- PROCESO (agente Gritt) -->
-    <section class="process" id="proceso">
-      <div class="features-head reveal">
-        <p class="kicker">NUESTRO MÉTODO</p>
-        <h2>El agente <em>prepara</em>.<br>El ojo humano <em>afina</em>.</h2>
-        <p>Un método propio que combina investigación asistida por IA con dirección y craft humanos — por eso el resultado se siente pensado, nunca generado.</p>
-      </div>
-
-      <!-- Preview animado del agente -->
-      <div class="agent-demo reveal" aria-hidden="true">
-        <div class="ad-chrome"><span class="ad-dot"></span><span class="ad-dot"></span><span class="ad-dot"></span><span class="ad-url">gritt.studio/agente</span><span class="ad-live"><span class="ad-livedot"></span>en vivo</span></div>
-        <div class="ad-stage">
-          <!-- Escena 1: investigación -->
-          <div class="ad-scene ad-s1 is-on">
-            <div class="ad-zoom">
-              <p class="ad-label">01 · Investigación</p>
-              <div class="ad-refs">
-                <span class="ad-ref">Industria</span><span class="ad-ref">Competencia</span><span class="ad-ref">Referencias</span>
-                <span class="ad-ref">Audiencia</span><span class="ad-ref">Tono</span><span class="ad-ref">Territorio</span>
-              </div>
-              <p class="ad-caption">El agente reúne tu contexto y arma la primera estética de marca.</p>
-            </div>
-          </div>
-          <!-- Escena 2: sprint / diferencial semántico -->
-          <div class="ad-scene ad-s2">
-            <div class="ad-zoom">
-              <p class="ad-label">02 · Sprint en vivo</p>
-              <div class="ad-slider"><span>Clásico</span><div class="ad-track"><i style="--x:72%"></i></div><span>Moderno</span></div>
-              <div class="ad-slider"><span>Serio</span><div class="ad-track"><i style="--x:40%"></i></div><span>Juguetón</span></div>
-              <div class="ad-slider"><span>Masivo</span><div class="ad-track"><i style="--x:83%"></i></div><span>Selecto</span></div>
-              <p class="ad-caption">Sobre el canvas ajustan juntos la personalidad de la marca.</p>
-            </div>
-          </div>
-          <!-- Escena 3: afinar + exportar -->
-          <div class="ad-scene ad-s3">
-            <div class="ad-zoom">
-              <p class="ad-label">03 · El ojo humano afina</p>
-              <div class="ad-system">
-                <span class="ad-tile ad-logo">G</span>
-                <span class="ad-tile" style="background:#1D1D1B"></span>
-                <span class="ad-tile" style="background:#D4FF3D"></span>
-                <span class="ad-tile" style="background:#6B6B69"></span>
-                <span class="ad-tile ad-type">Aa</span>
-              </div>
-              <p class="ad-caption">Nuestro equipo refina cada pieza y exporta tu sistema completo.</p>
-            </div>
-          </div>
-        </div>
-        <div class="ad-progress"><i class="ad-bar"></i></div>
-      </div>
-
-      <div class="proc-rows">
-        <div class="proc-row reveal">
-          <div class="proc-embed"><iframe src="casos/agente/paso-1-investigacion.html" title="Agente conectando el brief" loading="lazy" scrolling="no"></iframe></div>
-          <div class="proc-txt"><span class="step-num">Paso 1</span><h3>El agente <em>investiga</em></h3><p>Con la información base de tu negocio, el agente estudia tu industria, tu competencia y tus referencias, y propone una <strong>primera dirección estética</strong> — antes de la primera reunión.</p></div>
-        </div>
-        <div class="proc-row reveal">
-          <div class="proc-embed"><iframe src="casos/agente/paso-2-sprint.html" title="Deck derivado del sprint" loading="lazy" scrolling="no"></iframe></div>
-          <div class="proc-txt"><span class="step-num">Paso 2</span><h3>El sprint en <em>vivo</em></h3><p>En una sesión contigo, sobre el canvas, ajustamos personalidad y rumbo con herramientas reales de método: <strong>diferencial semántico, matriz morfológica</strong> y mapas de asociación.</p></div>
-        </div>
-        <div class="proc-row reveal">
-          <div class="proc-embed"><iframe src="casos/agente/paso-3-marca.html" title="Producción de marca en loop" loading="lazy" scrolling="no"></iframe></div>
-          <div class="proc-txt"><span class="step-num">Paso 3</span><h3>El ojo humano <em>afina</em></h3><p>Nuestros diseñadores toman lo que el agente preparó y lo llevan a pieza final: logo, identidad y sistema. <strong>Refinamos hasta que estés feliz</strong> y exportamos todo a tu correo.</p></div>
-        </div>
-      </div>
-    </section>
-
-
-
-    <!-- INVITACIÓN -->
-    <section class="pricing" id="pricing">
-      <div class="compare-head reveal">
-        <h2>Cada marca es distinta.<br>Cotizamos según tu proyecto.</h2>
-      </div>
-      <p class="center reveal" style="max-width:58ch;margin:0 auto 32px;font-size:1.08rem;line-height:1.6;opacity:.78">No trabajamos con tarifas de catálogo. Escuchamos lo que necesitas, definimos el alcance justo y te pasamos una propuesta clara — sin relleno y sin sorpresas.</p>
-      <p class="center reveal"><a class="btn btn-dark btn-lg" href="https://wa.me/573002112871?text=Hola%20Gritt%2C%20quiero%20hablar%20sobre%20mi%20marca">Cuéntanos tu proyecto →</a></p>
-    </section>
-
-
-    <!-- EQUIPO -->
-    <section class="team" id="equipo">
-      <div class="side-head reveal">
-        <h2>Conoce al equipo y sus diseñadores</h2>
-        <p>Proyectos entregados con éxito gracias a la pasión y dedicación del equipo.</p>
-      </div>
-                  <div class="team-grid team-4">
-        <div class="member reveal"><span class="avatar avatar-img"><img src="propias/opt/alan.jpg" alt="Alan" loading="lazy"></span><span class="role">Dirección creativa</span><h3>Alan</h3><p>Lidera la visión creativa de Gritt: define el rumbo y afina cada decisión de diseño.</p></div>
-        <div class="member reveal"><span class="avatar avatar-img"><img src="propias/opt/andrea.jpg" alt="Andrea" loading="lazy"></span><span class="role">Project manager</span><h3>Andrea</h3><p>Mantiene cada proyecto en curso — la claridad y el ritmo detrás de cada entrega.</p></div>
-        <div class="member reveal"><span class="avatar avatar-img"><img src="propias/opt/camilo.jpg" alt="Camilo" loading="lazy"></span><span class="role">Brand designer</span><h3>Camilo</h3><p>Construye identidades sólidas y modernas con precisión e impacto.</p></div>
-        <div class="member reveal"><span class="avatar avatar-img"><img src="propias/opt/mariana.jpg" alt="Mariana" loading="lazy"></span><span class="role">Brand designer</span><h3>Mariana</h3><p>Refina cada pieza visual con criterio y atención al detalle.</p></div>
-      </div>
-    </section>
-
-    <!-- CASE STUDIES CARRUSEL -->
-    <section class="cstudies" id="casestudies">
-      <div class="side-head reveal">
-        <h2>Case Studies</h2>
-      </div>
-            <div class="cs-scroll reveal">
-        <a class="cs-card" href="casos/norvell.html"><img src="propias/opt/001-norvell.jpg" alt="Norvell" loading="lazy"><h3>Norvell</h3><p>Plataforma de analítica digital que necesitaba verse tan sólida como su producto.</p><span class="cs-link">Ver caso →</span></a>
-        <a class="cs-card" href="casos/bone-mesh.html"><img src="propias/opt/005-1-bone-mesh.jpg" alt="Bone Mesh" loading="lazy"><h3>Bone Mesh</h3><p>Joyería de lujo que buscaba una identidad sofisticada, cálida y memorable.</p><span class="cs-link">Ver caso →</span></a>
-        <a class="cs-card" href="casos/cardinova.html"><img src="propias/opt/005-cardinova.jpg" alt="Cardinova" loading="lazy"><h3>Cardinova</h3><p>HealthTech que requería confianza clínica con una personalidad moderna.</p><span class="cs-link">Ver caso →</span></a>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="faq" id="faq">
-      <div class="side-head reveal">
-        <h2>Preguntas frecuentes</h2>
-      </div>
-      <div class="faq-grid reveal">
-        <div class="faq-col">
-          <details><summary>¿Para quién es Gritt?</summary><p>Para fundadores y equipos de producto en tecnología, SaaS y salud — y para quienes quieren convertir un momento (como una boda o un evento) en una experiencia con marca completa.</p></details>
-          <details><summary>¿Usan IA en el proceso de diseño?</summary><p>Sí, y es parte de nuestra ventaja. Agentes propios preparan investigación, exploración y producción; la pieza final la decide y afina un ojo de diseño humano. Nunca entregamos algo que no haya pasado por criterio de dirección.</p></details>
-          <details><summary>¿La marca será mía?</summary><p>Sí — recibes todos los archivos fuente y el copyright completo. Editable, exportable, para siempre.</p></details>
-          <details><summary>¿Recibo contrato o acuerdo (NDA, derechos)?</summary><p>Sí. Cada proyecto incluye acuerdo de cesión de derechos; NDA disponible si tu proyecto lo requiere.</p></details>
-          <details><summary>¿Qué los hace diferentes de otros diseñadores?</summary><p>Un foco claro, un método propio y sistemas de marca que tu equipo sí usa — no un logo suelto ni un manual que muere en un cajón.</p></details>
-          <details><summary>¿Cuánto toma un proyecto?</summary><p>Depende del alcance. Definimos tiempos realistas al inicio, según la profundidad del sistema que necesitas — nunca a costa del criterio.</p></details>
-          <details><summary>¿Y si no quedo conforme?</summary><p>Trabajamos por fases con puntos de revisión claros, y refinamos hasta que la marca esté a la altura del proyecto.</p></details>
-        </div>
-        <div class="faq-col">
-          <details><summary>¿Quién va a diseñar mi logo?</summary><p>Diseñadores del equipo Gritt, con dirección creativa central. Nunca se subcontrata al azar.</p></details>
-          <details><summary>¿Quién diseña mi marca?</summary><p>Diseñadores del equipo Gritt, con dirección creativa central. No se subcontrata al azar.</p></details>
-          <details><summary>¿Ofrecen registro de marca?</summary><p>Te orientamos con el proceso y te entregamos los archivos necesarios para registrarla en tu país.</p></details>
-          <details><summary>¿Cuál es su filosofía de diseño?</summary><p>Hacer tangible la identidad: convertir esencia y propósito en un sistema que se ve, se usa y se siente.</p></details>
-          <details><summary>¿Por qué se especializan en vez de atender todo?</summary><p>Porque el foco es lo que nos deja ir a profundidad. Conocer a fondo founders, producto tech/salud y experiencias nos hace mejores en ellos que un estudio genérico.</p></details>
-          <details><summary>¿Trabajan proyectos fuera de esos focos?</summary><p>A veces, cuando hay match real con nuestra forma de trabajar. Escríbenos y lo conversamos con honestidad.</p></details>
-          <details><summary>¿Qué incluye un sistema de marca?</summary><p>Estrategia y posicionamiento, identidad visual (logo, color, tipografía, imaginería), guidelines y los assets de aplicación que tu proyecto necesite.</p></details>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="cta" id="cta">
-      <h2 class="reveal">Tu proyecto merece una marca<br>que <em>esté a su altura</em>.</h2>
-      <p class="reveal">Trabajamos pocos proyectos a la vez, a profundidad. Cuéntanos el tuyo y veamos si hacemos match.</p>
-      <a class="btn btn-light btn-lg reveal" href="https://wa.me/573002112871?text=Hola%20Gritt%2C%20quiero%20hablar%20sobre%20mi%20marca">Cuéntanos tu proyecto</a>
-    </section>
-
-  </main>
-
-  <footer class="footer footer-dark">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <span class="logo logo-lg">Gritt<span class="logo-dot">.</span></span>
-        <p class="footer-acronym">Graphical · Response · Tactical · Transformation</p>
-        <p class="footer-tag">Hacemos tangible tu identidad.<br>Del logo al sistema completo.</p>
-      </div>
-      <div>
-        <h4>Sitio</h4>
-        <a href="#casos">Trabajo</a><a href="#comparacion">Por qué Gritt</a><a href="#incluye">Qué incluye</a><a href="#pricing">Trabajemos</a>
-      </div>
-      <div>
-        <h4>Recursos</h4>
-        <a href="#faq">Preguntas frecuentes</a><a href="#proceso">Proceso</a><a href="#equipo">Equipo</a>
-      </div>
-      <div>
-        <h4>Contacto</h4>
-        <a href="https://wa.me/573002112871?text=Hola%20Gritt%2C%20quiero%20hablar%20sobre%20mi%20marca">WhatsApp</a><a href="#">Instagram</a><a href="#">LinkedIn</a>
+      <!-- Base centrada -->
+      <div class="base reveal">
+        <a class="arw" href="#servicios" aria-label="Ver servicios"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
+        <span class="credit">Gritt · Estudio creativo · 2026 · .co</span>
       </div>
     </div>
-    <p class="footer-copy">© 2026 Gritt</p>
-  </footer>
 
-  <script src="js/main.js"></script>
+    <!-- Videos → negro al scrollear -->
+    <div class="blackout" id="blackout"></div>
+
+    <!-- Visual single del proyecto (hover) -->
+    <div class="preview" id="preview">
+      <img data-k="norvell" src="propias/opt/001-norvell-top.jpg" alt="">
+      <img data-k="bonemesh" src="propias/opt/005-1-bone-mesh.jpg" alt="">
+      <img data-k="roseelilab" src="propias/opt/003-roselilab-photo.jpg" alt="">
+    </div>
+
+    <!-- Lista minimalista de nombres (derecha) -->
+    <div class="workview" id="workview">
+      <div class="wv-head">
+        <span class="svc-lbl">Trabajo</span>
+        <h2 class="svc-h">Selected work<sup>(03)</sup></h2>
+      </div>
+      <div class="wl">
+        <a class="wl-i" data-k="norvell" href="casos/norvell.html"><span class="wl-ix">N°01</span><span class="wl-n">Norvell</span><span class="wl-meta">Identity · Platform — 2026</span></a>
+        <a class="wl-i" data-k="bonemesh" href="casos/bone-mesh.html"><span class="wl-ix">N°02</span><span class="wl-n">Bone Mesh</span><span class="wl-meta">Identity · Luxury — 2026</span></a>
+        <a class="wl-i" data-k="roseelilab" href="#"><span class="wl-ix">N°03</span><span class="wl-n">Roseelilab</span><span class="wl-meta">Identity · Skincare — 2026</span></a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SERVICIOS (acordeón) -->
+  <div class="after" id="servicios">
+    <section class="services">
+      <span class="svc-lbl">Qué hacemos</span>
+      <h2 class="svc-h">Servicios<sup>(4)</sup></h2>
+      <div class="svc-list">
+        <div class="svc open">
+          <div class="svc-head"><span class="ix">(001)</span><span class="t">Estrategia</span><span class="tg"></span></div>
+          <div class="svc-body"><span></span>
+            <p class="desc">Estrategia que da claridad y coherencia a cada punto de contacto.</p>
+            <div class="cats"><div class="cl">Categorías</div><div class="tags"><span class="cat">Estrategia de marca</span><span class="cat">Posicionamiento</span><span class="cat">Naming</span></div></div>
+          </div>
+        </div>
+        <div class="svc">
+          <div class="svc-head"><span class="ix">(002)</span><span class="t">Identidad de marca</span><span class="tg"></span></div>
+          <div class="svc-body"><span></span>
+            <p class="desc">Sistemas de identidad que expresan quién eres y se sostienen en el tiempo.</p>
+            <div class="cats"><div class="cl">Categorías</div><div class="tags"><span class="cat">Identidad visual</span><span class="cat">Dirección de arte</span><span class="cat">Logo</span><span class="cat">Design systems</span></div></div>
+          </div>
+        </div>
+        <div class="svc">
+          <div class="svc-head"><span class="ix">(003)</span><span class="t">Contenido &amp; motion</span><span class="tg"></span></div>
+          <div class="svc-body"><span></span>
+            <p class="desc">Visuales, motion y storytelling para redes. Producidos con IA, editados a mano.</p>
+            <div class="cats"><div class="cl">Categorías</div><div class="tags"><span class="cat">Video</span><span class="cat">Motion design</span><span class="cat">Contenido social</span><span class="cat">Fotografía de producto</span></div></div>
+          </div>
+        </div>
+        <div class="svc">
+          <div class="svc-head"><span class="ix">(004)</span><span class="t">Web &amp; producto</span><span class="tg"></span></div>
+          <div class="svc-body"><span></span>
+            <p class="desc">Sitios claros, rápidos y pensados para convertir.</p>
+            <div class="cats"><div class="cl">Categorías</div><div class="tags"><span class="cat">Diseño web</span><span class="cat">UX</span><span class="cat">Front-end</span><span class="cat">Aplicación de marca</span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÉTODO -->
+    <section class="method">
+      <span class="svc-lbl">Cómo trabajamos</span>
+      <h2 class="svc-h">Método<sup>(3)</sup></h2>
+      <div class="method-grid">
+        <div class="mcell">
+          <svg class="mico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg>
+          <span class="mix">01 — El agente prepara</span>
+          <h3>Explorar más terreno</h3>
+          <p>La IA explora y arma la base. Más rápido, sin quemar horas en lo repetitivo.</p>
+        </div>
+        <div class="mcell">
+          <svg class="mico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span class="mix">02 — El ojo humano afina</span>
+          <h3>Criterio y edición</h3>
+          <p>Elegimos, corregimos y damos dirección. Lo que pasa el filtro es lo que tiene intención, no lo que salió primero.</p>
+        </div>
+        <div class="mcell">
+          <svg class="mico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          <span class="mix">03 — Se entrega cuidado</span>
+          <h3>Entregar cuidado</h3>
+          <p>Sistemas coherentes, listos para usar. La velocidad de la IA con criterio humano.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="contact" id="contacto">
+      <span class="svc-lbl" style="justify-content:center">Hablemos</span>
+      <h2 class="big">Cuéntanos qué estás <em>construyendo</em>.</h2>
+      <p class="sub">Trabajamos con pocos proyectos a la vez para cuidar cada detalle. Respondemos en menos de 24 horas.</p>
+      <div class="cta-row">
+        <a class="pill" href="https://wa.me/573002112871?text=Hola%20Gritt%2C%20quiero%20empezar%20un%20proyecto" target="_blank" rel="noopener">Empezar ahora ↗</a>
+        <a class="ghost" href="mailto:hola@gritt.design">Escribir un correo</a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="foot">
+      <div class="foot-in">
+        <a class="mail" href="mailto:hola@gritt.design">hola@gritt.design</a>
+        <div class="flinks">
+          <a href="#servicios">Servicios</a>
+          <a href="#trabajo">Trabajo</a>
+          <a href="https://wa.me/573002112871" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+        <span class="fmeta">Gritt · Estudio creativo · Colombia · 2026</span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Carrusel de clips: orden random, solo reproduce el activo
+    (function(){
+      var slides=[].slice.call(document.querySelectorAll('.stage .slide'));
+      var i=0;
+      function playActive(){ slides.forEach(function(s,idx){ var v=s.querySelector('video'); if(!v) return; if(idx===i){ try{v.currentTime=0;v.play();}catch(e){} } else { v.pause(); } }); }
+      playActive();
+      function next(){
+        slides[i].classList.remove('active');
+        var n; do{ n=Math.floor(Math.random()*slides.length); } while(n===i && slides.length>1);
+        i=n; slides[i].classList.add('active'); playActive();
+        setTimeout(next, 5000);
+      }
+      setTimeout(next, 5000);
+    })();
+    // Reveals del hero
+    setTimeout(function(){ document.querySelectorAll('.reveal').forEach(function(e,i){ setTimeout(function(){e.classList.add('in');}, 300+i*140); }); }, 200);
+
+    // Scroll: videos → negro, aparece la lista de trabajo (el display no se mueve)
+    var blackout=document.getElementById('blackout'), workview=document.getElementById('workview'),
+        content=document.querySelector('.content'), stage=document.getElementById('stage'), ticking=false;
+    function onScroll(){
+      var p=Math.min(1, (window.scrollY||0)/(window.innerHeight*0.65));
+      blackout.style.opacity=p;
+      content.style.opacity=(1-p*1.4).toFixed(3);
+      content.style.pointerEvents=p>0.4?'none':'auto';
+      workview.style.opacity=p;
+      workview.style.pointerEvents=p>0.5?'auto':'none';
+      if(p>0.92){ stage.querySelectorAll('video').forEach(function(v){v.pause();}); }
+      ticking=false;
+    }
+    addEventListener('scroll',function(){ if(!ticking){requestAnimationFrame(onScroll);ticking=true;} },{passive:true});
+    onScroll();
+
+    // Hover en la lista revela la visual single del proyecto
+    var previews=document.querySelectorAll('#preview img'), items=document.querySelectorAll('.wl-i'), wl=document.querySelector('.wl');
+    items.forEach(function(it){
+      it.addEventListener('mouseenter',function(){
+        previews.forEach(function(p){ p.classList.toggle('show', p.dataset.k===it.dataset.k); });
+      });
+    });
+    wl.addEventListener('mouseleave',function(){ previews.forEach(function(p){ p.classList.remove('show'); }); });
+
+    // Acordeón de servicios
+    document.querySelectorAll('.svc-head').forEach(function(h){
+      h.addEventListener('click',function(){ h.parentElement.classList.toggle('open'); });
+    });
+  </script>
   <script data-goatcounter="https://gritt.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
