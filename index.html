@@ -134,6 +134,17 @@
   .mcell p{font-size:.92rem;line-height:1.5;color:var(--smoke)}
   @media(max-width:760px){.method{padding:80px 22px 0}.method-grid{grid-template-columns:1fr}}
 
+  /* Especialización / Foco (el "quién") */
+  .focus{max-width:1200px;margin:0 auto;padding:120px 40px 0}
+  .focus .svc-h{margin-bottom:16px}
+  .focus-sub{color:var(--smoke);font-size:1.02rem;line-height:1.5;max-width:52ch;margin-bottom:44px}
+  .focus-list{border-top:1px solid var(--graphite)}
+  .focus-row{display:grid;grid-template-columns:64px 1fr;gap:22px;padding:30px 0;border-bottom:1px solid var(--graphite);align-items:start}
+  .focus-row .fr-ix{font-family:var(--mono);font-size:.66rem;color:var(--smoke);padding-top:.45em}
+  .focus-row .fr-t{font-size:clamp(1.25rem,2.6vw,1.9rem);font-weight:400;letter-spacing:-.02em;color:var(--chalk);margin-bottom:10px}
+  .focus-row .fr-d{color:var(--smoke);font-size:1rem;line-height:1.5;max-width:60ch}
+  @media(max-width:760px){.focus{padding:80px 22px 0}.focus-row{grid-template-columns:40px 1fr;gap:14px}}
+
   /* Contacto */
   .contact{max-width:1200px;margin:0 auto;padding:130px 40px 120px;text-align:center}
   .contact .big{font-family:var(--sans);font-weight:400;font-size:clamp(2.6rem,7vw,4.4rem);letter-spacing:-.03em;line-height:1;color:var(--chalk);margin:8px 0 22px}
@@ -243,6 +254,36 @@
 
   <!-- SERVICIOS (acordeón) -->
   <div class="after" id="servicios">
+    <!-- ESPECIALIZACIÓN (el quién) -->
+    <section class="focus" id="foco">
+      <span class="svc-lbl">En qué nos especializamos</span>
+      <h2 class="svc-h">No hacemos de todo.<br>Hacemos esto <em>muy bien</em>.</h2>
+      <p class="focus-sub">Elegimos un foco para poder ir a profundidad — no para llenar un catálogo.</p>
+      <div class="focus-list">
+        <div class="focus-row">
+          <span class="fr-ix">01</span>
+          <div class="fr-body">
+            <h3 class="fr-t">Fundadores &amp; startups</h3>
+            <p class="fr-d">Marcas que nacen o se relanzan. Somos el socio de diseño desde temprano: identidad que aguanta el crecimiento y la ronda que viene.</p>
+          </div>
+        </div>
+        <div class="focus-row">
+          <span class="fr-ix">02</span>
+          <div class="fr-body">
+            <h3 class="fr-t">Tecnología, SaaS &amp; salud</h3>
+            <p class="fr-d">Productos que deben transmitir solidez y confianza. Traducimos algo técnico en una marca clara, humana y memorable.</p>
+          </div>
+        </div>
+        <div class="focus-row">
+          <span class="fr-ix">03</span>
+          <div class="fr-body">
+            <h3 class="fr-t">Experiencias con marca</h3>
+            <p class="fr-d">Cuando un momento o producto merece ser una marca completa — identidad, digital y experiencia, en un solo mundo visual.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="services">
       <span class="svc-lbl">Qué hacemos</span>
       <h2 class="svc-h">Servicios<sup>(4)</sup></h2>
