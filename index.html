@@ -71,14 +71,14 @@
   /* Nav a la derecha, solo texto (sin pill) */
   .nav{display:flex;align-items:center;justify-content:space-between}
   .brand{display:flex;align-items:center}
-  .brand img{height:31px;width:auto;display:block;filter:drop-shadow(0 1px 7px rgba(0,0,0,.55))}
+  .brand img{height:40px;width:auto;display:block;filter:drop-shadow(0 1px 7px rgba(0,0,0,.55))}
   .brand-sub{margin-left:14px;padding-left:14px;border-left:1px solid var(--line);font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);line-height:1.2;white-space:nowrap}
   .navr{display:flex;gap:24px;align-items:center}
   .navr a{font-size:.82rem;font-weight:400;letter-spacing:.02em;color:var(--ink);opacity:.78;transition:opacity .2s}
   .navr a:hover{opacity:1}
   .nav-cta{opacity:1;border:1px solid rgba(245,244,241,.38);border-radius:999px;padding:7px 15px;font-size:.74rem;text-transform:uppercase;letter-spacing:.05em;transition:background .2s,color .2s,border-color .2s}
   .nav-cta:hover{background:var(--ink);color:#0b0b0a;border-color:var(--ink)}
-  @media(max-width:600px){.brand img{height:26px}.brand-sub{display:none}.navr{gap:14px}.navr a:not(.nav-cta){display:none}}
+  @media(max-width:600px){.brand img{height:32px}.brand-sub{display:none}.navr{gap:14px}.navr a:not(.nav-cta){display:none}}
 
   /* Stack editorial (centro-izquierda) */
   .hero-stack{position:absolute;left:40px;top:50%;transform:translateY(-50%);z-index:5;max-width:88%}
@@ -263,7 +263,9 @@
       <div class="slide active"><video muted playsinline preload="auto"><source src="videos/001.mp4" type="video/mp4"></video></div>
       <div class="slide"><video muted playsinline preload="none"><source src="videos/002.mp4" type="video/mp4"></video></div>
       <div class="slide"><video muted playsinline preload="none"><source src="videos/003.mp4" type="video/mp4"></video></div>
+      <!-- 004 bloqueado temporalmente: validando derechos de marca del cliente. Reactivar quitando el comentario.
       <div class="slide"><video muted playsinline preload="none"><source src="videos/004.mp4" type="video/mp4"></video></div>
+      -->
       <div class="slide"><video muted playsinline preload="none"><source src="videos/005.mp4" type="video/mp4"></video></div>
       <div class="slide"><video muted playsinline preload="none"><source src="videos/006.mp4" type="video/mp4"></video></div>
       <div class="slide"><video muted playsinline preload="none"><source src="videos/007.mp4" type="video/mp4"></video></div>
