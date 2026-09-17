@@ -260,14 +260,14 @@
 
     <!-- Carrusel de clips (placeholder) -->
     <div class="stage" id="stage">
-      <div class="slide active"><video muted loop playsinline preload="auto"><source src="videos/001.mp4" type="video/mp4"></video></div>
-      <div class="slide"><video muted loop playsinline preload="none"><source src="videos/002.mp4" type="video/mp4"></video></div>
-      <div class="slide"><video muted loop playsinline preload="none"><source src="videos/003.mp4" type="video/mp4"></video></div>
-      <div class="slide"><video muted loop playsinline preload="none"><source src="videos/004.mp4" type="video/mp4"></video></div>
-      <div class="slide"><video muted loop playsinline preload="none"><source src="videos/005.mp4" type="video/mp4"></video></div>
-      <div class="slide"><video muted loop playsinline preload="none"><source src="videos/006.mp4" type="video/mp4"></video></div>
-      <div class="slide"><video muted loop playsinline preload="none"><source src="videos/007.mp4" type="video/mp4"></video></div>
-      <div class="slide"><video muted loop playsinline preload="none"><source src="videos/008.mp4" type="video/mp4"></video></div>
+      <div class="slide active"><video muted playsinline preload="auto"><source src="videos/001.mp4" type="video/mp4"></video></div>
+      <div class="slide"><video muted playsinline preload="none"><source src="videos/002.mp4" type="video/mp4"></video></div>
+      <div class="slide"><video muted playsinline preload="none"><source src="videos/003.mp4" type="video/mp4"></video></div>
+      <div class="slide"><video muted playsinline preload="none"><source src="videos/004.mp4" type="video/mp4"></video></div>
+      <div class="slide"><video muted playsinline preload="none"><source src="videos/005.mp4" type="video/mp4"></video></div>
+      <div class="slide"><video muted playsinline preload="none"><source src="videos/006.mp4" type="video/mp4"></video></div>
+      <div class="slide"><video muted playsinline preload="none"><source src="videos/007.mp4" type="video/mp4"></video></div>
+      <div class="slide"><video muted playsinline preload="none"><source src="videos/008.mp4" type="video/mp4"></video></div>
     </div>
 
     <!-- Contenido -->
@@ -461,19 +461,35 @@
   </div>
 
   <script>
-    // Carrusel de clips: orden random, solo reproduce el activo
+    // Carrusel: shuffle bag (muestra TODOS sin repetir, luego rebaraja) +
+    // cambia con crossfade ANTES de que el clip termine (sin loop visible / sin saltito)
     (function(){
       var slides=[].slice.call(document.querySelectorAll('.stage .slide'));
-      var i=0;
-      function playActive(){ slides.forEach(function(s,idx){ var v=s.querySelector('video'); if(!v) return; if(idx===i){ try{v.currentTime=0;v.play();}catch(e){} } else { v.pause(); } }); }
-      playActive();
-      function next(){
-        slides[i].classList.remove('active');
-        var n; do{ n=Math.floor(Math.random()*slides.length); } while(n===i && slides.length>1);
-        i=n; slides[i].classList.add('active'); playActive();
-        setTimeout(next, 5000);
+      var vids=slides.map(function(s){return s.querySelector('video');});
+      var N=slides.length; if(!N) return;
+      var CROSSFADE=1.1, MINHOLD=3.6, MAXHOLD=7;
+      function shuffle(a){ a=a.slice(); for(var k=a.length-1;k>0;k--){ var j=Math.floor(Math.random()*(k+1)); var t=a[k]; a[k]=a[j]; a[j]=t; } return a; }
+      var rest=[]; for(var q=1;q<N;q++) rest.push(q);
+      var bag=[0].concat(shuffle(rest)); // arranca en 001, el resto barajado
+      var bi=0, cur=0, timer=0, last2=[0];
+      // al rebarajar, el primero de la nueva vuelta no puede ser ninguno de los 2 últimos mostrados
+      function reBag(){ do{ bag=shuffle(bag); } while(N>2 && (bag[0]===last2[last2.length-1] || bag[0]===last2[last2.length-2])); bi=0; }
+      function step(){ bi++; if(bi>=N) reBag(); return bag[bi]; }
+      function preload(idx){ var v=vids[idx]; if(v){ v.preload='auto'; try{v.load();}catch(e){} } }
+      function schedule(){
+        clearTimeout(timer);
+        var v=vids[cur], d=(v && isFinite(v.duration) && v.duration>0) ? v.duration : MAXHOLD;
+        var hold=Math.max(MINHOLD, Math.min(MAXHOLD, d - CROSSFADE)); // cambia ~1.1s antes del final
+        timer=setTimeout(function(){ show(step()); }, hold*1000);
       }
-      setTimeout(next, 5000);
+      function show(idx){
+        slides.forEach(function(s,k){ s.classList.toggle('active', k===idx); });
+        vids.forEach(function(v,k){ if(!v) return; if(k===idx){ try{v.currentTime=0; v.play();}catch(e){} } else { try{v.pause();}catch(e){} } });
+        cur=idx; last2.push(idx); if(last2.length>2) last2.shift();
+        preload(bag[(bi+1<N)?bi+1:0]); // precarga el siguiente para transición fluida
+        schedule();
+      }
+      show(0);
     })();
     // Reveals del hero
     setTimeout(function(){ document.querySelectorAll('.reveal').forEach(function(e,i){ setTimeout(function(){e.classList.add('in');}, 300+i*140); }); }, 200);
