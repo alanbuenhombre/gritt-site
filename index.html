@@ -49,7 +49,14 @@
   .corner{position:absolute;z-index:7}
   .corner.tl{top:80px;left:40px}
   .corner.br{right:56px;bottom:38px;text-align:right}
-  @media(max-width:600px){.workview{padding:22px}.corner.tl{top:66px;left:22px}.corner.br{right:22px;bottom:24px}}
+  @media(max-width:600px){
+    .workview{padding:26px 22px;flex-direction:column;align-items:flex-start;justify-content:center;gap:28px}
+    .wv-head{align-self:flex-start;max-width:none}
+    .wl{text-align:left;gap:18px;width:100%}
+    .wl-i,.wl-i .wl-n,.wl-i .wl-meta,.wl-i .wl-ix{text-align:left}
+    .wl-i .wl-n{color:#fff;font-size:clamp(1.6rem,6.6vw,2.2rem)}
+    .corner.tl{top:66px;left:22px}.corner.br{right:22px;bottom:24px}
+  }
 
   /* Carrusel de clips de fondo */
   .stage{position:absolute;inset:0;z-index:0;background:#000}
