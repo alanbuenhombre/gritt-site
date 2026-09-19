@@ -88,7 +88,14 @@
   .hs-it{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(2.7rem,7.4vw,6.2rem);letter-spacing:-.005em;line-height:.92}
   .hs-hi{background:var(--lime);color:#0b1004;padding:0 .1em;border-radius:.06em;font-size:clamp(2.7rem,7.4vw,6.2rem)}
   .hs-tag{font-family:var(--mono);font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);max-width:18ch;line-height:1.45;align-self:center}
-  @media(max-width:600px){.hero-stack{left:22px;max-width:94%}.hs-tag{display:none}}
+  @media(max-width:600px){
+    .hero-stack{left:22px;right:22px;max-width:none;top:auto;bottom:15%;transform:none}
+    .hs-line{gap:12px}
+    .hs-tag{display:block;max-width:16ch;align-self:flex-end;margin-bottom:.5em}
+    .hs-big{font-size:clamp(2.6rem,11vw,5rem);white-space:nowrap}
+    .hs-it{font-size:clamp(2.8rem,12vw,5.4rem);white-space:nowrap}
+    .hs-hi{font-size:clamp(2.8rem,12vw,5.4rem)}
+  }
 
   /* Base centrada: flecha + crédito */
   .base{position:absolute;left:0;right:0;bottom:30px;z-index:5;display:flex;justify-content:center}
