@@ -91,12 +91,13 @@
   .hero-content{position:absolute;left:0;right:0;bottom:0;z-index:4;padding:20px 20px 22px;display:grid;grid-template-columns:repeat(12,1fr);gap:14px 16px;align-items:end}
   @media(min-width:768px){.hero-content{padding:32px 40px 36px;gap:18px 24px}}
   .hero-r{grid-column:1/-1;grid-row:1;display:flex;flex-direction:column;gap:16px}
-  .hero-l{grid-column:1/-1;grid-row:2;min-width:0}
+  .hero-l{grid-column:1/-1;grid-row:2;min-width:0;container-type:inline-size}
   @media(min-width:768px){.hero-r{grid-column:8/-1;justify-self:end;max-width:400px}}
   .live{display:inline-flex;align-items:center;gap:.6rem;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,241,232,.6);margin-bottom:.5rem}
-  /* "momentos" mide ~4.78em de ancho: el tamaño se deriva del ancho disponible para que quepa entera */
-  .wordmark{font-size:min(calc((100vw - 40px)/4.85),14rem);font-weight:800;line-height:.85;letter-spacing:-.06em;color:var(--cream);white-space:nowrap}
-  @media(min-width:768px){.wordmark{font-size:min(calc((100vw - 80px)/4.85),14rem)}}
+  /* "momentos" mide ~4.78em: se dimensiona desde el ancho REAL de su contenedor (cqw = descuenta marco del
+     hero, padding y scrollbar). Fallback en vw restando inset+padding, y ajuste JS de seguridad (fitWordmark). */
+  .wordmark{font-size:min(calc((100vw - 72px)/4.9),14rem);font-size:min(calc(100cqw/4.9),14rem);font-weight:800;line-height:.85;letter-spacing:-.06em;color:var(--cream);white-space:nowrap}
+  @media(min-width:768px){.wordmark{font-size:min(calc((100vw - 128px)/4.9),14rem);font-size:min(calc(100cqw/4.9),14rem)}}
   .by{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,241,232,.5);margin-top:.5rem}
   .hero-p{color:rgba(244,241,232,.7);font-size:.8rem;line-height:1.3}
   @media(min-width:640px){.hero-p{font-size:.9rem}}
@@ -394,6 +395,17 @@
     document.querySelectorAll('.hero .fu').forEach(function(el){ el.classList.add('in'); });
   });
   setTimeout(function(){ document.querySelectorAll('.pull,.rise,.fu').forEach(function(el){ el.classList.add('in'); }); }, 2500); // failsafe
+
+  // ── Seguridad del wordmark: mide la palabra YA con la fuente cargada y la encoge si no cabe en su contenedor ──
+  function fitWordmark(){
+    var wm=document.getElementById('wm'); if(!wm) return;
+    var inner=wm.querySelector('.w>span')||wm, avail=wm.parentElement.clientWidth;
+    wm.style.fontSize='';                                   // vuelve al valor CSS (máximo) antes de medir
+    var w=inner.getBoundingClientRect().width;
+    if(w>avail*0.985){ wm.style.fontSize=(parseFloat(getComputedStyle(wm).fontSize)*avail*0.985/w)+'px'; }
+  }
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(fitWordmark);
+  window.addEventListener('load', fitWordmark); window.addEventListener('resize', fitWordmark);
 </script>
 <script data-goatcounter="https://gritt.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
