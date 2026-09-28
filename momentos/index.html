@@ -402,10 +402,11 @@
     var inner=wm.querySelector('.w>span')||wm, avail=wm.parentElement.clientWidth;
     wm.style.fontSize='';                                   // vuelve al valor CSS (máximo) antes de medir
     var w=inner.getBoundingClientRect().width;
-    if(w>avail*0.985){ wm.style.fontSize=(parseFloat(getComputedStyle(wm).fontSize)*avail*0.985/w)+'px'; }
+    if(w>avail*0.97){ wm.style.fontSize=(parseFloat(getComputedStyle(wm).fontSize)*avail*0.97/w)+'px'; } // 3% de aire
   }
   if(document.fonts && document.fonts.ready) document.fonts.ready.then(fitWordmark);
-  window.addEventListener('load', fitWordmark); window.addEventListener('resize', fitWordmark);
+  window.addEventListener('load', fitWordmark); window.addEventListener('resize', fitWordmark); window.addEventListener('orientationchange', fitWordmark);
+  [300, 1200, 3000].forEach(function(ms){ setTimeout(fitWordmark, ms); }); // re-mide cuando ya se asentó todo (scrollbar, dvh, fuente)
 </script>
 <script data-goatcounter="https://gritt.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
