@@ -71,8 +71,10 @@
   @media(min-width:768px){.hero{padding:24px}}
   .hero-in{position:relative;height:100%;border-radius:1rem;overflow:hidden;background:var(--ink)}
   @media(min-width:768px){.hero-in{border-radius:2rem}}
-  /* "filtrito": oscurece el video para que el texto lea siempre */
-  .hero-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.72) saturate(1.05)}
+  /* Blur-fill: el video vertical se ve COMPLETO (contain, centrado) y los costados los rellena
+     una copia difuminada del mismo video. Con el trailer 16:9 futuro, contain = full-bleed natural. */
+  .hero-vid-bg{position:absolute;inset:-6%;width:112%;height:112%;object-fit:cover;filter:blur(38px) brightness(.5) saturate(1.1);pointer-events:none}
+  .hero-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:brightness(.78) saturate(1.05)}
   .hero-grad{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(29,29,27,.35),rgba(29,29,27,.12) 45%,rgba(29,29,27,.88));pointer-events:none}
   /* navbar colgante */
   .navpill{position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:6;background:var(--ink);border-radius:0 0 1rem 1rem;padding:.55rem .9rem;display:flex;align-items:center;gap:.75rem;white-space:nowrap}
@@ -188,8 +190,11 @@
 <!-- ═══ 1. HERO ═══ -->
 <header class="hero" id="top">
   <div class="hero-in">
-    <!-- placeholder: video vertical recortado a 16:9. Cambiar por hero-trailer.mp4 (16:9) cuando esté. -->
-    <video class="hero-vid" autoplay loop muted playsinline poster="../proyectos/opt/boda.jpg">
+    <!-- Video vertical mostrado completo (blur-fill). Cambiar ambos src por hero-trailer.mp4 (16:9) cuando esté. -->
+    <video class="hero-vid-bg" autoplay loop muted playsinline aria-hidden="true" poster="../proyectos/opt/boda.jpg">
+      <source src="../videos/bodas%20gritt%20hero%20vertical.mp4" type="video/mp4">
+    </video>
+    <video class="hero-vid" autoplay loop muted playsinline>
       <source src="../videos/bodas%20gritt%20hero%20vertical.mp4" type="video/mp4">
     </video>
     <div class="noise-overlay"></div>
