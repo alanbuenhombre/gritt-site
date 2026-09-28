@@ -27,10 +27,13 @@
 
   /* Al scrollear: videos → negro, aparece la lista de trabajo, hover revela visual */
   .blackout{position:absolute;inset:0;background:#000;opacity:0;z-index:2;pointer-events:none}
-  .preview{position:absolute;inset:0;z-index:3;pointer-events:none}
-  .preview img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .7s ease;filter:grayscale(.12) contrast(1.02)}
+  /* Preview de hover: tarjeta contenida y centrada (no full-bleed); la caja solo aparece al pasar por un proyecto */
+  .preview{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.96);width:min(34vw,480px);aspect-ratio:4/3;border-radius:14px;overflow:hidden;z-index:3;pointer-events:none;
+    border:1px solid rgba(245,244,241,.12);box-shadow:0 34px 90px rgba(0,0,0,.65);opacity:0;transition:opacity .45s ease,transform .7s cubic-bezier(.16,1,.3,1)}
+  .preview.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  .preview img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .45s ease;filter:grayscale(.12) contrast(1.02)}
   .preview img.show{opacity:1}
-  .preview::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.55),transparent 42%,rgba(0,0,0,.4))}
+  @media(max-width:760px){.preview{width:min(70vw,360px)}}
   /* Labels técnicos (mono) */
   .tlabel{font-family:var(--mono);font-weight:400;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;line-height:1.55;color:var(--muted)}
 
@@ -558,10 +561,10 @@
     var previews=document.querySelectorAll('#preview img'), items=document.querySelectorAll('.wl-i'), wl=document.querySelector('.wl');
     items.forEach(function(it){
       it.addEventListener('mouseenter',function(){
-        previews.forEach(function(p){ p.classList.toggle('show', p.dataset.k===it.dataset.k); });
+        previews.forEach(function(p){ p.classList.toggle('show', p.dataset.k===it.dataset.k); }); document.getElementById('preview').classList.add('on');
       });
     });
-    wl.addEventListener('mouseleave',function(){ previews.forEach(function(p){ p.classList.remove('show'); }); });
+    wl.addEventListener('mouseleave',function(){ previews.forEach(function(p){ p.classList.remove('show'); }); document.getElementById('preview').classList.remove('on'); });
 
     // Menú hamburguesa (mobile)
     (function(){
