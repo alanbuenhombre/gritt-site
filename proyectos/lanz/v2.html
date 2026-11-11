@@ -638,6 +638,38 @@ body.on-home main{padding-top:0}
  .menu .ddpanel strong{font-size:1rem}
  .menu .ddpanel span{font-size:.86rem}
 }
+
+/* soluciones móvil: tabs 2x2 + descripción */
+.svc-desc{display:none}
+@media (max-width:820px){
+ .svc-head{padding:80px 0 12px!important}
+ .svc-head h2{font-size:1.35rem!important;margin-top:6px}
+ .svc-v{object-position:70% 50%!important}
+ .svc-list-w{padding:12px 0 18px!important}
+ .svc-list{display:grid!important;grid-template-columns:1fr 1fr;gap:8px!important;overflow:visible!important;scroll-snap-type:none!important}
+ .sc{flex:none!important;padding:11px 12px!important;border:1px solid var(--line)!important;border-radius:12px!important;background:#fff!important;box-shadow:none!important;opacity:1!important}
+ .sc.on{border-color:var(--violet)!important;background:var(--violet)!important}
+ .sc.on strong,.sc.on .n{color:#fff!important}
+ .sc strong{font-size:.78rem!important;opacity:1!important}
+ .sc .n{font-size:.58rem!important;margin-right:6px!important}
+ .sc .x{display:none!important}
+ .svc-desc{display:block;margin-top:12px;min-height:5.2em}
+ .svc-desc .d{margin:0;font-size:.9rem;line-height:1.5;color:var(--ink-soft)}
+ .svc-desc .more{display:inline-block;margin-top:8px;font-size:.84rem;font-weight:600;color:var(--ink);text-decoration:none;border-bottom:1px solid currentColor}
+}
+
+/* móvil: barra de avance segmentada */
+@media (max-width:820px){
+ .svc-list{grid-template-columns:repeat(4,1fr)!important;gap:6px!important}
+ .sc,.sc.on{padding:0 0 0!important;border:0!important;background:none!important;border-radius:0!important}
+ .sc strong{display:none!important}
+ .sc .n{display:block;font-size:.66rem!important;letter-spacing:.14em;color:var(--ink-soft)!important;margin:0 0 8px!important}
+ .sc.on .n{color:var(--violet)!important}
+ .sc::after{content:"";display:block;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--violet) calc(var(--f,0)*100%),var(--line) 0)}
+ .svc-desc{margin-top:16px}
+ .svc-desc .t{margin:0 0 6px;font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:1.05rem;letter-spacing:.02em;color:var(--ink)}
+ .svc-desc .t span{font-family:var(--body);font-size:.7rem;letter-spacing:.14em;color:var(--violet);margin-right:10px;vertical-align:2px}
+}
 </style>
 
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none"><symbol id="lanz-logo" viewBox="0 0 510.26 158.89"><path fill="var(--logo-a,#5c19ec)" d="M 12.000 15.197 L 37.761 15.151 L 36.792 119.849 L 68.129 87.577 L 84.034 103.482 L 53.353 135.754 C 53.353 135.754 42.219 146.887 32.676 137.345 L 12.000 116.657 L 12.000 15.197 Z"/><path fill="var(--logo-a,#5c19ec)" d="M 214.715 141.165 L 191.609 141.165 L 191.124 36.218 L 123.611 105.503 L 123.611 141.165 L 100.441 141.165 L 100.441 103.468 C 100.441 98.923 102.527 94.563 106.243 91.343 L 176.537 18.130 C 181.320 13.985 189.099 13.989 193.877 18.139 L 214.231 38.347 L 214.715 141.165 Z"/><path fill="var(--logo-a,#5c19ec)" d="M 270.815 20.381 L 324.383 106.089 L 322.931 15.088 L 348.609 15.088 L 348.557 141.166 L 324.971 141.165 L 256.275 38.148 L 256.275 141.165 L 231.667 141.165 L 231.667 41.043 L 256.275 16.555 C 256.275 16.555 265.695 12.000 270.815 20.381 Z"/><path fill="var(--logo-a,#5c19ec)" d="M 181.542 105.302 L 136.632 105.535 L 154.201 88.040 L 181.253 88.040 L 181.542 105.302 Z"/><path fill="var(--logo-b,#5aed75)" d="M 366.408 116.709 L 390.958 141.938 L 494.806 141.938 L 494.806 116.709 L 392.046 116.696 L 429.485 79.989 L 389.707 79.989 L 371.640 99.590 C 371.640 99.590 361.893 107.528 366.408 116.709 Z"/><path fill="var(--logo-a,#5c19ec)" d="M 493.745 39.738 L 469.195 14.509 L 365.192 14.509 L 365.192 39.738 L 467.800 39.738 L 430.714 77.169 L 467.711 76.527 L 489.909 56.857 C 489.909 56.857 498.260 48.919 493.745 39.738 Z"/></symbol><symbol id="lanz-z" viewBox="355 10 150 136"><path fill="var(--logo-b,#5aed75)" d="M 366.408 116.709 L 390.958 141.938 L 494.806 141.938 L 494.806 116.709 L 392.046 116.696 L 429.485 79.989 L 389.707 79.989 L 371.640 99.590 C 371.640 99.590 361.893 107.528 366.408 116.709 Z"/><path fill="var(--logo-a,#5c19ec)" d="M 493.745 39.738 L 469.195 14.509 L 365.192 14.509 L 365.192 39.738 L 467.800 39.738 L 430.714 77.169 L 467.711 76.527 L 489.909 56.857 C 489.909 56.857 498.260 48.919 493.745 39.738 Z"/></symbol></svg>
@@ -694,7 +726,7 @@ body.on-home main{padding-top:0}
           <li class="sc" data-i="1" tabindex="0"><span class="n">02</span><strong>Lanz Impulsa</strong><div class="x"><div><p class="d">Piezas livianas a clientes en todo el mundo, para emprendedores y marcas.</p><a class="more" href="#impulsa" data-go="impulsa">Conocer Lanz Impulsa</a></div></div></li>
           <li class="sc" data-i="2" tabindex="0"><span class="n">03</span><strong>Express</strong><div class="x"><div><p class="d">Un envío de alto valor, gran tamaño o peso, bien acompañado de principio a fin.</p><a class="more" href="#express" data-go="express">Conocer Express</a></div></div></li>
           <li class="sc" data-i="3" tabindex="0"><span class="n">04</span><strong>Lanz Box</strong><div class="x"><div><p class="d">Tus compras en Estados Unidos, en la dirección que elijas en Colombia.</p><a class="more" href="#lanz-box" data-go="lanz-box">Conocer Lanz Box</a></div></div></li>
-        </ol></div></div>
+        </ol><div class="svc-desc" id="svc-desc" aria-live="polite"></div></div></div>
       </div>
     </div>
   </section>
@@ -1120,7 +1152,8 @@ function filmsTick(){
   if(innerWidth>820){ui.style.opacity=(1-k).toFixed(3);ui.style.transform=`translate3d(0,${(-k*40).toFixed(1)}px,0)`}else{ui.style.opacity='';ui.style.transform=''}
   const cue=film.querySelector('.film-cue');cue.style.opacity=(1-clamp01(p/.08)).toFixed(2)}
  if(svc){const v=svc.querySelector('video'),pos=knot(secP(svc));if(v.duration)v._tgt=Math.min(v.duration-.12,pos*v.duration/3);
-  const a=Math.round(pos);if(a!==svcActive){svcActive=a;const cs=svc.querySelectorAll('.sc');cs.forEach((c,i)=>c.classList.toggle('on',i===a));
+  svc.querySelectorAll('.sc').forEach((c,i)=>c.style.setProperty('--f',Math.max(0,Math.min(1,pos-i+1)).toFixed(3)));
+  const a=Math.round(pos);if(a!==svcActive){svcActive=a;const cs=svc.querySelectorAll('.sc');cs.forEach((c,i)=>c.classList.toggle('on',i===a));const sd=svc.querySelector('#svc-desc');if(sd){const x=cs[a].querySelector('.x>div');sd.innerHTML='<p class="t"><span>0'+(a+1)+' / 0'+cs.length+'</span>'+cs[a].querySelector('strong').textContent+'</p>'+(x?x.innerHTML:'')}
    const l=svc.querySelector('.svc-list');if(l&&l.scrollWidth>l.clientWidth+4)l.scrollTo({left:cs[a].offsetLeft-l.offsetLeft-4,behavior:'smooth'})}}
 }
 (function vloop(){for(const s of [film,svc]){if(!s)continue;const v=s.querySelector('video');if(v._tgt==null||!v.duration){continue}
