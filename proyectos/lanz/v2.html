@@ -670,6 +670,15 @@ body.on-home main{padding-top:0}
  .svc-desc .t{margin:0 0 6px;font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:1.05rem;letter-spacing:.02em;color:var(--ink)}
  .svc-desc .t span{font-family:var(--body);font-size:.7rem;letter-spacing:.14em;color:var(--violet);margin-right:10px;vertical-align:2px}
 }
+
+/* móvil: recorrido sin parallax, foto completa bajo el menú */
+@media (max-width:820px){
+ .journey .panel .ph{top:64px!important;bottom:auto!important;height:46%!important;transform:none!important;inset-inline:0!important}
+ .journey .panel[data-i="0"] .ph{background-position:62% 30%!important}
+ .journey .panel[data-i="1"] .ph{background-position:72% 18%!important}
+ .journey .panel[data-i="3"] .ph{background-position:88% 30%!important}
+ .journey .panel:not(.violet) .jcopy{top:calc(64px + 46% + 24px)!important;bottom:auto!important;transform:none!important}
+}
 </style>
 
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none"><symbol id="lanz-logo" viewBox="0 0 510.26 158.89"><path fill="var(--logo-a,#5c19ec)" d="M 12.000 15.197 L 37.761 15.151 L 36.792 119.849 L 68.129 87.577 L 84.034 103.482 L 53.353 135.754 C 53.353 135.754 42.219 146.887 32.676 137.345 L 12.000 116.657 L 12.000 15.197 Z"/><path fill="var(--logo-a,#5c19ec)" d="M 214.715 141.165 L 191.609 141.165 L 191.124 36.218 L 123.611 105.503 L 123.611 141.165 L 100.441 141.165 L 100.441 103.468 C 100.441 98.923 102.527 94.563 106.243 91.343 L 176.537 18.130 C 181.320 13.985 189.099 13.989 193.877 18.139 L 214.231 38.347 L 214.715 141.165 Z"/><path fill="var(--logo-a,#5c19ec)" d="M 270.815 20.381 L 324.383 106.089 L 322.931 15.088 L 348.609 15.088 L 348.557 141.166 L 324.971 141.165 L 256.275 38.148 L 256.275 141.165 L 231.667 141.165 L 231.667 41.043 L 256.275 16.555 C 256.275 16.555 265.695 12.000 270.815 20.381 Z"/><path fill="var(--logo-a,#5c19ec)" d="M 181.542 105.302 L 136.632 105.535 L 154.201 88.040 L 181.253 88.040 L 181.542 105.302 Z"/><path fill="var(--logo-b,#5aed75)" d="M 366.408 116.709 L 390.958 141.938 L 494.806 141.938 L 494.806 116.709 L 392.046 116.696 L 429.485 79.989 L 389.707 79.989 L 371.640 99.590 C 371.640 99.590 361.893 107.528 366.408 116.709 Z"/><path fill="var(--logo-a,#5c19ec)" d="M 493.745 39.738 L 469.195 14.509 L 365.192 14.509 L 365.192 39.738 L 467.800 39.738 L 430.714 77.169 L 467.711 76.527 L 489.909 56.857 C 489.909 56.857 498.260 48.919 493.745 39.738 Z"/></symbol><symbol id="lanz-z" viewBox="355 10 150 136"><path fill="var(--logo-b,#5aed75)" d="M 366.408 116.709 L 390.958 141.938 L 494.806 141.938 L 494.806 116.709 L 392.046 116.696 L 429.485 79.989 L 389.707 79.989 L 371.640 99.590 C 371.640 99.590 361.893 107.528 366.408 116.709 Z"/><path fill="var(--logo-a,#5c19ec)" d="M 493.745 39.738 L 469.195 14.509 L 365.192 14.509 L 365.192 39.738 L 467.800 39.738 L 430.714 77.169 L 467.711 76.527 L 489.909 56.857 C 489.909 56.857 498.260 48.919 493.745 39.738 Z"/></symbol></svg>
