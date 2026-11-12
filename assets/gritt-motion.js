@@ -308,9 +308,14 @@
   var lrM = document.getElementById('lrM'), lsN = document.getElementById('lsN'), lsT = document.getElementById('lsT');
   var SECS = [['inicio', 'Inicio'], ['servicios', 'Servicios'], ['casos', 'Casos'], ['lab', 'El Lab'], ['por-que', 'Por qué'], ['contacto', 'Contacto']]
     .map(function (x) { return [document.getElementById(x[0]), x[1]]; }).filter(function (x) { return x[0]; });
-  var lrLast = -1, secLast = -1;
+  var lrLast = -1, secLast = -1, lastY = -1, idleT = 0;
   function updRule() {
     if (!lrM) return;
+    // la lectura aparece solo mientras haces scroll; al detenerte se apaga para leer tranquilo
+    if (window.scrollY !== lastY) {
+      lastY = window.scrollY; document.body.classList.remove('lab-idle');
+      clearTimeout(idleT); idleT = setTimeout(function () { document.body.classList.add('lab-idle'); }, 1100);
+    }
     var max = root.scrollHeight - H(), p = max > 0 ? clamp(window.scrollY / max, 0, 1) : 0, v = Math.round(p * 100);
     if (v !== lrLast) { lrLast = v; lrM.style.setProperty('--lp', (p * 100).toFixed(2) + '%'); lrM.setAttribute('data-v', ('00' + v).slice(-3)); }
     var cur = 0; SECS.forEach(function (x, i) { if (x[0].getBoundingClientRect().top < H() * .4) cur = i; });

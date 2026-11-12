@@ -217,7 +217,7 @@
   .inhouse p{color:var(--muted);font-size:.94rem;max-width:60ch;margin-top:4px}
 
   /* ═══ CABECERA DE SECCIÓN (índice · título · bajada) ═══ */
-  .sh{display:grid;grid-template-columns:repeat(12,1fr);column-gap:clamp(16px,2vw,28px);border-top:1px solid currentColor;padding-top:18px}
+  .sh{display:grid;grid-template-columns:repeat(12,1fr);column-gap:clamp(16px,2vw,28px);padding-top:18px}
   .sh-i{grid-column:1/4;display:flex;gap:14px;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding-top:.5em}
   .sh-i span:first-child{color:var(--acc)}
   .sh-t{grid-column:4/12;font-weight:300;font-size:clamp(2rem,4.2vw,3.4rem);line-height:1.04;letter-spacing:-.045em;max-width:17ch}
@@ -412,7 +412,7 @@
 
   /* ═══ CONTACTO (oscuro) ═══ */
   .contact-sec{background:var(--ink);color:#F2F2F0;margin-top:clamp(110px,13vw,170px);padding:clamp(90px,11vw,140px) 0 0}
-  .ct .sh-i{padding:18px 0 0;border-top:1px solid rgba(255,255,255,.2)}
+  .ct .sh-i{padding:18px 0 0}
   .ct .sh-i span:first-child{color:#8EA9FF}
   .ct h2{font-weight:300;font-size:clamp(2.2rem,5vw,4.2rem);letter-spacing:-.05em;line-height:1;max-width:15ch;margin-top:clamp(28px,4vw,48px)}
   .ct-row{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,80px);margin-top:clamp(40px,5vw,64px);align-items:start}
@@ -466,7 +466,7 @@
 
 
   /* ═══ Casos: dos grupos claros, la línea visible en cada tarjeta ═══ */
-  .cgrp{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;border-top:1px solid var(--ink);padding-top:14px;margin-top:clamp(44px,5vw,64px)}
+  .cgrp{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;padding-top:14px;margin-top:clamp(44px,5vw,64px)}
   .hz .cgrp{margin-top:0}
   .cg-k{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.74rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
   .cg-d{display:block;margin-top:8px;font-size:.92rem;color:var(--muted)}
@@ -482,20 +482,38 @@
 
 
   /* ═══ Capa "lab": retícula de puntos, escáner, reglas con lectura de posición y marcas de registro ═══ */
-  .lab-bg{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background-image:radial-gradient(rgba(22,22,22,.10) 1px,transparent 1.3px);background-size:28px 28px;-webkit-mask-image:radial-gradient(130% 95% at 50% 35%,#000 25%,transparent 85%);mask-image:radial-gradient(130% 95% at 50% 35%,#000 25%,transparent 85%)}
-  .lab-scan{position:absolute;left:0;right:0;top:-160px;height:160px;background:linear-gradient(transparent,rgba(45,91,209,.035) 70%,rgba(45,91,209,.11) 99%,transparent);animation:labscan 16s linear infinite}
-  @keyframes labscan{to{transform:translateY(calc(100vh + 160px))}}
+  .lab-bg{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden;
+    background-image:radial-gradient(rgba(22,22,22,.17) 1.4px,transparent 2.2px);background-size:30px 30px;filter:blur(.9px);
+    -webkit-mask-image:radial-gradient(closest-side,#000,transparent),radial-gradient(closest-side,rgba(0,0,0,.7),transparent),radial-gradient(closest-side,rgba(0,0,0,.55),transparent);
+    -webkit-mask-size:1100px 900px,1500px 1300px,900px 1700px;-webkit-mask-position:8% 6%,92% 38%,30% 72%;-webkit-mask-repeat:repeat;-webkit-mask-composite:source-over;
+    mask-image:radial-gradient(closest-side,#000,transparent),radial-gradient(closest-side,rgba(0,0,0,.7),transparent),radial-gradient(closest-side,rgba(0,0,0,.55),transparent);
+    mask-size:1100px 2300px,1500px 3100px,900px 2700px;mask-position:8% 6%,92% 38%,30% 72%;mask-repeat:repeat;mask-composite:add}
+  body{position:relative}
   .lab-rule{position:fixed;top:110px;bottom:56px;left:16px;width:10px;z-index:40;pointer-events:none;mix-blend-mode:difference;color:#fff}
-  .lab-rule::before{content:"";position:absolute;inset:0;opacity:.32;background:repeating-linear-gradient(to bottom,currentColor 0 1px,transparent 1px 8px) left top/5px 100% no-repeat,repeating-linear-gradient(to bottom,currentColor 0 1px,transparent 1px 64px) left top/10px 100% no-repeat}
+  .lab-rule::before{content:"";position:absolute;inset:0;opacity:.22;filter:blur(.4px);-webkit-mask-image:linear-gradient(transparent,#000 18%,#000 82%,transparent);mask-image:linear-gradient(transparent,#000 18%,#000 82%,transparent);background:repeating-linear-gradient(to bottom,currentColor 0 1px,transparent 1px 8px) left top/5px 100% no-repeat,repeating-linear-gradient(to bottom,currentColor 0 1px,transparent 1px 64px) left top/10px 100% no-repeat}
   .lr-m{position:absolute;left:0;top:var(--lp,0%);width:18px;height:1px;background:currentColor;transition:top .12s linear}
-  .lr-m::after{content:attr(data-v);position:absolute;left:24px;top:-5px;font:500 9px/1 var(--mono);letter-spacing:.12em}
+  .lr-m::after{transition:opacity .5s ease;content:attr(data-v);position:absolute;left:24px;top:-5px;font:500 9px/1 var(--mono);letter-spacing:.12em}
   .lab-sec-l{position:fixed;right:16px;bottom:56px;z-index:40;pointer-events:none;mix-blend-mode:difference;color:#fff;writing-mode:vertical-rl;transform:rotate(180deg);font:500 9px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;opacity:.75;display:flex;gap:10px}
   .lab-sec-l b{font-weight:500;opacity:.55}
+  .lab-rule,.lab-sec-l{transition:opacity .7s ease}
+  body.lab-idle .lab-rule{opacity:.45}
+  body.lab-idle .lr-m::after,body.lab-idle .lab-sec-l{opacity:0}
   @media(max-width:1099px){.lab-rule,.lab-sec-l{display:none}}
   .sh,.cgrp{position:relative}
-  .sh::before,.sh::after,.cgrp::before,.cgrp::after{content:"";position:absolute;top:-5px;width:9px;height:9px;background:linear-gradient(currentColor,currentColor) center/1px 100% no-repeat,linear-gradient(currentColor,currentColor) center/100% 1px no-repeat}
-  .sh::before,.cgrp::before{left:-4px}.sh::after,.cgrp::after{right:-4px}
-  @media(prefers-reduced-motion:reduce){.lab-scan{animation:none;display:none}}
+
+
+  /* ═══ Casos: solo clientes + cierre ═══ */
+  .ln-u{color:var(--ink);border-bottom:1px solid var(--ink)}
+  .ln-u:hover{color:var(--acc);border-color:var(--acc)}
+  .cnext{display:grid;grid-template-columns:1.3fr 1fr;gap:clamp(24px,4vw,64px);align-items:end;margin-top:clamp(64px,8vw,110px);background:var(--ink);color:#F2F2F0;border-radius:24px;padding:clamp(28px,4vw,56px)}
+  .cn-k{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#8EA9FF}
+  .cnext h3{font-weight:300;font-size:clamp(2.2rem,4.4vw,3.8rem);letter-spacing:-.05em;line-height:1;margin:14px 0 12px}
+  .cnext h3 span{color:rgba(242,242,240,.45)}
+  .cnext p{color:rgba(242,242,240,.65);max-width:40ch}
+  .cn-a{display:flex;flex-direction:column;align-items:flex-start;gap:16px}
+  .cn-l{font-size:.9rem;color:#F2F2F0;border-bottom:1px solid rgba(242,242,240,.5);padding-bottom:1px}
+  .cn-l:hover{color:#8EA9FF;border-color:#8EA9FF}
+  @media(max-width:760px){.cnext{grid-template-columns:1fr}}
 
   /* ═══ v6 · técnicas de scroll aplicadas a Gritt (paleta e Inter/Plex Mono propias) ═══ */
   html.lenis,html.lenis body{height:auto}
@@ -780,14 +798,9 @@
   <div class="wrap">
     <header class="sh">
       <div class="sh-i up"><span>(02)</span><span>Casos</span></div>
-      <h2 class="sh-t up">Lo que hemos hecho, <span class="dim">y lo que estamos probando.</span></h2>
-      <p class="sh-l up">Cada caso dice de qué línea es y si es trabajo con un cliente o un experimento del Lab. Donde no tenemos permiso para mostrar datos, lo verás marcado.</p>
+      <h2 class="sh-t up">Lo que hemos hecho <span class="dim">con clientes.</span></h2>
+      <p class="sh-l up">Proyectos reales, mostrados con permiso. Los experimentos propios están en <a class="ln-u" href="#lab">El Lab</a>.</p>
     </header>
-
-    <div class="cgrp up">
-      <div><span class="cg-k"><i class="st s3"></i>Con clientes</span><span class="cg-d">Proyectos reales, mostrados con permiso del cliente.</span></div>
-      <span class="cg-n">02</span>
-    </div>
 
     <div class="cases" id="cases">
       <!-- C01 · LANZ -->
@@ -832,69 +845,17 @@
     </div>
   </div>
 
-  <div class="hz" id="hz">
-    <div class="hz-s">
-      <div class="wrap"><div class="cgrp">
-        <div><span class="cg-k"><i class="st s2"></i>Del Lab</span><span class="cg-d">Prototipos, juegos y marcas inventadas: así probamos antes de venderlo.</span></div>
-        <span class="cg-n hz-n"><b id="hzN">01</b> / <span id="hzT">06</span></span>
-      </div></div>
-      <div class="hz-t" id="hzTrack">
-    <!-- Lab -->
-    <article class="case" data-l="reports">
-      <a class="cm" href="reports/"><img src="assets/casos/gritt-reports.jpg" alt="Prototipo de Gritt Reports" loading="eager"><span class="go" aria-hidden="true">↗</span></a>
-      <div class="cx"><span class="lns"><i>Reports</i></span><span class="ix">C—03</span></div>
-      <h3>Gritt Reports</h3>
-      <p class="cs">Prototipo · clientes ficticios y datos de prueba</p>
-      <p>La página de reporte que recibe un cliente de contenido: cambia de cliente, periodo y plataforma, y comparte el link.</p>
-      <div class="cl"><a href="reports/">Probar el prototipo →</a></div>
-    </article>
-
-    <article class="case" data-l="play">
-      <a class="cm" href="https://buenhombre.design/driftway/" target="_blank" rel="noopener"><img src="assets/casos/driftway.jpg" alt="DRIFTWAY" loading="eager"><span class="go" aria-hidden="true">↗</span></a>
-      <div class="cx"><span class="lns"><i>Play</i></span><span class="ix">C—04</span></div>
-      <h3>DRIFTWAY</h3>
-      <p class="cs">Arcade 3D en el navegador</p>
-      <p>Juego propio para probar qué tan lejos llega una experiencia jugable web, sin instalar nada.</p>
-      <div class="cl"><a href="https://buenhombre.design/driftway/" target="_blank" rel="noopener">Jugar ↗</a></div>
-    </article>
-
-    <article class="case" data-l="play">
-      <a class="cm" href="https://buenhombre.design/traceline/" target="_blank" rel="noopener"><img src="assets/casos/traceline.jpg" alt="TRACELINE" loading="eager"><span class="go" aria-hidden="true">↗</span></a>
-      <div class="cx"><span class="lns"><i>Play</i></span><span class="ix">C—05</span></div>
-      <h3>TRACELINE</h3>
-      <p class="cs">Contrarreloj en estética de plano técnico</p>
-      <p>Juego propio donde la estética de línea y punto define la mecánica. En desarrollo.</p>
-      <div class="cl"><a href="https://buenhombre.design/traceline/" target="_blank" rel="noopener">Jugar ↗</a></div>
-    </article>
-
-    <article class="case" data-l="play">
-      <div class="cm"><img src="assets/casos/paper-trail.jpg" alt="PAPER TRAIL, concepto de juego papercraft" loading="eager"></div>
-      <div class="cx"><span class="lns"><i>Play</i></span><span class="ix">C—06</span></div>
-      <h3>PAPER TRAIL</h3>
-      <p class="cs">Concepto para marca automotriz</p>
-      <p>Concepto propio de activación: un juego de manejo en papel recortado para eventos, con ranking en pantalla.</p>
-    </article>
-
-    <article class="case" data-l="brand">
-      <div class="cm"><div class="tri">
-        <a href="https://buenhombre.design/halora/" target="_blank" rel="noopener"><img src="assets/casos/halora.jpg" alt="Halora, landing concepto" loading="eager"></a>
-        <div class="ph"><span class="ph-tag">IMG</span><span class="ph-d">Drops</span></div>
-        <div class="nh"><img src="assets/casos/null-h1.jpg" alt="NULL° H1, audífonos concepto en 3D" loading="eager"></div>
-      </div></div>
-      <div class="cx"><span class="lns"><i>Brand</i></span><span class="ix">C—07</span></div>
-      <h3>Halora, Drops y NULL° H1</h3>
-      <p class="cs">Landings concepto</p>
-      <p>Marcas inventadas por nosotros para poner a prueba el proceso con IA, de cero a landing completa.</p>
-      <div class="cl"><a href="https://buenhombre.design/halora/" target="_blank" rel="noopener">Ver Halora ↗</a><span class="pend">[links de Drops y NULL° H1]</span></div>
-    </article>
-
-    <a class="case cta wa" data-l="*" data-msg="Hola Gritt, quiero que mi marca sea su próximo caso" href="#" target="_blank" rel="noopener">
-      <span class="cta-k">C—08</span>
-      <span class="cta-t">¿Tu marca es el próximo caso?</span>
-      <span class="cta-b">Escríbenos por WhatsApp <i>↗</i></span>
-    </a>
+  <div class="wrap">
+    <div class="cnext up">
+      <div>
+        <span class="cn-k">Siguiente caso</span>
+        <h3>¿Tu marca es <span>la próxima?</span></h3>
+        <p>Cuéntanos qué tienes hoy y te decimos por dónde empezar.</p>
       </div>
-      <div class="wrap"><div class="hz-bar"><i id="hzBar"></i></div></div>
+      <div class="cn-a">
+        <a class="pill lt wa" data-msg="Hola Gritt, quiero que mi marca sea su próximo caso" href="#" target="_blank" rel="noopener">Escríbenos por WhatsApp <i>↗</i></a>
+        <a class="cn-l" href="#lab">Ver experimentos del Lab ↓</a>
+      </div>
     </div>
   </div>
 </section>
@@ -942,7 +903,7 @@
             </a>
             <a class="lc" href="https://buenhombre.design/halora/" target="_blank" rel="noopener">
               <div class="lc-m"><img src="assets/casos/halora.jpg" alt="" loading="lazy"></div>
-              <div class="lc-b"><span class="lc-k">Brand</span><h4>Landings de marcas inventadas</h4><p>Halora, Drops y NULL° H1: de cero a landing completa con IA.</p></div>
+              <div class="lc-b"><span class="lc-k">Brand · Landing concepto</span><h4>Halora</h4><p>Marca inventada: de cero a landing completa con IA.</p></div>
             </a>
             <div class="lc">
               <div class="lc-m"><img src="assets/casos/null-h1.jpg" alt="" loading="lazy" style="object-position:58% 45%"></div>
@@ -1141,7 +1102,7 @@
   // ── Onda del audio (ilustrativa) ──
   (function(){var w=document.getElementById('wave');if(!w)return;[6,10,15,8,17,12,5,14,9,16,7,12,18,10,6,13,8,4].forEach(function(x){var i=document.createElement('i');i.style.height=x+'px';w.appendChild(i);});})();
 </script>
-<div class="lab-bg" aria-hidden="true"><i class="lab-scan"></i></div>
+<div class="lab-bg" aria-hidden="true"></div>
 <div class="lab-rule" aria-hidden="true"><span class="lr-m" id="lrM" data-v="000"></span></div>
 <div class="lab-sec-l" aria-hidden="true"><b id="lsN">00</b><span id="lsT">Inicio</span></div>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
