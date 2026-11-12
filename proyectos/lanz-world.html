@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LANZ World — Contenido para redes · Gritt Lab</title>
+<meta name="description" content="Contenido para redes de LANZ World: el video completo de Halloween, personajes propios, escenas con IA, parrilla semanal e informes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/caso.css">
+<style>
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,1.4vw,16px);margin-top:clamp(36px,5vw,56px)}
+  .steps div{background:var(--paper);border-radius:18px;padding:20px;min-height:180px;display:flex;flex-direction:column;justify-content:space-between}
+  .steps b{font-family:var(--mono);font-weight:500;font-size:.66rem;letter-spacing:.1em;color:var(--acc)}
+  .steps h4{font-weight:400;font-size:1.15rem;letter-spacing:-.03em;margin-top:28px}
+  .steps p{color:var(--muted);font-size:.88rem;margin-top:6px}
+  @media(max-width:860px){.steps{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.steps{grid-template-columns:1fr}.steps div{min-height:0}}
+  .dv-m.dv-buzon{aspect-ratio:4/5}
+  @media(max-width:860px){.dv-m.dv-buzon{aspect-ratio:4/5}}
+  .vid{padding-top:clamp(20px,3vw,36px)}
+  .film{display:grid;grid-template-columns:auto 1fr;gap:clamp(24px,4vw,72px);align-items:center;background:#E9E2D6;border-radius:28px;padding:clamp(14px,2.6vw,40px)}
+  .film-v{position:relative;height:min(78svh,740px);aspect-ratio:9/16;border-radius:20px;overflow:hidden;background:#111;box-shadow:0 30px 70px -30px rgba(60,40,10,.45)}
+  .film-v video{width:100%;height:100%;object-fit:cover;display:block}
+  .film-p{position:absolute;inset:0;margin:auto;width:84px;height:84px;border-radius:50%;border:0;background:rgba(255,255,255,.94);color:var(--ink);display:grid;place-items:center;cursor:pointer;transition:transform .4s var(--ease),opacity .3s;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  .film-p:hover{transform:scale(1.08)}
+  .film-p svg{margin-left:4px}
+  .film-v .cap{transition:opacity .3s}
+  .film.playing .film-p,.film.playing .film-v .cap{opacity:0;pointer-events:none}
+  .film-k{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .film-t h2{font-weight:300;font-size:clamp(2rem,4vw,3.6rem);letter-spacing:-.05em;line-height:1;margin:14px 0 16px;max-width:16ch}
+  .film-t h2 span{color:rgba(22,22,22,.42)}
+  .film-t p{color:var(--ink-2);max-width:none}
+  .film-d{margin-top:24px}
+  .film-d div{display:grid;grid-template-columns:96px 1fr;gap:12px;padding:11px 0;border-top:1px solid rgba(22,22,22,.14);font-size:.88rem}
+  .film-d dt{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+  .film-s{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:24px}
+  .film-s img{aspect-ratio:9/16;object-fit:cover;width:100%;border-radius:8px}
+  @media(max-width:860px){.film{grid-template-columns:1fr}.film-v{height:auto;width:100%;max-width:440px;margin:0 auto}}
+</style>
+</head>
+<body>
+<canvas class="lab-fx" id="labFx" data-mode="soft" aria-hidden="true"></canvas>
+
+<header class="nav">
+  <a class="brand" href="../index.html" aria-label="Gritt Lab — inicio"><img src="../logos/gritt-black.png" alt="Gritt"><span>Lab</span></a>
+  <nav class="navr">
+    <a class="back" href="../index.html#servicios">← Volver a Gritt Lab</a>
+    <a class="pill wa" data-msg="Hola Gritt, vi el caso de LANZ World" href="#" target="_blank" rel="noopener">Hablemos <i>↗</i></a>
+  </nav>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="ch" id="caso">
+    <div class="wrap">
+      <div class="ch-bar mono up"><span>Gritt Content<em> · caso</em></span><span class="c">Contenido para redes</span><span class="tg"><i class="t-c">Content</i><i class="t-r">Reports</i></span></div>
+      <div class="ch-t">
+        <h1 class="up">LANZ <span>World</span></h1>
+        <p class="ch-l up">Contenido para redes de una marca de envíos internacionales: personajes propios, escenas con IA y una parrilla semanal que el equipo de LANZ aprueba en minutos.</p>
+      </div>
+      <dl class="facts up">
+        <div><dt>Cliente</dt><dd>LANZ World</dd></div>
+        <div><dt>Público</dt><dd>Emprendedores colombianos que envían al exterior</dd></div>
+        <div><dt>Servicio</dt><dd>Contenido para redes e informes</dd></div>
+        <div><dt>Campaña</dt><dd>Halloween, octubre</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- VIDEO -->
+  <section class="vid" id="video">
+    <div class="wrap">
+      <div class="film up" id="film">
+        <div class="film-v">
+          <video id="hv" src="../assets/lanz/halloween.mp4" poster="../assets/lanz/halloween-poster.jpg" playsinline preload="metadata"></video>
+          <button class="film-p" id="hvp" aria-label="Reproducir el video de Halloween"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg></button>
+          <span class="cap">Video completo · 0:36</span>
+        </div>
+        <div class="film-t">
+          <span class="film-k">El video completo</span>
+          <h2>Halloween: <span>un buzón con personalidad.</span></h2>
+          <p>Un video vertical para redes donde el buzón de la casa se vuelve el protagonista. Escribimos la idea, creamos el personaje y las escenas con IA, y lo editamos con voz y música.</p>
+          <dl class="film-d">
+            <div><dt>Formato</dt><dd>Vertical 9:16 · 36 segundos</dd></div>
+            <div><dt>Hecho con</dt><dd>Guion, escenas con IA, dirección de arte, voz y edición</dd></div>
+            <div><dt>Salieron</dt><dd>Piezas fijas para la parrilla de octubre</dd></div>
+          </dl>
+          <div class="film-s" aria-label="Piezas que salieron del video">
+            <img src="../assets/lanz/02_hola_soy_el_buzon.jpg" alt="El buzón con sombrero de bruja" loading="lazy">
+            <img src="../assets/lanz/05_cartero_llega.jpg" alt="El mensajero llega con un paquete" loading="lazy">
+            <img src="../assets/lanz/06_sol_descubre_paquete.jpg" alt="Una niña descubre el paquete" loading="lazy">
+            <img src="../assets/lanz/14_alegria_bruja_escoba.jpg" alt="Niña disfrazada de bruja" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 01 RETO -->
+  <section class="cs" id="reto">
+    <div class="wrap">
+      <div class="cs-row up">
+        <div class="cs-k"><b>01</b><span>El reto</span></div>
+        <div>
+          <h2>Publicar cada semana <span>sin que se sienta repetido.</span></h2>
+          <p class="lead">Una marca de envíos tiene poco que mostrar: cajas, guías y mensajeros. El contenido tenía que darle personalidad, salir cada semana y pasar por aprobación sin semanas de ida y vuelta.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 HICIMOS -->
+  <section class="cs" id="hicimos">
+    <div class="wrap">
+      <div class="cs-row up">
+        <div class="cs-k"><b>02</b><span>Lo que hicimos</span></div>
+        <div><h2>Un sistema, <span>no piezas sueltas.</span></h2></div>
+      </div>
+      <div class="dl">
+        <article class="dv up">
+          <div class="dv-m dv-buzon"><img src="../assets/lanz/02_hola_soy_el_buzon.jpg" alt="El buzón de LANZ como personaje, con sombrero de bruja y ojos" loading="lazy" style="object-position:50% 70%"></div>
+          <div class="dv-b"><span class="n">01 · Personajes</span><h3>Un buzón con personalidad</h3><p>Escribimos la idea y creamos personajes propios para la marca. El buzón se volvió el protagonista de la campaña de Halloween.</p></div>
+        </article>
+        <article class="dv up">
+          <div class="dv-m"><img src="../assets/lanz/05_cartero_llega.jpg" alt="Escena del video: el mensajero llega" loading="lazy" style="object-position:50% 40%"></div>
+          <div class="dv-b"><span class="n">02 · Video vertical con IA</span><h3>Escenas con dirección de arte</h3><p>Generamos las escenas con IA bajo dirección de arte humana, editamos el video y lo bajamos a piezas para la parrilla.</p></div>
+        </article>
+        <article class="dv up">
+          <div class="dv-m"><img src="../assets/lanz/06_sol_descubre_paquete.jpg" alt="Escena reutilizable del banco de assets" loading="lazy"></div>
+          <div class="dv-b"><span class="n">03 · Banco de assets</span><h3>Escenas que se reutilizan</h3><p>Personajes, escenas y fondos quedan en un banco que se reutiliza mes a mes. Cada nueva campaña arranca con material listo.</p></div>
+        </article>
+        <article class="dv up">
+          <div class="dv-m"><img src="../assets/lanz/14_alegria_bruja_escoba.jpg" alt="Pieza para redes de la campaña" loading="lazy" style="object-position:50% 30%"></div>
+          <div class="dv-b"><span class="n">04 · Parrilla e informes</span><h3>Aprobado en minutos</h3><p>Parrilla semanal con piezas fijas y video, que el equipo de LANZ revisa y aprueba en minutos. Y un informe de lo que funcionó para ajustar la siguiente.</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 PROCESO -->
+  <section class="cs" id="proceso">
+    <div class="wrap">
+      <div class="cs-row up">
+        <div class="cs-k"><b>03</b><span>Cómo funciona</span></div>
+        <div><h2>Una semana <span>de contenido.</span></h2></div>
+      </div>
+      <div class="steps up">
+        <div><b>01</b><div><h4>Idea y guion</h4><p>Partimos de la fecha o el mensaje de la semana.</p></div></div>
+        <div><b>02</b><div><h4>Escenas con IA</h4><p>Personajes y escenas del banco, con dirección de arte.</p></div></div>
+        <div><b>03</b><div><h4>Edición y piezas</h4><p>Video vertical y piezas fijas para la parrilla.</p></div></div>
+        <div><b>04</b><div><h4>Aprobación e informe</h4><p>LANZ aprueba; medimos y ajustamos la siguiente semana.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 RESULTADO -->
+  <section class="cs" id="resultado">
+    <div class="wrap">
+      <div class="cs-row up">
+        <div class="cs-k"><b>04</b><span>Resultado</span></div>
+        <div>
+          <p class="quote">Contenido semanal con personajes propios, <span>hecho con IA y aprobado sin fricción.</span></p>
+          <dl class="res">
+            <div><dt>Ritmo</dt><dd>Parrilla semanal con video vertical y piezas fijas.</dd></div>
+            <div><dt>Lo que queda</dt><dd>Personajes y un banco de escenas que se reutiliza en cada campaña.</dd></div>
+            <div><dt>Aprobación</dt><dd>El equipo de LANZ revisa y aprueba la semana en minutos.</dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OTRO CASO -->
+  <div class="wrap nx">
+    <a class="card up" href="marcas.html">
+      <div>
+        <div class="k"><span>Más de Gritt</span><em>Brand</em></div>
+        <h2>Marcas</h2>
+        <p>Voxen y las marcas concepto con las que entrenamos el método.</p>
+        <span class="go">Ver las marcas →</span>
+      </div>
+      <div class="im"><img src="../propias/opt/004-voxen.jpg" alt="Sistema de marca de Voxen" loading="lazy"></div>
+    </a>
+  </div>
+
+  <div class="wrap">
+    <div class="cta"><h3>¿Tu marca necesita <span>contenido así?</span></h3><a class="pill wa" data-msg="Hola Gritt, quiero un sistema de contenido como el de LANZ" href="#" target="_blank" rel="noopener">Escríbenos por WhatsApp <i>↗</i></a></div>
+    <footer class="foot"><img src="../logos/gritt-black.png" alt="Gritt"><span>© 2026 Gritt Lab · Colombia</span><a href="../index.html">Volver al inicio ↑</a></footer>
+  </div>
+</main>
+
+<script src="../assets/caso.js"></script>
+<script>
+(function(){var f=document.getElementById('film'),v=document.getElementById('hv'),b=document.getElementById('hvp');if(!v)return;
+b.addEventListener('click',function(){v.controls=true;v.play();});
+v.addEventListener('play',function(){f.classList.add('playing');});
+v.addEventListener('ended',function(){f.classList.remove('playing');v.controls=false;v.load();});})();
+</script>
+<script src="../assets/lab-fx.js" defer></script>
+<script data-goatcounter="https://gritt.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

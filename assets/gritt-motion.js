@@ -82,7 +82,7 @@
         setTimeout(function () { o.remove(); }, 1500);
       });
     }, { threshold: 0.28 });
-    document.querySelectorAll('.case .cm, .bx-im, .svc-m figure').forEach(function (el) {
+    document.querySelectorAll('.case .cm, .chap-m, .bx-im, .svc-m figure').forEach(function (el) {
       var r = el.getBoundingClientRect(), w = r.width || 300, h = r.height || 200;
       var cols = 10, rows = Math.max(3, Math.round(cols * h / w));
       var o = document.createElement('div'); o.className = 'pxo';
@@ -306,7 +306,7 @@
 
   /* ── Capa lab: regla con lectura de avance y sección actual ── */
   var lrM = document.getElementById('lrM'), lsN = document.getElementById('lsN'), lsT = document.getElementById('lsT');
-  var SECS = [['inicio', 'Inicio'], ['servicios', 'Servicios'], ['casos', 'Casos'], ['lab', 'El Lab'], ['por-que', 'Por qué'], ['contacto', 'Contacto']]
+  var SECS = [['inicio', 'Inicio'], ['servicios', 'Servicios'], ['lab', 'El Lab'], ['por-que', 'Por qué'], ['contacto', 'Contacto']]
     .map(function (x) { return [document.getElementById(x[0]), x[1]]; }).filter(function (x) { return x[0]; });
   var lrLast = -1, secLast = -1, lastY = -1, idleT = 0;
   function updRule() {
@@ -335,3 +335,4 @@
   }
   requestAnimationFrame(frame);
 })();
+

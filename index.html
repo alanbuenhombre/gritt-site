@@ -365,6 +365,60 @@
   .audio .dur{font-size:.7rem;opacity:.6}
   .wave{display:flex;gap:2px;align-items:center;height:18px}
   .wave i{width:2px;background:var(--ink);opacity:.7;border-radius:2px}
+  .bub .story{position:relative;margin-top:8px;border-radius:8px;overflow:hidden;width:150px;aspect-ratio:9/16;background:#111}
+  .bub .story img{width:100%;height:100%;object-fit:cover;object-position:41% 50%}
+  .bub .story small{position:absolute;left:6px;bottom:6px;font:500 8px/1 var(--mono);letter-spacing:.06em;color:#fff;background:rgba(0,0,0,.55);padding:4px 6px;border-radius:4px}
+  .svc-m figure{position:relative}
+  .playl{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;background:rgba(14,14,14,0);transition:background .3s}
+  .playl span{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;background:#fff;color:var(--ink);padding:9px 14px;border-radius:999px;opacity:0;transform:translateY(6px);transition:opacity .3s,transform .4s cubic-bezier(.16,1,.3,1);box-shadow:0 8px 24px rgba(0,0,0,.25)}
+  .playl:hover{background:rgba(14,14,14,.28)}
+  .playl:hover span,.playl:focus-visible span{opacity:1;transform:none}
+  @media(hover:none){.playl span{opacity:1;transform:none;position:absolute;right:10px;top:10px;padding:6px 10px;font-size:.6rem}}
+  /* señales de clic: tarjetas del Lab con link, tira de identidades y footer */
+  a.lc{position:relative;padding-right:34px}
+  a.lc::after{content:"→";position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:.9rem;color:var(--l-mut);transition:transform .3s,color .3s}
+  a.lc[target="_blank"]::after{content:"↗"}
+  a.lc:hover::after{color:var(--l-ink);transform:translate(3px,-50%)}
+  .cstrip span::after{content:" →";opacity:.6}
+  footer a{text-decoration:underline;text-underline-offset:3px}
+  /* chat vivo */
+  .chat{height:540px;min-height:0;overflow:hidden}
+  .chat-h{flex:none}
+  .chat-h small b{font-weight:400;color:#2E9A55;transition:color .3s}
+  .chat-h small b.busy{color:var(--acc)}
+  .chat-b{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:flex-end;gap:10px;overflow:hidden;padding-top:6px;-webkit-mask-image:linear-gradient(transparent,#000 40px);mask-image:linear-gradient(transparent,#000 40px)}
+  .row{flex:0 0 auto;max-height:0;overflow:hidden;transition:max-height .55s cubic-bezier(.16,1,.3,1),opacity .4s}
+  .row>div{display:flex;flex-direction:column}
+  .row.on{max-height:420px}
+  .row .bub{transform:translateY(10px) scale(.97);opacity:0;transition:transform .45s cubic-bezier(.16,1,.3,1),opacity .35s}
+  .row.on .bub{transform:none;opacity:1}
+  .row.me>div{align-items:flex-end}
+  .chat-b.out .row{opacity:0;transition:opacity .5s}
+  .typing{display:inline-flex;gap:4px;padding:12px 14px!important}
+  .typing i{width:6px;height:6px;border-radius:50%;background:#9A9A95;animation:tdot 1.1s infinite}
+  .typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+  @keyframes tdot{0%,60%,100%{transform:none;opacity:.5}30%{transform:translateY(-4px);opacity:1}}
+  .wave.play i{transition:opacity .2s,background .2s}
+  .wave i.hit{background:#2E9A55;opacity:1}
+  .tick{font-size:.62rem;color:#9A9A95;margin-left:6px;transition:color .3s}
+  .tick.read{color:#3B8FD9}
+  .think{font-size:.78rem;display:flex;flex-direction:column;gap:7px;min-width:200px}
+  .think>em{font-style:normal;font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .think span{display:flex;align-items:center;gap:8px;color:var(--muted);transition:color .3s}
+  .think span.done{color:var(--ink)}
+  .think span::before{content:"";width:10px;height:10px;flex:none;border-radius:50%;border:1.5px solid #C9C6BF;border-top-color:var(--acc);animation:spin .7s linear infinite}
+  .think span.wait::before{animation:none;border-color:#DDD9D2}
+  .think span.done::before{content:"✓";border:0;animation:none;width:10px;height:auto;font-size:.7rem;line-height:1;color:#2E9A55}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .rev{font-size:.82rem}
+  .rev .bar{height:3px;border-radius:3px;background:#E6E2DA;margin-top:8px;overflow:hidden}
+  .rev .bar i{display:block;height:100%;width:0;background:var(--acc);transition:width 1.6s cubic-bezier(.4,0,.2,1)}
+  .rev.fill .bar i{width:100%}
+  .bub .story img{transition:filter 1.1s ease,transform 1.1s cubic-bezier(.16,1,.3,1)}
+  .story.ld img{filter:blur(14px) saturate(.4);transform:scale(1.08)}
+  .story .scan{position:absolute;inset:0;background:linear-gradient(transparent 0,rgba(255,255,255,.35) 50%,transparent 100%) 0 -100%/100% 40% no-repeat;opacity:0}
+  .story.ld .scan{opacity:1;animation:scan 1.1s linear infinite}
+  @keyframes scan{to{background-position:0 220%}}
   .bub .ph{min-height:150px;height:auto;border-radius:8px;margin-top:8px;padding:10px;--ph-bg:#F1EEE8}
   .bub .ph .ph-tag{top:8px;left:8px}
   .bub .ph .ph-d{font-size:.74rem}
@@ -455,7 +509,7 @@
   .svc-k{display:flex;gap:10px;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
   .svc-k span{color:var(--acc)}
   .svc h3{font-weight:300;font-size:clamp(2rem,3.4vw,2.9rem);letter-spacing:-.05em;line-height:1;margin:12px 0 14px}
-  .svc-t p{color:var(--muted);max-width:46ch}
+  .svc-t p{color:var(--muted);max-width:none}
   .svc-r small{display:block;font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding-bottom:8px;border-bottom:1px solid var(--line)}
   .svc-r ul{list-style:none;margin:0;padding:0}
   .svc-r li{padding:9px 0;border-bottom:1px solid var(--line);font-size:.92rem;color:var(--ink-2)}
@@ -482,12 +536,7 @@
 
 
   /* ═══ Capa "lab": retícula de puntos, escáner, reglas con lectura de posición y marcas de registro ═══ */
-  .lab-bg{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden;
-    background-image:radial-gradient(rgba(22,22,22,.17) 1.4px,transparent 2.2px);background-size:30px 30px;filter:blur(.9px);
-    -webkit-mask-image:radial-gradient(closest-side,#000,transparent),radial-gradient(closest-side,rgba(0,0,0,.7),transparent),radial-gradient(closest-side,rgba(0,0,0,.55),transparent);
-    -webkit-mask-size:1100px 900px,1500px 1300px,900px 1700px;-webkit-mask-position:8% 6%,92% 38%,30% 72%;-webkit-mask-repeat:repeat;-webkit-mask-composite:source-over;
-    mask-image:radial-gradient(closest-side,#000,transparent),radial-gradient(closest-side,rgba(0,0,0,.7),transparent),radial-gradient(closest-side,rgba(0,0,0,.55),transparent);
-    mask-size:1100px 2300px,1500px 3100px,900px 2700px;mask-position:8% 6%,92% 38%,30% 72%;mask-repeat:repeat;mask-composite:add}
+  .lab-fx{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
   body{position:relative}
   .lab-rule{position:fixed;top:110px;bottom:56px;left:16px;width:10px;z-index:40;pointer-events:none;mix-blend-mode:difference;color:#fff}
   .lab-rule::before{content:"";position:absolute;inset:0;opacity:.22;filter:blur(.4px);-webkit-mask-image:linear-gradient(transparent,#000 18%,#000 82%,transparent);mask-image:linear-gradient(transparent,#000 18%,#000 82%,transparent);background:repeating-linear-gradient(to bottom,currentColor 0 1px,transparent 1px 8px) left top/5px 100% no-repeat,repeating-linear-gradient(to bottom,currentColor 0 1px,transparent 1px 64px) left top/10px 100% no-repeat}
@@ -501,6 +550,70 @@
   @media(max-width:1099px){.lab-rule,.lab-sec-l{display:none}}
   .sh,.cgrp{position:relative}
 
+
+
+  /* ═══ Casos v3: capítulos apilados ═══ */
+  .tg{display:inline-flex;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase}
+  .tg i{font-style:normal;display:inline-flex;align-items:center;gap:6px;color:inherit;opacity:.8}
+  .tg i::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--dc,currentColor)}
+  .t-b{--dc:#2D5BD1}.t-c{--dc:#D9822B}.t-r{--dc:#3E9C7A}.t-p{--dc:#C2453D}.t-x{--dc:#8EA9FF}
+  .cx-ix{list-style:none;margin-top:clamp(28px,4vw,48px);border-top:1px solid var(--ink)}
+  .cx-ix a{display:grid;grid-template-columns:56px 1fr auto;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid var(--line);transition:padding .35s cubic-bezier(.16,1,.3,1),color .2s}
+  .cx-ix a:hover{padding-left:12px;color:var(--acc)}
+  .cx-ix .n{font-family:var(--mono);font-size:.7rem;color:var(--muted)}
+  .cx-ix b{font-weight:400;font-size:clamp(1.1rem,1.8vw,1.5rem);letter-spacing:-.03em}
+  .cx-ix .tg{color:var(--muted)}
+  .stk{display:flex;flex-direction:column;gap:clamp(28px,6vh,64px);margin-top:clamp(40px,6vw,80px)}
+  .chap{position:sticky;top:calc(86px + var(--i) * 16px);border-radius:28px;padding:clamp(18px,2.2vw,32px);min-height:min(calc(100svh - 130px),660px);display:flex;flex-direction:column;gap:clamp(16px,2vw,24px);transform-origin:50% 0;will-change:transform;box-shadow:0 1px 0 rgba(0,0,0,.04),0 30px 70px -40px rgba(0,0,0,.35)}
+  .chap::after{content:"";position:absolute;inset:0;border-radius:inherit;background:#0E0E0E;opacity:calc(var(--p,0) * .28);pointer-events:none}
+  .c-warm{background:#E9E2D6}.c-paper{background:#fff}.c-ink{background:var(--ink);color:#F2F2F0}
+  .chap-bar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;padding-bottom:14px;border-bottom:1px solid rgba(22,22,22,.14);font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase}
+  .c-ink .chap-bar{border-color:rgba(242,242,240,.16)}
+  .cb-n em{font-style:normal;opacity:.45}
+  .cb-c{opacity:.6}
+  .chap-bar .tg{justify-self:end}
+  .chap-g{flex:1;display:grid;grid-template-columns:5fr 7fr;gap:clamp(20px,3vw,48px);min-height:0}
+  .chap-t{display:flex;flex-direction:column;gap:clamp(20px,2.4vw,30px);padding:4px 0}
+  .chap-l{margin-top:auto}
+  .clg{position:absolute;inset:0;display:grid;gap:6px}
+  .clg img{width:100%;height:100%;object-fit:cover;min-height:0;min-width:0;border-radius:4px}
+  .clg-l{grid-template-columns:1fr 1fr 1fr;grid-template-rows:1fr 1fr}
+  .clg-l img:nth-child(1){grid-area:1/1/3/2}.clg-l img:nth-child(2){grid-area:1/2/2/3}.clg-l img:nth-child(3){grid-area:2/2/3/3}.clg-l img:nth-child(4){grid-area:1/3/3/4}
+  .clg-b{grid-template-columns:1.5fr 1fr 1fr;grid-template-rows:1fr 1fr}
+  .clg-b img:nth-child(1){grid-area:1/1/3/2}.clg-b img:nth-child(2){grid-area:1/2/2/3}.clg-b img:nth-child(3){grid-area:2/2/3/3}.clg-b img:nth-child(4){grid-area:1/3/2/4}.clg-b img:nth-child(5){grid-area:2/3/3/4}
+  .chap-m:hover .clg img{transform:scale(1.02)}
+  .chap h3{font-weight:300;font-size:clamp(2.4rem,4.4vw,4.2rem);letter-spacing:-.055em;line-height:.95}
+  .chap-s{margin-top:14px;font-size:1.05rem;color:var(--ink-2);max-width:34ch}
+  .chap-d{display:grid}
+  .chap-d div{display:grid;grid-template-columns:96px 1fr;gap:12px;padding:11px 0;border-top:1px solid rgba(22,22,22,.12);font-size:.88rem}
+  .chap-d dt{font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+  .chap-d dd{color:var(--ink-2)}
+  .chap-l{display:flex;gap:22px;flex-wrap:wrap;font-size:.92rem}
+  .chap-l a{border-bottom:1px solid currentColor;padding-bottom:1px}
+  .chap-l a:hover{color:var(--acc)}
+  .chap-m{position:relative;display:block;border-radius:18px;overflow:hidden;min-height:320px;background:transparent}
+
+  .chap-m .mos{position:absolute;inset:0}
+  .chap-m .mos img{width:100%;height:100%;object-fit:cover;display:block;min-height:0}
+  .c-ink{min-height:min(62svh,540px)}
+  .chap-m .trio{position:absolute;inset:0}
+  .chap-m img{transition:transform .9s cubic-bezier(.16,1,.3,1)}
+  .chap-m:hover .mos img{transform:scale(1.03)}
+  .chap-cap{position:absolute;left:12px;bottom:12px;z-index:3;font-family:var(--mono);font-size:.62rem;letter-spacing:.06em;background:rgba(255,255,255,.88);color:var(--ink);padding:6px 10px;border-radius:6px;backdrop-filter:blur(6px)}
+  .chap-x{flex:1;display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(24px,4vw,64px);align-items:end}
+  .chap-x h3{font-size:clamp(3rem,7vw,7rem)}
+  .chap-x h3 span{color:rgba(242,242,240,.42)}
+  .chap-x p{color:rgba(242,242,240,.65);max-width:34ch}
+  @media(max-width:900px),(max-height:620px){
+    .chap{position:relative;top:auto;min-height:0;transform:none!important}
+    .chap::after{display:none}
+    .chap-g,.chap-x{grid-template-columns:1fr}
+    .chap-m{order:-1;aspect-ratio:4/3;min-height:0}
+    .chap-bar{grid-template-columns:auto 1fr;}
+    .chap-bar .cb-c{display:none}
+    .cx-ix a{grid-template-columns:36px 1fr}
+    .cx-ix .tg{grid-column:2}
+  }
 
   /* ═══ Casos: solo clientes + cierre ═══ */
   .ln-u{color:var(--ink);border-bottom:1px solid var(--ink)}
@@ -607,7 +720,6 @@
   <a class="brand" href="#inicio" aria-label="Gritt — inicio"><img src="logos/gritt-black.png" alt="Gritt"><span>Lab</span></a>
   <nav class="navr">
     <a href="#servicios">Servicios</a>
-    <a href="#casos">Casos</a>
     <a href="#lab">El Lab</a>
     <a class="btn btn-o" href="#contacto">Hablemos</a>
   </nav>
@@ -618,9 +730,8 @@
     <span class="mm-k">Menú</span>
     <nav class="mm-l" aria-label="Menú">
       <a href="#servicios"><i>01</i><span><b>Servicios</b><small>Brand, Content, Play y Reports</small></span><em>→</em></a>
-      <a href="#casos"><i>02</i><span><b>Casos</b><small>Clientes y experimentos</small></span><em>→</em></a>
-      <a href="#lab"><i>03</i><span><b>El Lab</b><small>Lo que estamos probando</small></span><em>→</em></a>
-      <a href="#contacto"><i>04</i><span><b>Contacto</b><small>WhatsApp e Instagram</small></span><em>→</em></a>
+      <a href="#lab"><i>02</i><span><b>El Lab</b><small>Lo que estamos probando</small></span><em>→</em></a>
+      <a href="#contacto"><i>03</i><span><b>Contacto</b><small>WhatsApp e Instagram</small></span><em>→</em></a>
     </nav>
     <div class="mm-f">
       <a class="pill mm-wa wa" href="#" target="_blank" rel="noopener">Escríbenos por WhatsApp <i>↗</i></a>
@@ -660,7 +771,7 @@
         <div class="slide"><video muted playsinline preload="none"><source src="videos/007.mp4" type="video/mp4"></video></div>
         <div class="slide"><video muted playsinline preload="none"><source src="videos/008.mp4" type="video/mp4"></video></div>
         <span class="frame-cap">Gritt · Reel</span>
-        <div class="xp-cap"><p>Marca, contenido, juegos y reportes. <span>Hechos con IA y criterio humano.</span></p><a class="pill lt" href="#casos">Ver casos <i>→</i></a></div>
+        <div class="xp-cap"><p>Marca, contenido, juegos y reportes. <span>Hechos con IA y criterio humano.</span></p><a class="pill lt" href="#servicios">Ver servicios <i>→</i></a></div>
       </div>
     </div>
   </div>
@@ -676,6 +787,7 @@
 </section>
 
 <!-- ═══ SERVICIOS: 4 líneas en carrusel editorial ═══ -->
+<span id="casos" class="anchor"></span><span id="casestudies" class="anchor"></span>
 <section class="sec" id="servicios">
   <span id="lineas" class="anchor"></span>
   <div class="wrap">
@@ -712,7 +824,7 @@
             <div class="svc-r">
               <small>Recibes</small>
               <ul><li>Brief y estrategia</li><li>Logo y versiones</li><li>Color, tipografía y mockups</li><li>Mini manual, tokens y prompts</li></ul>
-              <div class="svc-f"><em>Ejemplo: Voxen, marca concepto del Lab.</em><a class="pill" href="#casos" data-go="brand">Ver casos <i>→</i></a></div>
+              <div class="svc-f"><em>Voxen y las marcas concepto del Lab.</em><a class="pill" href="proyectos/marcas.html">Ver las marcas <i>→</i></a></div>
             </div>
           </div>
         </article>
@@ -733,7 +845,7 @@
             <div class="svc-r">
               <small>Recibes</small>
               <ul><li>Guion y personajes</li><li>Video vertical con IA</li><li>Parrilla semanal y piezas fijas</li><li>Banco de assets que se reutiliza</li></ul>
-              <div class="svc-f"><em>Ejemplo: Halloween de LANZ World, octubre.</em><a class="pill" href="#casos" data-go="content">Ver casos <i>→</i></a></div>
+              <div class="svc-f"><em>Ejemplo: Halloween de LANZ World, octubre.</em><a class="pill" href="proyectos/lanz-world.html">Ver el caso <i>→</i></a></div>
             </div>
           </div>
         </article>
@@ -741,9 +853,9 @@
         <!-- 03 · GRITT PLAY -->
         <article class="svc up" id="play">
           <div class="svc-m g3">
-            <figure class="big"><img src="assets/casos/driftway.jpg" alt="DRIFTWAY" loading="lazy"><figcaption>DRIFTWAY · arcade 3D</figcaption></figure>
-            <figure><img src="assets/casos/traceline.jpg" alt="TRACELINE" loading="lazy"><figcaption>TRACELINE</figcaption></figure>
-            <figure><img src="assets/casos/paper-trail.jpg" alt="PAPER TRAIL" loading="lazy"><figcaption>PAPER TRAIL</figcaption></figure>
+            <figure class="big"><img src="assets/casos/driftway.jpg" alt="DRIFTWAY" loading="lazy"><figcaption>DRIFTWAY · arcade 3D</figcaption><a class="playl" href="https://buenhombre.design/driftway/" target="_blank" rel="noopener" aria-label="Jugar DRIFTWAY"><span>▶ Jugar</span></a></figure>
+            <figure><img src="assets/casos/traceline.jpg" alt="TRACELINE" loading="lazy"><figcaption>TRACELINE</figcaption><a class="playl" href="https://buenhombre.design/traceline/" target="_blank" rel="noopener" aria-label="Jugar TRACELINE"><span>▶ Jugar</span></a></figure>
+            <figure><img src="assets/casos/paper-trail.jpg" alt="PAPER TRAIL" loading="lazy"><figcaption>PAPER TRAIL · concepto</figcaption></figure>
           </div>
           <div class="svc-b">
             <div class="svc-t">
@@ -754,7 +866,7 @@
             <div class="svc-r">
               <small>Recibes</small>
               <ul><li>Juego web con tu marca</li><li>Ranking en pantalla</li><li>Link o QR listo para el evento</li><li>Sin descargas ni instalación</li></ul>
-              <div class="svc-f"><em>Ejemplos: juegos propios del Lab.</em><a class="pill" href="#casos" data-go="play">Ver casos <i>→</i></a></div>
+              <div class="svc-f"><em>DRIFTWAY, TRACELINE y PAPER TRAIL, juegos propios del Lab.</em><a class="pill" href="proyectos/juegos.html">Ver los juegos <i>→</i></a></div>
             </div>
           </div>
         </article>
@@ -792,79 +904,11 @@
   </div>
 </section>
 
-<!-- ═══ CASOS ═══ -->
-<section class="sec" id="casos">
-  <span id="casestudies" class="anchor"></span>
-  <div class="wrap">
-    <header class="sh">
-      <div class="sh-i up"><span>(02)</span><span>Casos</span></div>
-      <h2 class="sh-t up">Lo que hemos hecho <span class="dim">con clientes.</span></h2>
-      <p class="sh-l up">Proyectos reales, mostrados con permiso. Los experimentos propios están en <a class="ln-u" href="#lab">El Lab</a>.</p>
-    </header>
-
-    <div class="cases" id="cases">
-      <!-- C01 · LANZ -->
-      <article class="case feat up" data-l="content reports">
-        <a class="cm warm" href="#content">
-          <div class="trio"><img src="assets/lanz/02_hola_soy_el_buzon.jpg" alt="El buzón de LANZ en Halloween" loading="lazy"><img src="assets/lanz/05_cartero_llega.jpg" alt="Mensajero de LANZ llegando con un paquete" loading="lazy"><img src="assets/lanz/14_alegria_bruja_escoba.jpg" alt="Niña disfrazada de bruja" loading="lazy"></div>
-          
-        </a>
-        <div class="ci">
-          <div class="cx"><span class="lns"><i>Content</i><i>Reports</i></span><span class="ix">C—01</span></div>
-          <h3>LANZ World</h3>
-          <p class="cs">Envíos internacionales para emprendedores colombianos</p>
-          <p>Un sistema de contenido que se repite cada semana sin volverse aburrido: personajes propios, banco de assets con IA y una parrilla que el equipo de LANZ aprueba en minutos.</p>
-          <dl class="meta">
-            <div><dt>Hicimos</dt><dd>Sistema visual, banco de assets con IA, parrilla semanal, informes</dd></div>
-            <div><dt>En la imagen</dt><dd>Campaña de Halloween, octubre: un buzón como personaje</dd></div>
-            <div><dt>Resultados</dt><dd><span class="pend">[pendiente: cifras de desempeño]</span></dd></div>
-          </dl>
-          <div class="cl"><a href="#content">Ver cómo lo hicimos →</a></div>
-        </div>
-      </article>
-
-      <!-- C02 · Boda -->
-      <article class="case feat rev up" data-l="brand">
-        <a class="cm" href="proyectos/boda-maria-tomas.html">
-          <div class="mos"><img src="proyectos/opt/boda.jpg" alt="Boda de María y Tomás" loading="lazy"><img src="proyectos/opt/identidad.jpg" alt="Menú con el monograma de la boda" loading="lazy"><img src="proyectos/opt/app-fotos.jpg" alt="Muro de fotos en vivo en el salón" loading="lazy"></div>
-          
-        </a>
-        <div class="ci">
-          <div class="cx"><span class="lns"><i>Brand</i></span><span class="ix">C—02</span></div>
-          <h3>Boda María &amp; Tomás</h3>
-          <p class="cs">La boda como marca, el sitio como producto</p>
-          <p>Tratamos la boda como una marca: monograma, papelería, un sitio con scroll cinemático, invitación mobile y un muro donde las fotos de los invitados aparecen en vivo en la pantalla del salón.</p>
-          <dl class="meta">
-            <div><dt>Hicimos</dt><dd>Identidad, sitio, invitación mobile, muro de fotos en vivo</dd></div>
-            <div><dt>Herramienta</dt><dd>Momentos, nuestro muro de fotos</dd></div>
-          </dl>
-          <div class="cl"><a href="proyectos/boda-maria-tomas.html">Ver el caso →</a><a href="momentos/">Probar Momentos →</a></div>
-        </div>
-      </article>
-
-    </div>
-  </div>
-
-  <div class="wrap">
-    <div class="cnext up">
-      <div>
-        <span class="cn-k">Siguiente caso</span>
-        <h3>¿Tu marca es <span>la próxima?</span></h3>
-        <p>Cuéntanos qué tienes hoy y te decimos por dónde empezar.</p>
-      </div>
-      <div class="cn-a">
-        <a class="pill lt wa" data-msg="Hola Gritt, quiero que mi marca sea su próximo caso" href="#" target="_blank" rel="noopener">Escríbenos por WhatsApp <i>↗</i></a>
-        <a class="cn-l" href="#lab">Ver experimentos del Lab ↓</a>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ═══ EL LAB ═══ -->
 <section class="lab-sec" id="lab">
   <div class="wrap">
     <header class="sh">
-      <div class="sh-i up"><span>(03)</span><span>El Lab</span></div>
+      <div class="sh-i up"><span>(02)</span><span>El Lab</span></div>
       <h2 class="sh-t up">Aquí probamos <span class="dim">antes de venderlo.</span></h2>
       <p class="sh-l up">Todo lo que ofrecemos pasó primero por aquí. Lo ordenamos por etapa para que sepas qué ya funciona con clientes y qué todavía es experimento.</p>
     </header>
@@ -899,7 +943,7 @@
             </a>
             <a class="lc" href="https://buenhombre.design/driftway/" target="_blank" rel="noopener">
               <div class="lc-m"><img src="assets/casos/driftway.jpg" alt="" loading="lazy"></div>
-              <div class="lc-b"><span class="lc-k">Play</span><h4>Juegos de marca web</h4><p>DRIFTWAY y TRACELINE: se abren con un link o un QR, sin descargar.</p></div>
+              <div class="lc-b"><span class="lc-k">Play · Jugar ↗</span><h4>Juegos de marca web</h4><p>DRIFTWAY y TRACELINE: se abren con un link o un QR, sin descargar.</p></div>
             </a>
             <a class="lc" href="https://buenhombre.design/halora/" target="_blank" rel="noopener">
               <div class="lc-m"><img src="assets/casos/halora.jpg" alt="" loading="lazy"></div>
@@ -944,10 +988,12 @@
       </div>
       <div class="phone up">
         <div class="chat" id="chat" aria-label="Ejemplo de conversación (ilustrativo)">
-          <div class="chat-h"><i><img src="logos/gritt-white.png" alt=""></i><div>Gritt · Marca por WhatsApp<small>Ejemplo ilustrativo</small></div></div>
+          <div class="chat-h"><i><img src="logos/gritt-white.png" alt=""></i><div>Gritt · Marca por WhatsApp<small><b id="chatS">en línea</b> · ejemplo ilustrativo</small></div></div>
+          <div class="chat-b" id="chatB">
           <div class="bub me"><div class="audio"><b>▶</b><span class="wave" id="wave"></span><span class="dur">0:14</span></div></div>
           <div class="bub ai">Listo, armé una pieza para historia con tu paleta y tu tipografía. La está revisando el equipo.</div>
-          <div class="bub ok"><span>✓ Aprobada por Gritt</span><div class="ph"><span class="ph-tag">IMG</span><span class="ph-d">Pieza de ejemplo (historia 9:16)</span></div></div>
+          <div class="bub ok"><span>✓ Aprobada por Gritt</span><div class="story"><img src="propias/opt/social-media-kit.jpg" alt="Historia para redes de Voxen, marca concepto del Lab" loading="lazy"><small>Voxen · historia 9:16</small></div></div>
+          </div>
         </div>
       </div>
     </div>
@@ -975,7 +1021,7 @@
 <section class="sec" id="por-que">
   <div class="wrap">
     <header class="sh">
-      <div class="sh-i up"><span>(04)</span><span>Por qué</span></div>
+      <div class="sh-i up"><span>(03)</span><span>Por qué</span></div>
       <h2 class="sh-t up">¿Por qué queremos <span class="dim">que tu marca gane?</span></h2>
       <p class="sh-l up">Porque una marca que no se usa no sirve, por bonita que sea el día de la entrega. Nos medimos por lo que pasa después.</p>
     </header>
@@ -1000,7 +1046,7 @@
 <section class="contact-sec" id="contacto">
   <div class="wrap">
     <div class="ct">
-      <div class="sh-i up"><span>(05)</span><span>Hablemos</span></div>
+      <div class="sh-i up"><span>(04)</span><span>Hablemos</span></div>
       <h2 class="up">Cuéntanos qué marca <span class="dim">quieres hacer tangible.</span></h2>
       <div class="ct-row up">
         <p>Trabajamos con pocos proyectos a la vez para cuidar cada uno. Escríbenos por donde te quede más cómodo.</p>
@@ -1102,11 +1148,55 @@
   // ── Onda del audio (ilustrativa) ──
   (function(){var w=document.getElementById('wave');if(!w)return;[6,10,15,8,17,12,5,14,9,16,7,12,18,10,6,13,8,4].forEach(function(x){var i=document.createElement('i');i.style.height=x+'px';w.appendChild(i);});})();
 </script>
-<div class="lab-bg" aria-hidden="true"></div>
+<canvas class="lab-fx" id="labFx" aria-hidden="true"></canvas>
 <div class="lab-rule" aria-hidden="true"><span class="lr-m" id="lrM" data-v="000"></span></div>
 <div class="lab-sec-l" aria-hidden="true"><b id="lsN">00</b><span id="lsT">Inicio</span></div>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
 <script src="assets/gritt-motion.js"></script>
 <script data-goatcounter="https://gritt.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script>
+// ── Chat vivo: Marca por WhatsApp ──
+(function(){
+  var chat=document.getElementById('chat'),B=document.getElementById('chatB'),S=document.getElementById('chatS');
+  if(!chat||!B||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var IMG='propias/opt/social-media-kit.jpg',run=0,vis=false,started=false;
+  function st(t,busy){S.textContent=t;S.classList.toggle('busy',!!busy);}
+  function wait(ms,id){return new Promise(function(r,j){setTimeout(function(){id===run?r():j();},ms);});}
+  function add(cls,html){var r=document.createElement('div');r.className='row '+cls;r.innerHTML='<div><div class="bub '+cls+'">'+html+'</div></div>';B.appendChild(r);r.offsetHeight;r.classList.add('on');return r;}
+  function bars(){var h=[6,10,15,8,17,12,5,14,9,16,7,12,18,10,6,13,8,4];return h.map(function(x){return '<i style="height:'+x+'px"></i>';}).join('');}
+  function type(el,txt,id){return new Promise(function(res,rej){var i=0;(function k(){if(id!==run)return rej();el.textContent=txt.slice(0,++i);i<txt.length?setTimeout(k,16):res();})();});}
+  async function seq(id){
+    try{
+      B.classList.remove('out');B.innerHTML='';st('en línea');
+      await wait(600,id);
+      var me=add('me','<div class="audio"><b>▶</b><span class="wave play">'+bars()+'</span><span class="dur">0:00</span><span class="tick">✓✓</span></div>');
+      var ws=me.querySelectorAll('.wave i'),du=me.querySelector('.dur');
+      await wait(400,id);
+      for(var i=0;i<ws.length;i++){ws[i].classList.add('hit');du.textContent='0:'+('0'+Math.round((i+1)/ws.length*14)).slice(-2);await wait(70,id);}
+      await wait(300,id);me.querySelector('.tick').classList.add('read');
+      st('escribiendo…',1);var ty=add('ai typing','<i></i><i></i><i></i>');
+      await wait(1300,id);ty.remove();
+      var a=add('ai','<span></span>');await type(a.querySelector('span'),'Recibido. Armo una pieza para historia con tu paleta y tu tipografía.',id);
+      await wait(500,id);st('pensando…',1);
+      var th=add('ai','<div class="think"><em>Siguiendo tu marca</em><span>Leyendo tus reglas de marca</span><span class="wait">Paleta y tipografía</span><span class="wait">Componiendo historia 9:16</span></div>');
+      var ss=th.querySelectorAll('.think span');
+      for(var j=0;j<ss.length;j++){ss[j].classList.remove('wait');await wait(850,id);ss[j].classList.add('done');}
+      await wait(350,id);st('en revisión…',1);
+      var rv=add('ai rev','La está revisando un diseñador de Gritt.<div class="bar"><i></i></div>');
+      await wait(60,id);rv.querySelector('.rev').classList.add('fill');
+      await wait(1800,id);st('escribiendo…',1);
+      ty=add('ai typing','<i></i><i></i><i></i>');await wait(900,id);ty.remove();
+      var ok=add('ok','<span>✓ Aprobada por Gritt</span><div class="story ld"><img src="'+IMG+'" alt="Historia para redes de Voxen, marca concepto del Lab"><i class="scan"></i><small>Voxen · historia 9:16</small></div>');
+      st('en línea');await wait(900,id);ok.querySelector('.story').classList.remove('ld');
+      await wait(5200,id);B.classList.add('out');await wait(700,id);
+      if(vis)seq(id);else active=false;
+    }catch(e){}
+  }
+  var active=false;
+  function start(){if(active)return;active=true;run++;seq(run);}
+  new IntersectionObserver(function(es){vis=es[0].isIntersecting;if(vis){start();}else{run++;active=false;}},{threshold:.2}).observe(chat);
+})();
+</script>
+<script src="assets/lab-fx.js" defer></script>
 </body>
 </html>

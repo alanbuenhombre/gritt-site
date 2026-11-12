@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juegos de marca — Gritt Play · Gritt Lab</title>
+<meta name="description" content="Gritt Play: juegos de marca que corren en el navegador. DRIFTWAY, TRACELINE y PAPER TRAIL, presentados uno por uno.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/caso.css">
+<style>
+  @media(min-width:901px){.gc-in{align-items:center}.gc-m{aspect-ratio:16/9;min-height:0}}
+  .gc-m .rvid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000}
+  .gc-m a.play{inset:auto 14px 14px auto;display:block}
+  .gc-m a.play span{padding:11px 16px}
+  .gc-m a.play:hover{background:transparent}
+  .snd{position:absolute;left:14px;bottom:14px;z-index:3;border:0;cursor:pointer;font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;background:rgba(0,0,0,.55);color:#fff;padding:9px 12px;border-radius:999px;backdrop-filter:blur(6px)}
+  .snd[aria-pressed="true"]{background:#fff;color:var(--ink)}
+  .gc-thumbs.two{grid-template-columns:1fr 1fr}
+  .gc-thumbs.two img{aspect-ratio:4/3}
+  @media(max-width:900px){.gc-m{aspect-ratio:9/16!important;max-height:82svh;margin:0 auto;width:100%;max-width:calc(82svh * 9 / 16)}}
+</style>
+</head>
+<body>
+<canvas class="lab-fx" id="labFx" data-mode="soft" aria-hidden="true"></canvas>
+
+<header class="nav">
+  <a class="brand" href="../index.html" aria-label="Gritt Lab — inicio"><img src="../logos/gritt-black.png" alt="Gritt"><span>Lab</span></a>
+  <nav class="navr">
+    <a class="back" href="../index.html#play">← Volver a Gritt Lab</a>
+    <a class="pill wa" data-msg="Hola Gritt, quiero un juego con mi marca" href="#" target="_blank" rel="noopener">Hablemos <i>↗</i></a>
+  </nav>
+</header>
+
+<main>
+  <section class="ch" id="inicio-juegos">
+    <div class="wrap">
+      <div class="ch-bar mono up"><span>Gritt Play<em> · juegos</em></span><span class="c">Juegos de marca para navegador</span><span class="tg"><i class="t-p">Play</i></span></div>
+      <div class="ch-t">
+        <h1 class="up">Juegos <span>de marca.</span></h1>
+        <p class="ch-l up">Juegos que corren en el navegador: se abren con un link o un QR, sin descargar nada. Estos son los nuestros. Juégalos y piensa cómo se vería el tuyo.</p>
+      </div>
+      <dl class="facts up">
+        <div><dt>Formato</dt><dd>Web, celular y pantalla de evento</dd></div>
+        <div><dt>Se abre con</dt><dd>Un link o un QR</dd></div>
+        <div><dt>Incluye</dt><dd>Ranking, sonido y tu marca en todo el juego</dd></div>
+        <div><dt>Para</dt><dd>Campañas, eventos y activaciones</dd></div>
+      </dl>
+      <nav class="hub-ix up" aria-label="Juegos"><a href="#driftway">01 DRIFTWAY</a><a href="#traceline">02 TRACELINE</a><a href="#paper-trail">03 PAPER TRAIL</a></nav>
+    </div>
+  </section>
+
+  <!-- 01 DRIFTWAY -->
+  <section class="wrap gc up" id="driftway">
+    <div class="gc-in">
+      <div class="gc-m">
+        <video class="rvid" data-h="../assets/juegos/driftway-h.mp4" data-v="../assets/juegos/driftway-v.mp4" data-ph="../assets/juegos/driftway-h.jpg" data-pv="../assets/juegos/driftway-v.jpg" muted loop playsinline preload="none" aria-label="Tráiler de DRIFTWAY"></video><button class="snd" type="button" aria-pressed="false">Activar sonido</button>
+        <a class="play" href="https://buenhombre.design/driftway/" target="_blank" rel="noopener" aria-label="Jugar DRIFTWAY"><span>▶ Jugar DRIFTWAY</span></a>
+      </div>
+      <div class="gc-b">
+        <div class="gc-bar"><span class="n"><b>01</b>Arcade 3D</span><span class="badge live">Se puede jugar</span></div>
+        <h2>DRIFTWAY</h2>
+        <p class="one">Una nave, cinco sectores, una regla: no pares.</p>
+        <dl class="gc-d">
+          <div><dt>Cómo se juega</dt><dd>Esquivas obstáculos en 3D a toda velocidad; el turbo multiplica el puntaje y en el último sector también dispara.</dd></div>
+          <div><dt>Controles</dt><dd>Mouse o flechas en computador; arrastrar y dos o tres dedos en el celular.</dd></div>
+          <div><dt>Hecho con</dt><dd>Three.js en un solo archivo: carga rápido, sin servidor.</dd></div>
+          <div><dt>Para tu marca</dt><dd>Tu nave, tus colores y tus mensajes en cada sector, con ranking para la campaña.</dd></div>
+        </dl>
+        <div class="gc-a"><a class="pill" href="https://buenhombre.design/driftway/" target="_blank" rel="noopener">Jugar DRIFTWAY <i>↗</i></a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 TRACELINE -->
+  <section class="wrap gc rv up" id="traceline">
+    <div class="gc-in">
+      <div class="gc-m">
+        <video class="rvid" data-h="../assets/juegos/traceline-h.mp4" data-v="../assets/juegos/traceline-v.mp4" data-ph="../assets/juegos/traceline-h.jpg" data-pv="../assets/juegos/traceline-v.jpg" muted loop playsinline preload="none" aria-label="Tráiler de TRACELINE"></video><button class="snd" type="button" aria-pressed="false">Activar sonido</button>
+        <a class="play" href="https://buenhombre.design/traceline/" target="_blank" rel="noopener" aria-label="Jugar TRACELINE"><span>▶ Jugar TRACELINE</span></a>
+      </div>
+      <div class="gc-b">
+        <div class="gc-bar"><span class="n"><b>02</b>Carreras contrarreloj</span><span class="badge live">Se puede jugar · en desarrollo</span></div>
+        <h2>TRACELINE</h2>
+        <p class="one">Carreras a escala 1:87 dibujadas como un plano técnico: líneas que brillan, túneles de luz y tramos cabeza abajo.</p>
+        <dl class="gc-d">
+          <div><dt>Cómo se juega</dt><dd>Contrarreloj de 3 vueltas con fantasma y medallas, o modo infinito: la pista se genera en vivo y nunca se repite.</dd></div>
+          <div><dt>Lo propio</dt><dd>TRAZO: el camino se construye con tu línea. Lo que no trazas se vuelve barrera; las figuras que cierras te dan poderes.</dd></div>
+          <div><dt>Circuitos</dt><dd>Pistas que se transforman entre vueltas: la elevada se derrumba y la carrera baja a la ciudad.</dd></div>
+        </dl>
+        <div class="gc-thumbs">
+          <img src="../assets/juegos/thumbnail-cockpit.jpg" alt="Vista de cabina" loading="lazy">
+          <img src="../assets/juegos/thumbnail-roll.jpg" alt="Tramo cabeza abajo" loading="lazy">
+          <img src="../assets/juegos/thumbnail-spiral.jpg" alt="Espiral de luz" loading="lazy">
+          <img src="../assets/juegos/thumbnail-line.jpg" alt="La línea del trazo" loading="lazy">
+        </div>
+        <div class="gc-a"><a class="pill" href="https://buenhombre.design/traceline/" target="_blank" rel="noopener">Jugar TRACELINE <i>↗</i></a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 PAPER TRAIL -->
+  <section class="wrap gc up" id="paper-trail">
+    <div class="gc-in">
+      <div class="gc-m">
+        <video class="rvid" data-h="../assets/juegos/papertrail-h.mp4" data-v="../assets/juegos/papertrail-v.mp4" data-ph="../assets/juegos/papertrail-h.jpg" data-pv="../assets/juegos/papertrail-v.jpg" muted loop playsinline preload="none" aria-label="Tráiler de PAPER TRAIL"></video><button class="snd" type="button" aria-pressed="false">Activar sonido</button>
+      </div>
+      <div class="gc-b">
+        <div class="gc-bar"><span class="n"><b>03</b>Activación para eventos</span><span class="badge">Concepto · demo privada</span></div>
+        <h2>PAPER TRAIL</h2>
+        <p class="one">Un juego de manejo 4x4 en papel recortado, pensado para el stand de una marca automotriz.</p>
+        <dl class="gc-d">
+          <div><dt>Cómo se juega</dt><dd>Partidas de 2 a 3 minutos con dos botones: acelerar y frenar. Banderas que suman tiempo, saltos a la cornisa y llegada a la cumbre.</dd></div>
+          <div><dt>En el evento</dt><dd>Modo atracción en pantalla, ranking con iniciales y vuelta sola al inicio para que la fila avance.</dd></div>
+          <div><dt>Sin disparos</dt><dd>Todo el reto es la habilidad de quien maneja y del 4x4.</dd></div>
+        </dl>
+        <div class="gc-thumbs two"><img src="../assets/juegos/papertrail-card.jpg" alt="Tarjeta de puntaje al final de un tramo" loading="lazy"><img src="../assets/juegos/papertrail-hoja.jpg" alt="Hoja de piezas de papel del juego" loading="lazy"></div>
+        <div class="gc-a"><a class="pill wa" data-msg="Hola Gritt, quiero ver la demo de PAPER TRAIL para un evento" href="#" target="_blank" rel="noopener">Pedir la demo <i>↗</i></a></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap" style="margin-top:clamp(80px,10vw,140px)">
+    <div class="cta"><h3>¿Un juego con <span>tu marca?</span></h3><a class="pill wa" data-msg="Hola Gritt, quiero un juego con mi marca" href="#" target="_blank" rel="noopener">Escríbenos por WhatsApp <i>↗</i></a></div>
+    <footer class="foot"><img src="../logos/gritt-black.png" alt="Gritt"><span>© 2026 Gritt Lab · Colombia</span><a href="../index.html">Volver al inicio ↑</a></footer>
+  </div>
+</main>
+
+<script src="../assets/caso.js"></script>
+<script>
+// Tráilers: horizontal en desktop, vertical en celular. Cargan al acercarse y se pausan fuera de pantalla.
+(function(){
+  var mq=matchMedia('(max-width:900px)'),vs=[].slice.call(document.querySelectorAll('.rvid'));
+  function pick(v){var k=mq.matches?'v':'h',src=v.dataset[k];if(v.dataset.cur===src)return;var t=v.currentTime||0;v.dataset.cur=src;v.poster=v.dataset['p'+k];v.src=src;if(v.dataset.on==='1'){v.play().catch(function(){});}}
+  vs.forEach(function(v){v.poster=v.dataset[mq.matches?'pv':'ph'];});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target;if(e.isIntersecting){v.dataset.on='1';pick(v);v.play().catch(function(){});}else{v.dataset.on='0';v.pause();}});},{rootMargin:'200px 0px',threshold:.15});
+  vs.forEach(function(v){io.observe(v);});
+  (mq.addEventListener?mq.addEventListener('change',function(){vs.forEach(pick);}):mq.addListener(function(){vs.forEach(pick);}));
+  document.querySelectorAll('.snd').forEach(function(b){b.addEventListener('click',function(){var v=b.parentNode.querySelector('.rvid'),on=v.muted;vs.forEach(function(o){o.muted=true;});document.querySelectorAll('.snd').forEach(function(x){x.setAttribute('aria-pressed','false');x.textContent='Activar sonido';});if(on){v.muted=false;v.play().catch(function(){});b.setAttribute('aria-pressed','true');b.textContent='Silenciar';}});});
+})();
+</script>
+
+<script src="../assets/lab-fx.js" defer></script>
+<script data-goatcounter="https://gritt.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
