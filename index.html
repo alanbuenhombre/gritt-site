@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gritt — Laboratorio creativo</title>
-<meta name="description" content="Gritt es un laboratorio creativo: hacemos tangibles las marcas con estrategia, diseño e IA, con dirección creativa humana. Marca, contenido, experiencias jugables y reportes.">
-<meta property="og:title" content="Gritt — Laboratorio creativo">
+<title>Gritt Lab — Sistemas vivos que hacen crecer marcas</title>
+<meta name="description" content="Gritt Lab: sistemas vivos y experiencias jugables que hacen crecer marcas. Estrategia, diseño, contenido e IA con dirección creativa humana.">
+<meta property="og:title" content="Gritt Lab">
 <meta property="og:description" content="Sistemas vivos y experiencias jugables que hacen crecer marcas.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -65,7 +65,7 @@
   .nav.solid{border-color:var(--line)}
   .brand{display:flex;align-items:center;gap:14px}
   .brand img{height:26px;width:auto}
-  .brand>span{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding-left:14px;border-left:1px solid var(--line)}
+  .brand>span{font-family:var(--mono);font-size:.72rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);padding-left:14px;border-left:1px solid var(--line)}
   .navr{display:flex;gap:28px;align-items:center}
   .navr a{font-size:.86rem;color:var(--ink-2);transition:color .2s}
   .navr a:hover{color:var(--acc)}
@@ -76,11 +76,28 @@
   .hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
   .hamburger.open span:nth-child(2){opacity:0}
   .hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
-  .mmenu{position:fixed;inset:0;z-index:60;background:var(--bg);display:flex;flex-direction:column;justify-content:center;gap:2px;padding:0 28px;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+  .mmenu{position:fixed;inset:0;z-index:49;background:var(--bg);opacity:0;visibility:hidden;transition:opacity .35s ease,visibility .35s;overflow-y:auto}
   .mmenu.open{opacity:1;visibility:visible}
-  .mmenu a{font-size:1.6rem;font-weight:300;padding:8px 0}
-  .mmenu .btn{margin-top:22px;align-self:flex-start;font-size:.9rem;font-weight:400}
-  @media(max-width:860px){.navr{display:none}.hamburger{display:flex}.brand>span{display:none}.brand img{height:22px}}
+  .mm-in{min-height:100%;display:flex;flex-direction:column;padding:96px var(--pad) calc(28px + env(safe-area-inset-bottom,0px))}
+  .mm-k{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-bottom:12px;border-bottom:1px solid var(--ink)}
+  .mm-l{display:flex;flex-direction:column}
+  .mm-l a{display:grid;grid-template-columns:30px 1fr auto;align-items:center;gap:6px;padding:18px 0;border-bottom:1px solid var(--line);opacity:0;transform:translateY(14px);transition:opacity .5s cubic-bezier(.16,1,.3,1),transform .5s cubic-bezier(.16,1,.3,1)}
+  .mm-l i{font-style:normal;font-family:var(--mono);font-size:.66rem;color:var(--acc);align-self:start;padding-top:10px}
+  .mm-l b{display:block;font-weight:300;font-size:2.2rem;letter-spacing:-.05em;line-height:1}
+  .mm-l small{display:block;margin-top:6px;font-size:.8rem;color:var(--muted)}
+  .mm-l em{font-style:normal;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-size:.9rem;color:var(--ink-2)}
+  .mm-l a:active b{color:var(--acc)}
+  .mm-f{margin-top:auto;padding-top:32px;display:flex;flex-direction:column;gap:18px;opacity:0;transition:opacity .5s ease .3s}
+  .pill.mm-wa{justify-content:space-between;width:100%;padding:8px 8px 8px 22px;font-size:.95rem;white-space:normal}
+  .pill.mm-wa i{flex:none;width:40px;height:40px}
+  .mm-s{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;color:var(--muted)}
+  .mm-s a{color:var(--ink);font-size:.8rem;border-bottom:1px solid var(--ink);padding-bottom:1px}
+  .mmenu.open .mm-l a,.mmenu.open .mm-f{opacity:1;transform:none}
+  .mmenu.open .mm-l a:nth-child(1){transition-delay:.06s}.mmenu.open .mm-l a:nth-child(2){transition-delay:.12s}
+  .mmenu.open .mm-l a:nth-child(3){transition-delay:.18s}.mmenu.open .mm-l a:nth-child(4){transition-delay:.24s}
+  body.mm-open .nav{background:var(--bg);border-color:transparent}
+  @media(max-height:700px){.mm-in{padding-top:84px}.mm-l a{padding:12px 0}.mm-l b{font-size:1.8rem}.mm-f{padding-top:22px}}
+  @media(max-width:860px){.navr{display:none}.hamburger{display:flex}.brand{gap:10px}.brand>span{font-size:.66rem;padding-left:10px}.brand img{height:22px}}
 
   /* ═══ HERO: título sobrio + video en marco ═══ */
   .hero{padding:clamp(120px,15vw,170px) 0 0}
@@ -526,7 +543,7 @@
 <span id="trabajo" class="anchor"></span>
 
 <header class="nav" id="nav">
-  <a class="brand" href="#inicio" aria-label="Gritt — inicio"><img src="logos/gritt-black.png" alt="Gritt"><span>Laboratorio creativo</span></a>
+  <a class="brand" href="#inicio" aria-label="Gritt — inicio"><img src="logos/gritt-black.png" alt="Gritt"><span>Lab</span></a>
   <nav class="navr">
     <a href="#servicios">Servicios</a>
     <a href="#casos">Casos</a>
@@ -536,11 +553,19 @@
   <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="mmenu"><span></span><span></span><span></span></button>
 </header>
 <div class="mmenu" id="mmenu" aria-hidden="true">
-  <a href="#servicios">Servicios</a>
-  <a href="#casos">Casos</a>
-  <a href="#lab">El Lab</a>
-  <a href="#contacto">Contacto</a>
-  <a class="btn btn-ink wa" href="#" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
+  <div class="mm-in">
+    <span class="mm-k">Menú</span>
+    <nav class="mm-l" aria-label="Menú">
+      <a href="#servicios"><i>01</i><span><b>Servicios</b><small>Brand, Content, Play y Reports</small></span><em>→</em></a>
+      <a href="#casos"><i>02</i><span><b>Casos</b><small>Clientes y experimentos</small></span><em>→</em></a>
+      <a href="#lab"><i>03</i><span><b>El Lab</b><small>Lo que estamos probando</small></span><em>→</em></a>
+      <a href="#contacto"><i>04</i><span><b>Contacto</b><small>WhatsApp e Instagram</small></span><em>→</em></a>
+    </nav>
+    <div class="mm-f">
+      <a class="pill mm-wa wa" href="#" target="_blank" rel="noopener">Escríbenos por WhatsApp <i>↗</i></a>
+      <div class="mm-s"><a href="https://instagram.com/gritt.design" target="_blank" rel="noopener">@gritt.design</a><span>Gritt Lab · Colombia</span></div>
+    </div>
+  </div>
 </div>
 
 <!-- ═══ HERO ═══ -->
@@ -548,7 +573,7 @@
   <div class="wrap">
     <div class="hero-top">
       <div>
-        <span class="lbl up">Laboratorio creativo</span>
+        <span class="lbl up">En estado puro</span>
         <h1 class="up">Sistemas vivos y experiencias jugables que <em>hacen crecer marcas</em>.</h1>
       </div>
       <div class="up">
@@ -560,10 +585,10 @@
   <div class="xpand" id="xpand">
     <div class="xp-s">
       <div class="frame" id="stage">
-        <!-- 001 (chaqueta de cuero) retirado: Gritt ahora es laboratorio creativo -->
-        <div class="slide active intro" aria-label="Gritt, laboratorio creativo">
+        <!-- 001 (chaqueta de cuero) retirado: Gritt ahora es Gritt Lab -->
+        <div class="slide active intro" aria-label="Gritt Lab">
           <div class="intro-grid" aria-hidden="true"></div>
-          <div class="intro-l"><div class="intro-m"><img src="logos/gritt-white.png" alt="Gritt"><canvas id="introViz" aria-hidden="true"></canvas></div><span class="intro-s">Laboratorio creativo</span></div>
+          <div class="intro-l"><div class="intro-m"><img src="logos/gritt-white.png" alt="Gritt"><canvas id="introViz" aria-hidden="true"></canvas></div><span class="intro-s">Lab</span></div>
           <span class="intro-k">Marca · Contenido · Juegos · Reportes</span>
         </div>
         <div class="slide"><video muted playsinline preload="auto"><source src="videos/002.mp4" type="video/mp4"></video></div>
@@ -986,7 +1011,7 @@
   <div class="gfoot" aria-hidden="true"><canvas id="footViz"></canvas><img src="logos/gritt-white.png" alt=""></div>
   <footer>
 <img src="logos/gritt-white.png" alt="Gritt">
-    <span>© 2026 Gritt · Laboratorio creativo · Colombia</span>
+    <span>© 2026 Gritt Lab · Colombia</span>
     <a href="#inicio">Volver arriba ↑</a>
   </footer>
 </section>
@@ -1032,7 +1057,7 @@
   // ── Menú móvil ──
   (function(){
     var hb=document.getElementById('hamburger'),mm=document.getElementById('mmenu');
-    function set(o){mm.classList.toggle('open',o);hb.classList.toggle('open',o);hb.setAttribute('aria-expanded',o);mm.setAttribute('aria-hidden',!o);document.body.style.overflow=o?'hidden':'';}
+    function set(o){mm.classList.toggle('open',o);document.body.classList.toggle('mm-open',o);hb.classList.toggle('open',o);hb.setAttribute('aria-expanded',o);mm.setAttribute('aria-hidden',!o);document.body.style.overflow=o?'hidden':'';}
     hb.addEventListener('click',function(){set(!mm.classList.contains('open'));});
     mm.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){set(false);});});
     document.addEventListener('keydown',function(e){if(e.key==='Escape')set(false);});

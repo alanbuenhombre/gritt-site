@@ -24,6 +24,7 @@
       var t = document.querySelector(id);
       if (!t) return;
       e.preventDefault();
+      lenis.start();
       lenis.scrollTo(t, { offset: -64 });
       history.replaceState(null, '', id);
     });
