@@ -143,7 +143,16 @@
   }
   function updHz() {
     if (!hz || !hz.classList.contains('on') || !hzDist) return;
-    var r = hz.getBoundingClientRect(), p = clamp(-r.top / hzDist, 0, 1);
+    // medidas en vivo: si la ventana cambió (zoom, resize, prerender) el carril se ajusta solo
+    var live = Math.max(0, hzT.scrollWidth - W());
+    if (Math.abs(live - hzDist) > 2 || Math.abs(hz.offsetHeight - (live + H())) > 2) {
+      hzDist = live;
+      if (hzDist < 8) { hzLayout(); return; }
+      hz.style.height = (hzDist + H()) + 'px';
+      if (lenis) lenis.resize();
+    }
+    // el avance se mide sobre el tramo fijado real: la última tarjeta llega justo al final
+    var r = hz.getBoundingClientRect(), span = Math.max(1, r.height - H()), p = clamp(-r.top / span, 0, 1);
     hzT.style.transform = 'translate3d(' + (-p * hzDist).toFixed(1) + 'px,0,0)';
     hzBar.style.setProperty('--hp', (p * 100).toFixed(2) + '%');
     var n = hzVisible().length;
@@ -295,6 +304,19 @@
     svx.forEach(function (a, i) { a.classList.toggle('on', i === best); });
   }
 
+  /* ── Capa lab: regla con lectura de avance y sección actual ── */
+  var lrM = document.getElementById('lrM'), lsN = document.getElementById('lsN'), lsT = document.getElementById('lsT');
+  var SECS = [['inicio', 'Inicio'], ['servicios', 'Servicios'], ['casos', 'Casos'], ['lab', 'El Lab'], ['por-que', 'Por qué'], ['contacto', 'Contacto']]
+    .map(function (x) { return [document.getElementById(x[0]), x[1]]; }).filter(function (x) { return x[0]; });
+  var lrLast = -1, secLast = -1;
+  function updRule() {
+    if (!lrM) return;
+    var max = root.scrollHeight - H(), p = max > 0 ? clamp(window.scrollY / max, 0, 1) : 0, v = Math.round(p * 100);
+    if (v !== lrLast) { lrLast = v; lrM.style.setProperty('--lp', (p * 100).toFixed(2) + '%'); lrM.setAttribute('data-v', ('00' + v).slice(-3)); }
+    var cur = 0; SECS.forEach(function (x, i) { if (x[0].getBoundingClientRect().top < H() * .4) cur = i; });
+    if (cur !== secLast) { secLast = cur; lsN.textContent = ('0' + cur).slice(-2); lsT.textContent = SECS[cur][1]; }
+  }
+
   /* ── Bucle único ── */
   function layout() { hzLayout(); lpinLayout(); xpLast = ''; if (lenis) lenis.resize(); }
   addEventListener('resize', layout);
@@ -302,7 +324,7 @@
   layout();
   function frame(t) {
     if (lenis) lenis.raf(t);
-    updXp(); updHz(); updLab(t); updHeads(); updSvx();
+    updXp(); updHz(); updLab(t); updHeads(); updSvx(); updRule();
     fields.forEach(function (f) { if (f.vis) f.draw(t); });
     requestAnimationFrame(frame);
   }

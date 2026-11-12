@@ -247,10 +247,19 @@
   .f{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--line);background:none;color:var(--muted);border-radius:999px;padding:8px 14px;cursor:pointer;transition:all .2s}
   .f:hover{color:var(--ink);border-color:var(--ink)}
   .f.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .f{transition:background .25s,color .25s,border-color .25s,transform .15s}
+  .f:active{transform:scale(.95)}
+  .f:focus{outline:none}.f:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+  .f-n{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);padding-left:10px;transition:opacity .2s}
+  .f-n.swap{opacity:0}
+  .cases{transition:opacity .2s ease,transform .45s cubic-bezier(.16,1,.3,1)}
+  .hz{transition:opacity .2s ease}
+  .cases.swap{opacity:0;transform:translateY(14px)}
+  .hz.swap{opacity:0}
   .legend{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
   .cases{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(44px,5vw,72px) clamp(16px,2vw,28px);margin-top:28px}
   .case{display:flex;flex-direction:column;gap:10px;min-width:0}
-  .case.hide{display:none}
+  .case.hide{display:none!important}
   .case .cm{position:relative;display:block;aspect-ratio:4/3;border-radius:18px;overflow:hidden;background:var(--soft);margin-bottom:6px}
   .case .cm img{width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.16,1,.3,1)}
   .case:hover .cm img{transform:scale(1.035)}
@@ -455,6 +464,39 @@
   @media(max-width:960px){.svw{grid-template-columns:1fr}.svl{grid-column:1/-1}.svx{display:none}.svc-b{grid-template-columns:1fr}}
   @media(max-width:560px){.svc-m figcaption{display:none}.svc-m{aspect-ratio:4/3}.svc-m.g3v{padding:12px 18px}.svc{border-radius:20px}}
 
+
+  /* ═══ Casos: dos grupos claros, la línea visible en cada tarjeta ═══ */
+  .cgrp{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;border-top:1px solid var(--ink);padding-top:14px;margin-top:clamp(44px,5vw,64px)}
+  .hz .cgrp{margin-top:0}
+  .cg-k{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.74rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
+  .cg-d{display:block;margin-top:8px;font-size:.92rem;color:var(--muted)}
+  .cg-n{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;color:var(--muted);white-space:nowrap}
+  .cg-n b{color:var(--ink);font-weight:500}
+  .cgrp .st.s3{background:var(--acc);box-shadow:0 0 0 4px rgba(45,91,209,.15)}
+  .cgrp .st.s2{border:1.5px solid var(--acc);background:linear-gradient(90deg,var(--acc) 50%,transparent 50%)}
+  .cx{align-items:center}
+  .cx .lns{display:flex;gap:6px;flex-wrap:wrap}
+  .cx .lns i{font-style:normal;color:var(--ink);border:1px solid var(--ink);border-radius:999px;padding:3px 10px;font-size:.62rem;letter-spacing:.08em}
+  .cx span.ix{color:var(--faint)}
+  @media(max-width:620px){.cgrp{flex-direction:column;align-items:flex-start;gap:6px}}
+
+
+  /* ═══ Capa "lab": retícula de puntos, escáner, reglas con lectura de posición y marcas de registro ═══ */
+  .lab-bg{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background-image:radial-gradient(rgba(22,22,22,.10) 1px,transparent 1.3px);background-size:28px 28px;-webkit-mask-image:radial-gradient(130% 95% at 50% 35%,#000 25%,transparent 85%);mask-image:radial-gradient(130% 95% at 50% 35%,#000 25%,transparent 85%)}
+  .lab-scan{position:absolute;left:0;right:0;top:-160px;height:160px;background:linear-gradient(transparent,rgba(45,91,209,.035) 70%,rgba(45,91,209,.11) 99%,transparent);animation:labscan 16s linear infinite}
+  @keyframes labscan{to{transform:translateY(calc(100vh + 160px))}}
+  .lab-rule{position:fixed;top:110px;bottom:56px;left:16px;width:10px;z-index:40;pointer-events:none;mix-blend-mode:difference;color:#fff}
+  .lab-rule::before{content:"";position:absolute;inset:0;opacity:.32;background:repeating-linear-gradient(to bottom,currentColor 0 1px,transparent 1px 8px) left top/5px 100% no-repeat,repeating-linear-gradient(to bottom,currentColor 0 1px,transparent 1px 64px) left top/10px 100% no-repeat}
+  .lr-m{position:absolute;left:0;top:var(--lp,0%);width:18px;height:1px;background:currentColor;transition:top .12s linear}
+  .lr-m::after{content:attr(data-v);position:absolute;left:24px;top:-5px;font:500 9px/1 var(--mono);letter-spacing:.12em}
+  .lab-sec-l{position:fixed;right:16px;bottom:56px;z-index:40;pointer-events:none;mix-blend-mode:difference;color:#fff;writing-mode:vertical-rl;transform:rotate(180deg);font:500 9px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;opacity:.75;display:flex;gap:10px}
+  .lab-sec-l b{font-weight:500;opacity:.55}
+  @media(max-width:1099px){.lab-rule,.lab-sec-l{display:none}}
+  .sh,.cgrp{position:relative}
+  .sh::before,.sh::after,.cgrp::before,.cgrp::after{content:"";position:absolute;top:-5px;width:9px;height:9px;background:linear-gradient(currentColor,currentColor) center/1px 100% no-repeat,linear-gradient(currentColor,currentColor) center/100% 1px no-repeat}
+  .sh::before,.cgrp::before{left:-4px}.sh::after,.cgrp::after{right:-4px}
+  @media(prefers-reduced-motion:reduce){.lab-scan{animation:none;display:none}}
+
   /* ═══ v6 · técnicas de scroll aplicadas a Gritt (paleta e Inter/Plex Mono propias) ═══ */
   html.lenis,html.lenis body{height:auto}
   .lenis.lenis-smooth{scroll-behavior:auto!important}
@@ -471,10 +513,10 @@
   .frame-cap{opacity:calc(1 - var(--xc,0))}
   .xp-cap{position:absolute;left:0;right:0;bottom:0;z-index:3;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;padding:clamp(22px,4vw,48px) var(--fx-in,var(--pad));background:linear-gradient(transparent,rgba(10,10,10,.6));opacity:var(--xc,0);pointer-events:none}
   .xpand.full .xp-cap{pointer-events:auto}
-  .xp-cap p{color:#fff;font-weight:300;font-size:clamp(1.3rem,2.6vw,2.3rem);letter-spacing:-.045em;line-height:1.08;max-width:20ch}
+  .xp-cap p{color:#fff;font-weight:300;font-size:clamp(1.8rem,3.4vw,3.3rem);letter-spacing:-.045em;line-height:1.04;max-width:20ch}
   .xp-cap p span{color:rgba(255,255,255,.5)}
   .pill.lt{background:#fff;color:var(--ink)}.pill.lt i{background:var(--ink);color:#fff}.pill.lt:hover{background:var(--acc);color:#fff}
-  @media(max-width:620px){.xp-cap{flex-direction:column;align-items:flex-start}}
+  @media(max-width:620px){.xp-cap{flex-direction:column;align-items:flex-start;gap:22px;padding:28px var(--pad) calc(56px + env(safe-area-inset-bottom,0px))}.xp-cap p{font-size:2.45rem;line-height:1.02;max-width:none}}
 
   /* Logo original en partículas (hero, Lab y footer) */
   .intro-m{position:relative;width:clamp(200px,30vw,400px)}
@@ -498,6 +540,7 @@
   .hz-k{display:flex;align-items:center;gap:10px}
   .hz-k .st.s2{border:1.5px solid var(--acc);background:linear-gradient(90deg,var(--acc) 50%,transparent 50%)}
   .hz-n b{color:var(--ink);font-weight:500}
+  @media(max-width:620px){.hz-n{display:none}}
   .hz-t{display:flex;gap:clamp(16px,2vw,28px);padding:0 var(--edge);overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--edge);scrollbar-width:none}
   .hz-t::-webkit-scrollbar{display:none}
   .hz-t>.case{flex:0 0 clamp(272px,27vw,372px);scroll-snap-align:start}
@@ -741,13 +784,9 @@
       <p class="sh-l up">Cada caso dice de qué línea es y si es trabajo con un cliente o un experimento del Lab. Donde no tenemos permiso para mostrar datos, lo verás marcado.</p>
     </header>
 
-    <div class="filters up" role="toolbar" aria-label="Filtrar casos por línea">
-      <button class="f on" data-f="all">Todos</button>
-      <button class="f" data-f="brand">Brand</button>
-      <button class="f" data-f="content">Content</button>
-      <button class="f" data-f="play">Play</button>
-      <button class="f" data-f="reports">Reports</button>
-      <div class="legend"><span class="tag cli">Cliente · trabajo real</span><span class="tag lab">Lab · experimento</span></div>
+    <div class="cgrp up">
+      <div><span class="cg-k"><i class="st s3"></i>Con clientes</span><span class="cg-d">Proyectos reales, mostrados con permiso del cliente.</span></div>
+      <span class="cg-n">02</span>
     </div>
 
     <div class="cases" id="cases">
@@ -755,10 +794,10 @@
       <article class="case feat up" data-l="content reports">
         <a class="cm warm" href="#content">
           <div class="trio"><img src="assets/lanz/02_hola_soy_el_buzon.jpg" alt="El buzón de LANZ en Halloween" loading="lazy"><img src="assets/lanz/05_cartero_llega.jpg" alt="Mensajero de LANZ llegando con un paquete" loading="lazy"><img src="assets/lanz/14_alegria_bruja_escoba.jpg" alt="Niña disfrazada de bruja" loading="lazy"></div>
-          <span class="badge cli">Cliente</span>
+          
         </a>
         <div class="ci">
-          <div class="cx"><span>C—01</span><span>Content · Reports</span></div>
+          <div class="cx"><span class="lns"><i>Content</i><i>Reports</i></span><span class="ix">C—01</span></div>
           <h3>LANZ World</h3>
           <p class="cs">Envíos internacionales para emprendedores colombianos</p>
           <p>Un sistema de contenido que se repite cada semana sin volverse aburrido: personajes propios, banco de assets con IA y una parrilla que el equipo de LANZ aprueba en minutos.</p>
@@ -775,10 +814,10 @@
       <article class="case feat rev up" data-l="brand">
         <a class="cm" href="proyectos/boda-maria-tomas.html">
           <div class="mos"><img src="proyectos/opt/boda.jpg" alt="Boda de María y Tomás" loading="lazy"><img src="proyectos/opt/identidad.jpg" alt="Menú con el monograma de la boda" loading="lazy"><img src="proyectos/opt/app-fotos.jpg" alt="Muro de fotos en vivo en el salón" loading="lazy"></div>
-          <span class="badge cli">Cliente</span>
+          
         </a>
         <div class="ci">
-          <div class="cx"><span>C—02</span><span>Brand</span></div>
+          <div class="cx"><span class="lns"><i>Brand</i></span><span class="ix">C—02</span></div>
           <h3>Boda María &amp; Tomás</h3>
           <p class="cs">La boda como marca, el sitio como producto</p>
           <p>Tratamos la boda como una marca: monograma, papelería, un sitio con scroll cinemático, invitación mobile y un muro donde las fotos de los invitados aparecen en vivo en la pantalla del salón.</p>
@@ -795,12 +834,15 @@
 
   <div class="hz" id="hz">
     <div class="hz-s">
-      <div class="wrap hz-h"><span class="hz-k"><i class="st s2"></i>Del Lab · prototipos y experimentos</span><span class="hz-n"><b id="hzN">01</b> / <span id="hzT">06</span></span></div>
+      <div class="wrap"><div class="cgrp">
+        <div><span class="cg-k"><i class="st s2"></i>Del Lab</span><span class="cg-d">Prototipos, juegos y marcas inventadas: así probamos antes de venderlo.</span></div>
+        <span class="cg-n hz-n"><b id="hzN">01</b> / <span id="hzT">06</span></span>
+      </div></div>
       <div class="hz-t" id="hzTrack">
     <!-- Lab -->
     <article class="case" data-l="reports">
-      <a class="cm" href="reports/"><img src="assets/casos/gritt-reports.jpg" alt="Prototipo de Gritt Reports" loading="eager"><span class="badge">Lab</span><span class="go" aria-hidden="true">↗</span></a>
-      <div class="cx"><span>C—03</span><span>Reports</span></div>
+      <a class="cm" href="reports/"><img src="assets/casos/gritt-reports.jpg" alt="Prototipo de Gritt Reports" loading="eager"><span class="go" aria-hidden="true">↗</span></a>
+      <div class="cx"><span class="lns"><i>Reports</i></span><span class="ix">C—03</span></div>
       <h3>Gritt Reports</h3>
       <p class="cs">Prototipo · clientes ficticios y datos de prueba</p>
       <p>La página de reporte que recibe un cliente de contenido: cambia de cliente, periodo y plataforma, y comparte el link.</p>
@@ -808,8 +850,8 @@
     </article>
 
     <article class="case" data-l="play">
-      <a class="cm" href="https://buenhombre.design/driftway/" target="_blank" rel="noopener"><img src="assets/casos/driftway.jpg" alt="DRIFTWAY" loading="eager"><span class="badge">Lab</span><span class="go" aria-hidden="true">↗</span></a>
-      <div class="cx"><span>C—04</span><span>Play</span></div>
+      <a class="cm" href="https://buenhombre.design/driftway/" target="_blank" rel="noopener"><img src="assets/casos/driftway.jpg" alt="DRIFTWAY" loading="eager"><span class="go" aria-hidden="true">↗</span></a>
+      <div class="cx"><span class="lns"><i>Play</i></span><span class="ix">C—04</span></div>
       <h3>DRIFTWAY</h3>
       <p class="cs">Arcade 3D en el navegador</p>
       <p>Juego propio para probar qué tan lejos llega una experiencia jugable web, sin instalar nada.</p>
@@ -817,8 +859,8 @@
     </article>
 
     <article class="case" data-l="play">
-      <a class="cm" href="https://buenhombre.design/traceline/" target="_blank" rel="noopener"><img src="assets/casos/traceline.jpg" alt="TRACELINE" loading="eager"><span class="badge">Lab</span><span class="go" aria-hidden="true">↗</span></a>
-      <div class="cx"><span>C—05</span><span>Play</span></div>
+      <a class="cm" href="https://buenhombre.design/traceline/" target="_blank" rel="noopener"><img src="assets/casos/traceline.jpg" alt="TRACELINE" loading="eager"><span class="go" aria-hidden="true">↗</span></a>
+      <div class="cx"><span class="lns"><i>Play</i></span><span class="ix">C—05</span></div>
       <h3>TRACELINE</h3>
       <p class="cs">Contrarreloj en estética de plano técnico</p>
       <p>Juego propio donde la estética de línea y punto define la mecánica. En desarrollo.</p>
@@ -826,8 +868,8 @@
     </article>
 
     <article class="case" data-l="play">
-      <div class="cm"><img src="assets/casos/paper-trail.jpg" alt="PAPER TRAIL, concepto de juego papercraft" loading="eager"><span class="badge">Lab</span></div>
-      <div class="cx"><span>C—06</span><span>Play</span></div>
+      <div class="cm"><img src="assets/casos/paper-trail.jpg" alt="PAPER TRAIL, concepto de juego papercraft" loading="eager"></div>
+      <div class="cx"><span class="lns"><i>Play</i></span><span class="ix">C—06</span></div>
       <h3>PAPER TRAIL</h3>
       <p class="cs">Concepto para marca automotriz</p>
       <p>Concepto propio de activación: un juego de manejo en papel recortado para eventos, con ranking en pantalla.</p>
@@ -838,8 +880,8 @@
         <a href="https://buenhombre.design/halora/" target="_blank" rel="noopener"><img src="assets/casos/halora.jpg" alt="Halora, landing concepto" loading="eager"></a>
         <div class="ph"><span class="ph-tag">IMG</span><span class="ph-d">Drops</span></div>
         <div class="nh"><img src="assets/casos/null-h1.jpg" alt="NULL° H1, audífonos concepto en 3D" loading="eager"></div>
-      </div><span class="badge">Lab</span></div>
-      <div class="cx"><span>C—07</span><span>Brand</span></div>
+      </div></div>
+      <div class="cx"><span class="lns"><i>Brand</i></span><span class="ix">C—07</span></div>
       <h3>Halora, Drops y NULL° H1</h3>
       <p class="cs">Landings concepto</p>
       <p>Marcas inventadas por nosotros para poner a prueba el proceso con IA, de cero a landing completa.</p>
@@ -1092,18 +1134,6 @@
     track.addEventListener('click',function(e){if(moved){e.preventDefault();e.stopPropagation();moved=false;}},true);
   })();
 
-  // ── Filtro de casos por línea (también desde "Ver casos" en cada servicio) ──
-  (function(){
-    var btns=document.querySelectorAll('.f'),cases=document.querySelectorAll('.case');
-    function apply(f){
-      btns.forEach(function(b){b.classList.toggle('on',b.dataset.f===f);});
-      cases.forEach(function(c){var l=c.dataset.l;c.classList.toggle('hide',!(l==='*'||f==='all'||l.split(' ').indexOf(f)>=0));c.classList.add('in');});
-      document.dispatchEvent(new Event('casesfilter'));
-    }
-    btns.forEach(function(b){b.addEventListener('click',function(){apply(b.dataset.f);});});
-    document.querySelectorAll('[data-go]').forEach(function(a){a.addEventListener('click',function(){apply(a.dataset.go);});});
-  })();
-
   // ── Enlaces que abren una línea concreta del carrusel de servicios ──
   document.querySelectorAll('[data-go-pan]').forEach(function(a){a.addEventListener('click',function(){var i=+a.dataset.goPan;setTimeout(function(){if(window.edGo)window.edGo(i);},450);});});
   // ── Ondas de audio (ilustrativas) ──
@@ -1111,6 +1141,9 @@
   // ── Onda del audio (ilustrativa) ──
   (function(){var w=document.getElementById('wave');if(!w)return;[6,10,15,8,17,12,5,14,9,16,7,12,18,10,6,13,8,4].forEach(function(x){var i=document.createElement('i');i.style.height=x+'px';w.appendChild(i);});})();
 </script>
+<div class="lab-bg" aria-hidden="true"><i class="lab-scan"></i></div>
+<div class="lab-rule" aria-hidden="true"><span class="lr-m" id="lrM" data-v="000"></span></div>
+<div class="lab-sec-l" aria-hidden="true"><b id="lsN">00</b><span id="lsT">Inicio</span></div>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
 <script src="assets/gritt-motion.js"></script>
 <script data-goatcounter="https://gritt.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
